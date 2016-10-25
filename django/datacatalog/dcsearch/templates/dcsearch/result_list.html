@@ -1,0 +1,22 @@
+{% for result in results %}
+	<div class="search-result">
+		<h3><a href="{% url 'dcsearch:resource_page' resource_id=result.href_id %}" target="_blank">{{ result.title }}</a></h3>
+	{% if result.description is not None %}
+		<p>{{ result.description|truncatechars:500 }}</p>
+	{% else %}
+		<p>(No description available)</p>
+	{% endif %}
+		<div class="properties">
+		{% for prop in result.properties %}
+			{% if prop.0 == 'Type' %}
+				<div class="property type-field">{{ prop.1 }}</div>
+			{% else %}
+				<div class="property">{{ prop.0 }}: {{ prop.1|truncatechars:32 }}</div>
+			{% endif %}
+		{% endfor %}
+		</div>
+	{% if result.sourcename is not None %}
+		<div class="source-portal">{{ result.sourcename }}</div>
+	{% endif %}
+	</div>
+{% endfor %}

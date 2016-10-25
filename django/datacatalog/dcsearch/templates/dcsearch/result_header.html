@@ -1,0 +1,12 @@
+{% load humanize %}
+{% if count > 0 %}
+<h2>Search Results</h2>
+	{% if count_rel == 'gte' %}
+<p>We found more than <strong>{{ count|intcomma }}</strong> resources matching your query</p>
+	{% else %}
+<p>We found <strong>{{ count|intcomma }}</strong> resources matching your query</p>
+	{% endif %}
+{% else %}
+	<h2>No Results</h2>
+	<p>We didn't find any resources matching your query</p>
+{% endif %}

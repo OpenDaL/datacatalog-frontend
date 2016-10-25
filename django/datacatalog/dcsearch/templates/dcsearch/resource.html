@@ -1,0 +1,86 @@
+{% extends 'dcsearch/base.html' %}
+{% load static %}
+
+{% block page_meta%}
+	{% with title='Resource: '|add:title|truncatechars:64 description='Dataset Description' %}
+		{{ block.super }}
+	{% endwith %}
+{% endblock %}
+
+{% block header %}
+	<div id="page-header">
+		<header>
+			<div class="center">
+				<img id="header-logo" src="{% static 'dcsearch/images/OpenDaL_logo.svg' %}" alt="OpenDaL Logo">
+				<a href="#" id="hamburger" aria-label="Open menu"></a>
+				<nav>
+					<a href="{% url 'dcsearch:search' %}" >Home</a>
+					<a href="{% url 'dcsearch:support' %}">Support</a>
+					<a href="{% url 'dcsearch:about' %}">About</a>
+				</nav>
+			</div>
+		</header>
+		<div class="page-desc">
+		{% if type is not None %}
+			<div class="resource-type-header">{{ type }}</div>
+		{% else %}
+			<div class="resource-type-header">Resource</div>
+		{% endif %}
+			<h3>{{ title|truncatechars:128 }}</h3>
+			<a class="resource-link-button" href="{{ catalog.href }}" target="_blank" rel="noreferrer">
+				Show on {{ catalog.name }}
+				<img src="{% static 'dcsearch/images/ext_link.svg' %}" class="inline-icon" alt="External link Icon">
+			</a>
+		</div>
+	</div>
+{% endblock %}
+
+{% block main %}
+	<main id="resource-description">
+		<div class="centered">
+		{% if description is not None %}
+			{{ description|linebreaks }}
+		{% else %}
+			<p>(This resource does not have a description)</p>
+		{% endif %}
+		</div>
+		<div class="nskew-box-tinted resource-properties">
+			<div class="centered">
+			{% if key_value_data is not None %}
+				<h4>Metadata</h4>
+				<table>
+					<tbody>
+						{% for item in key_value_data %}
+		  		        <tr>
+							<td>{{ item.0 }}</td>
+							<td>{{ item.1|truncatechars:128 }}</td>
+		  		        </tr>
+		  			  {% endfor %}
+					</tbody>
+				</table>
+			{% endif %}
+			{% if relations is not None %}
+				<h4>Relations</h4>
+				<table>
+					<tbody>
+					{% for relname, urllist in relations.items %}
+						<tr>
+							<td>{{ relname }}</td>
+							<td>
+						{% for url in urllist %}
+	  					  	{% if forloop.last %}
+	  						  <a href="{{ url }}" target="_blank">{{ url }}</a>
+	  						{% else %}
+	  						  <a href="{{ url }}" target="_blank">{{ url }}</a><br>
+	  						{% endif %}
+  					  	{% endfor %}
+							</td>
+						</tr>
+					  {% endfor %}
+					</tbody>
+				</table>
+			{% endif %}
+			</div>
+		</div>
+	</main>
+{% endblock %}

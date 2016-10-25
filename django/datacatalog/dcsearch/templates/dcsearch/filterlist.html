@@ -1,0 +1,22 @@
+{% if aggstyle == 'selected' %}
+<div class="editable">
+		{% for id_, value in aggs.items %}
+	<div class="property-container">{{ value.name }}</div>
+	<button type="button" class="delete" onclick="changeQuery('{{ field }}', '*')">{% include 'dcsearch/removebutton.svg' %}</button>
+		{% endfor %}
+</div>
+{% elif aggs|length > 0 %}
+<ul>
+	{% for id_, value in aggs.items %}
+	<li onclick="changeQuery('{{ field }}', '{{ id_ }}')">{{ value.name }} <span class="valuecount">({{ value.count }})</span></li>
+	{% endfor %}
+</ul>
+	{% if aggstyle == 'short' and aggs|length == 5 %}
+<div class="show-all" onclick="expandFilters('{{ field }}')">Show more</div>
+	{% endif %}
+	{% if aggstyle == 'long' and aggs|length == 50 %}
+<div class="show-limited">(Showing 50 most common)</div>
+	{% endif %}
+{% else %}
+<div class="show-limited">(No {{ field }}s in selection)</div>
+{% endif %}

@@ -1,0 +1,31 @@
+{% extends 'dcsearch/base.html' %}
+{% load static %}
+
+{% block header %}
+    <div id="page-header">
+        <header>
+            <div class="center">
+                <img id="header-logo" src="{% static 'dcsearch/images/OpenDaL_logo.svg' %}" alt="OpenDaL Logo">
+                <a href="#" id="hamburger" aria-label="Open menu"></a>
+            {% block navbar %}
+                <nav>
+                    <a href="{% url 'dcsearch:search' %}"{% if pgid == 'search' %} class="selected"{% endif %}>Home</a>
+                    <a href="{% url 'dcsearch:support' %}"{% if pgid == 'support' %} class="selected"{% endif %}>Support</a>
+                    <a href="{% url 'dcsearch:about' %}"{% if pgid == 'about' %} class="selected"{% endif %}>About</a>
+                </nav>
+            {% endblock %}
+            </div>
+        </header>
+        <div class="page-desc">
+            <div id="page-desc-content">
+            {% block page_heading %}
+                <h2>{{ title }}</h2>
+                <p>
+                    {{ subtitle }}
+                </p>
+            {% endblock %}
+            </div>
+            {% block query_summary %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

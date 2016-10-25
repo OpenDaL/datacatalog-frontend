@@ -1,0 +1,91 @@
+{% extends 'dcsearch/base_with_header.html' %}
+{% load static %}
+
+{% block page_meta%}
+	{% with title='About' description='OpenDaL is a search engine for open data and research data, that combines the datasets from hundreds of data portals in one place, allowing you to search by location, subject, keywords and more...' %}
+		{{ block.super }}
+	{% endwith %}
+{% endblock %}
+{% block page_heading%}
+	{% with title='About' subtitle='What is OpenDaL and how can it help you?' %}
+		{{ block.super }}
+	{% endwith %}
+{% endblock %}
+
+{% block navbar%}
+	{% with pgid='about' %}
+		{{ block.super }}
+	{% endwith %}
+{% endblock %}
+
+{% block main %}
+	<main>
+		<section class="centered">
+			<p>
+				Finding the right datasets for a project, research study, or out of curiosity, can be hard. First you have to know what data portals may contain the data, then you need to go to and search each of them, sometimes using limited search functionality. Traditional search engines are generally also of little help, since they only offer keyword based search, and do not let you search for datasets based on properties such as the location it is about, the type of dataset or its subject.
+			</p>
+			<p>
+				OpenDaL is a search engine for open data and research data, specifically designed to resolve these issues. It combines the datasets from hundreds of data portals in one place, and allows you to search based on aspects like Subject, Format, Location, Temporal Coverage and more. Can't wait to get started? <a href="{% url 'dcsearch:search' %}#search">Try it now!</a>
+			</p>
+			<p>
+				We're still hard at work making it easier for you to find data using the Open Data Library. Wonder what we're working on? <a href="#" id="register">Sign up here</a>, to be updated when new features are released.
+			</p>
+		</section>
+		<section class="nskew-box-tinted">
+			<div class="centered wider">
+				<h3>Features</h3>
+				<p class="subtitle">How is OpenDaL different from other search engines?</p>
+				<div class="feature-group">
+					<div class="feature">
+						<img src="{% static 'dcsearch/images/metadata.svg' %}" alt="Metadata Tags Icon">
+						<h4>Metadata Search</h4>
+						<p>
+							In addition to text based search, you can use other dataset properties such as type, subject, language, format and temporal coverage
+						</p>
+					</div>
+					<div class="feature">
+						<img src="{% static 'dcsearch/images/geographic.svg' %}" alt="Map Pin Icon">
+						<h4>Location Queries</h4>
+						<p>
+							You can draw a bounding box on the map, to search for relevant data within you area of interest
+						</p>
+					</div>
+					<div class="feature">
+						<img src="{% static 'dcsearch/images/database_network.svg' %}" alt="Map Pin Icon">
+						<h4>Combining Portals</h4>
+						<p>
+							You can search hundreds of open data portals, e.g. from governments, research Institutes and universities, all at once
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<div id="reg-overlay">
+		<div class="popup">
+			<div class="topbar"><a class="close" href="#"></a></div>
+			<p>Please provide your email address to receive service updates about OpenDal</p>
+			<!-- Begin Mailchimp Signup Form -->
+			<form action="https://opendatalibrary.us20.list-manage.com/subscribe/post?u=010c2c57bfbab00fee0a5f85e&amp;id=d75d3ff395" method="post" name="mc-embedded-subscribe-form">
+					<input type="email" value="" name="EMAIL" placeholder="Your Email">
+					<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+					<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_010c2c57bfbab00fee0a5f85e_d75d3ff395" tabindex="-1" value=""></div>
+					<input type="submit" value="Keep me updated!" name="subscribe" id="mc-embedded-subscribe" class="button">
+			</form>
+			<!--End mc_embed_signup-->
+		</div>
+	</div>
+	<script type="text/javascript">
+		// Signup popup
+		var regButton = document.querySelector('#register')
+		var regPopup = document.querySelector('#reg-overlay')
+		var closeButton = document.querySelector('#reg-overlay .popup .close')
+
+		function togglePopup(e) {
+			regPopup.classList.toggle('visible');
+			e.stopPropagation();
+		}
+		regButton.addEventListener('click', togglePopup)
+		closeButton.addEventListener('click', togglePopup)
+	</script>
+{% endblock %}

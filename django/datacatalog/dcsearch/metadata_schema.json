@@ -1,0 +1,2302 @@
+{
+    "title": {
+        "children": null,
+        "id": "1",
+        "name": "Title",
+        "description": "The title or name of the resource",
+        "example": "Shuttle Radar Topography Mission (SRTM) 1 Arc-Second Global",
+        "always_required": true,
+        "dtype": "string",
+        "ctrl_vocab": null,
+        "requirements": {
+            "length": {
+                "min": 5,
+                "max": 256
+            }
+        },
+        "db_field": "title",
+        "dc_mapping": "title",
+        "datacite_mapping": "Title"
+    },
+    "abstractORdescription": {
+        "children": null,
+        "id": "2",
+        "name": "Abstract/Description",
+        "description": "Abstract of resource if it’s a document, otherwise a description of the resource",
+        "example": "This paper introduces a new terrain model named HAND, and reports on the calibration and validation of landscape classes representing soil environments in Amazonia, which were derived using it. The HAND model normalizes topography according to the local relative heights found along ....",
+        "recommended": true,
+        "dtype": "string",
+        "ctrl_vocab": null,
+        "requirements": {
+            "length": {
+                "min": 5,
+                "max": 2048
+            }
+        },
+        "db_field": "abstractORdescription",
+        "dc_mapping": "abstract",
+        "datacite_mapping": "Description[descriptionType=Abstract|Other]",
+        "always_required": false
+    },
+    "version": {
+        "id": "3",
+        "name": "Version information",
+        "description": "Information regarding the version of the resource",
+        "recommended": true,
+        "dtype": "object",
+        "requirements": {},
+        "db_field": "version",
+        "always_required": false,
+        "children": {
+            "value": {
+                "id": "3.1",
+                "name": "Version",
+                "description": "The version number of the resource",
+                "example": "2.1.5",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "max": 16
+                    }
+                },
+                "db_field": "value",
+                "dc_mapping": null,
+                "datacite_mapping": "Version"
+            },
+            "notes": {
+                "id": "3.2",
+                "name": "Version notes",
+                "description": "Notes on what is different in this version (release notes)",
+                "example": "* Introduction rewritten to match contents\\n* Appendix A added\\n",
+                "recommended": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 4,
+                        "max": 2048
+                    }
+                },
+                "db_field": "notes",
+                "dc_mapping": null,
+                "datacite_mapping": null,
+                "always_required": false
+            }
+        }
+    },
+    "status": {
+        "children": null,
+        "id": "4",
+        "name": "Status",
+        "description": "The status of the resource",
+        "example": "In review",
+        "always_required": false,
+        "dtype": "string",
+        "ctrl_vocab": [
+            "Submitted",
+            "In review",
+            "Accepted",
+            "Published",
+            "Rejected",
+            "Retracted",
+            "pre-print",
+            "Earlyrelease",
+            "Draft",
+            "Final",
+            "Alpha",
+            "Beta",
+            "Stable",
+            "In editing",
+            "In testing",
+            "Partial",
+            "Complete"
+        ],
+        "requirements": {},
+        "db_field": "status",
+        "dc_mapping": null,
+        "datacite_mapping": null,
+        "recommended": false
+    },
+    "creator": {
+        "id": "5",
+        "name": "Creator information",
+        "description": "Information about the creator(s) of the resource",
+        "always_required": true,
+        "dtype": "array",
+        "requirements": {
+            "length": {
+                "max": 32
+            }
+        },
+        "db_field": "creator",
+        "children": {
+            "name": {
+                "id": "5.1",
+                "name": "Author name",
+                "description": "The name of the author/creator of the resource",
+                "example": "John Smith",
+                "required_for": "creator=person",
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 3,
+                        "max": 128
+                    }
+                },
+                "db_field": "name",
+                "dc_mapping": "creator",
+                "datacite_mapping": "Creator['creatorName']",
+                "always_required": false
+            },
+            "affiliation": {
+                "id": "5.2",
+                "name": "Author affiliation",
+                "description": "The affiliation of the author/creator",
+                "example": "University of Amsterdam",
+                "always_required": false,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 3,
+                        "max": 256
+                    }
+                },
+                "db_field": "affiliation",
+                "dc_mapping": null,
+                "datacite_mapping": "Creator['affiliation']",
+                "recommended": false
+            },
+            "affiliationURL": {
+                "id": "5.3",
+                "name": "AffiliationURL",
+                "description": "The URL of the organization in 'affiliation'.",
+                "example": "http://www.uva.nl/",
+                "always_required": false,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "max": 1024
+                    },
+                    "startswith": "http"
+                },
+                "db_field": "affiliationURL",
+                "dc_mapping": null,
+                "datacite_mapping": null,
+                "recommended": false
+            },
+            "organization": {
+                "id": "5.4",
+                "name": "Creating organization",
+                "description": "The organization that produced the resource (in case individual persons are unknown)",
+                "example": "KNMI",
+                "required_for": "creator=organization",
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 3,
+                        "max": 128
+                    }
+                },
+                "db_field": "organization",
+                "dc_mapping": null,
+                "datacite_mapping": null,
+                "always_required": false
+            },
+            "identifier": {
+                "id": "5.5",
+                "name": "Identifier",
+                "description": "An identifier for the person or organization that created the resource",
+                "example": "http://knmi.nl/",
+                "recommended": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 8,
+                        "max": 1024
+                    }
+                },
+                "db_field": "identifier",
+                "dc_mapping": null,
+                "datacite_mapping": "Creator['nameIdentifier']",
+                "always_required": false
+            },
+            "identifierScheme": {
+                "id": "5.6",
+                "name": "Identifier scheme",
+                "description": "Identifier scheme used",
+                "example": "ORCID",
+                "recommended": true,
+                "dtype": "string",
+                "ctrl_vocab": [
+                    "ORCID",
+                    "ISNI",
+                    "ResearcherID",
+                    "URL"
+                ],
+                "requirements": {},
+                "db_field": "identifierScheme",
+                "dc_mapping": null,
+                "datacite_mapping": "Creator['nameIdentifier']['nameIdentifierScheme']",
+                "always_required": false
+            }
+        }
+    },
+    "publisher": {
+        "id": "6",
+        "name": "Publisher information",
+        "description": "Information about the publisher of the resource",
+        "recommended_for": "type=book",
+        "dtype": "object",
+        "requirements": {},
+        "db_field": "publisher",
+        "always_required": false,
+        "children": {
+            "name": {
+                "id": "6.1",
+                "name": "Publisher name",
+                "description": "The name of the publisher",
+                "example": "John Wiley & Sons",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 3,
+                        "max": 128
+                    }
+                },
+                "db_field": "name",
+                "dc_mapping": "publisher",
+                "datacite_mapping": "Publisher"
+            },
+            "location": {
+                "id": "6.2",
+                "name": "Publisher location",
+                "description": "The location of the publisher",
+                "example": "London, UK",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 5,
+                        "max": 128
+                    }
+                },
+                "db_field": "location",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            },
+            "identifier": {
+                "id": "6.3",
+                "name": "Publisher identifier",
+                "description": "An identifier for the publisher",
+                "example": "0000 0004 0380 1313",
+                "recommended": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 8,
+                        "max": 1024
+                    }
+                },
+                "db_field": "identifier",
+                "dc_mapping": null,
+                "datacite_mapping": null,
+                "always_required": false
+            },
+            "identifierType": {
+                "id": "6.4",
+                "name": "Type of identifier",
+                "description": "The type of identifier used under 'identifier'",
+                "example": "ISNI",
+                "recommended": true,
+                "dtype": "string",
+                "ctrl_vocab": [
+                    "ISNI",
+                    "URL"
+                ],
+                "requirements": {},
+                "db_field": "identifierType",
+                "dc_mapping": null,
+                "datacite_mapping": null,
+                "always_required": false
+            }
+        }
+    },
+    "publishedIn": {
+        "id": "7",
+        "name": "Published in",
+        "description": "Information about where the resource was published in",
+        "required_for": "type=paper|type=book:chapter",
+        "dtype": "object",
+        "requirements": {},
+        "db_field": "publishedIn",
+        "always_required": false,
+        "children": {
+            "name": {
+                "id": "7.1",
+                "name": "Name",
+                "description": "The name of the journal/book the information was published in",
+                "example": "Journal of Hydrology",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 3,
+                        "max": 128
+                    }
+                },
+                "db_field": "name",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            },
+            "type": {
+                "id": "7.2",
+                "name": "Type",
+                "description": "Type of resource it was published in (Journal or Book)",
+                "example": "Journal",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": [
+                    "Journal",
+                    "Book"
+                ],
+                "requirements": {},
+                "db_field": "type",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            },
+            "identifier": {
+                "id": "7.3",
+                "name": "Identifier",
+                "description": "An identifier for the journal / book",
+                "example": "0022-1694",
+                "always_required": false,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 9,
+                        "max": 16
+                    }
+                },
+                "db_field": "identifier",
+                "dc_mapping": null,
+                "datacite_mapping": null,
+                "recommended": false
+            },
+            "identifierType": {
+                "id": "7.4",
+                "name": "Identifier type",
+                "description": "The type of identifier used under 'identifier'",
+                "example": "ISSN",
+                "always_required": false,
+                "dtype": "string",
+                "ctrl_vocab": [
+                    "ISSN",
+                    "ISBN"
+                ],
+                "requirements": {},
+                "db_field": "identifierType",
+                "dc_mapping": null,
+                "datacite_mapping": null,
+                "recommended": false
+            },
+            "volume": {
+                "id": "7.5",
+                "name": "Volume number",
+                "description": "The volume number of the journal",
+                "example": 30,
+                "recommended": true,
+                "dtype": "integer",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "gt": 0,
+                    "lt": 1000
+                },
+                "db_field": "volume",
+                "dc_mapping": null,
+                "datacite_mapping": null,
+                "always_required": false
+            },
+            "issue": {
+                "id": "7.6",
+                "name": "Issue number",
+                "description": "The issue number of the journal",
+                "example": 2,
+                "recommended": true,
+                "dtype": "integer",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "gt": 0,
+                    "lt": 5000
+                },
+                "db_field": "issue",
+                "dc_mapping": null,
+                "datacite_mapping": null,
+                "always_required": false
+            },
+            "pages": {
+                "id": "7.7",
+                "name": "Pages",
+                "description": "The pages of the publication which the resource covered",
+                "example": "90-112",
+                "recommended": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 3,
+                        "max": 16
+                    }
+                },
+                "db_field": "pages",
+                "dc_mapping": null,
+                "datacite_mapping": null,
+                "always_required": false
+            }
+        }
+    },
+    "issued": {
+        "children": null,
+        "id": "8",
+        "name": "Date issued",
+        "description": "The date on which the resource was issued",
+        "example": "2017-01-25",
+        "recommended": true,
+        "dtype": "date",
+        "ctrl_vocab": null,
+        "requirements": {
+            "lt": "now",
+            "gt": "1700-01-01"
+        },
+        "db_field": "issued",
+        "dc_mapping": "issued",
+        "datacite_mapping": "Date[dateType=Issued]\nPublicationYear (derived For articles and books)",
+        "always_required": false
+    },
+    "modified": {
+        "children": null,
+        "id": "9",
+        "name": "Date modified",
+        "description": "The date on which the resource was last modified",
+        "example": "2017-01-25",
+        "always_required": false,
+        "dtype": "date",
+        "ctrl_vocab": null,
+        "requirements": {
+            "lt": "now",
+            "gt": "1700-01-01"
+        },
+        "db_field": "modified",
+        "dc_mapping": "modified",
+        "datacite_mapping": "Date[dateType=Updated]",
+        "recommended": false
+    },
+    "created": {
+        "children": null,
+        "id": "10",
+        "name": "Date created",
+        "description": "The date on which the resource was created",
+        "example": "2017-01-25",
+        "always_required": false,
+        "dtype": "date",
+        "ctrl_vocab": null,
+        "requirements": {
+            "lt": "now",
+            "gt": "1700-01-01"
+        },
+        "db_field": "created",
+        "dc_mapping": "created",
+        "datacite_mapping": "Date[dateType=Created]",
+        "recommended": false
+    },
+    "otherDates": {
+        "id": "11",
+        "name": "Other related dates",
+        "description": "Other important dates related to the resource",
+        "always_required": false,
+        "dtype": "array",
+        "requirements": {},
+        "db_field": "otherDate",
+        "recommended": false,
+        "children": {
+            "type": {
+                "id": "11.1",
+                "name": "Type of date",
+                "description": "The type of date described by under 'value'",
+                "example": "Accepted",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": [
+                    "Accepted",
+                    "Copyrighted",
+                    "Submitted"
+                ],
+                "requirements": {},
+                "db_field": "type",
+                "dc_mapping": "(multiple:)\ndateAccepted\ndateCopyrighted\ndateSubmitted\n",
+                "datacite_mapping": "(multiple:)\nDate[dateType=Accepted]\nDate[dateType=Copyrighted]\nDate[dateType=Submitted]"
+            },
+            "value": {
+                "id": "11.2",
+                "name": "Date",
+                "description": "A date associated to the resource",
+                "example": "2017-01-25",
+                "always_required": true,
+                "dtype": "date",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "lt": "now",
+                    "gt": "1700-01-01"
+                },
+                "db_field": "value",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            }
+        }
+    },
+    "contact": {
+        "id": "12",
+        "name": "Contact information",
+        "description": "Information about contact points for the resource",
+        "always_required": false,
+        "dtype": "array",
+        "requirements": {},
+        "db_field": "contact",
+        "recommended": false,
+        "children": {
+            "name": {
+                "id": "12.1",
+                "name": "Contact name",
+                "description": "The name of the person or organization acting as a contact",
+                "example": "John Smith",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 3,
+                        "max": 128
+                    }
+                },
+                "db_field": "name",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            },
+            "details": {
+                "id": "12.2",
+                "name": "Contact details",
+                "description": "The contact details of the person or organization",
+                "example": "6780 Fountain City Rd\\nKnoxville, TN 37918, USA",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 8,
+                        "max": 1024
+                    }
+                },
+                "db_field": "details",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            },
+            "detailsType": {
+                "id": "12.3",
+                "name": "Contact details type",
+                "description": "The type of the contact details",
+                "example": "Address",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": [
+                    "Phone",
+                    "Address",
+                    "Email"
+                ],
+                "requirements": {},
+                "db_field": "detailsType",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            }
+        }
+    },
+    "license": {
+        "id": "13",
+        "name": "License information",
+        "description": "Information about the license of the resource",
+        "always_required": false,
+        "dtype": "object",
+        "requirements": {},
+        "db_field": "license",
+        "recommended": false,
+        "children": {
+            "type": {
+                "id": "13.1",
+                "name": "License type",
+                "description": "The type of license under 'content'",
+                "example": "URL",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": [
+                    "Text",
+                    "URL"
+                ],
+                "requirements": {},
+                "db_field": "type",
+                "dc_mapping": "license",
+                "datacite_mapping": null
+            },
+            "name": {
+                "id": "13.2",
+                "name": "License name",
+                "description": "The name of the license",
+                "example": "MIT License",
+                "always_required": false,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 3,
+                        "max": 128
+                    }
+                },
+                "db_field": "name",
+                "dc_mapping": null,
+                "datacite_mapping": null,
+                "recommended": false
+            },
+            "content": {
+                "id": "13.3",
+                "name": "License body",
+                "description": "The body-text of the license",
+                "example": "https://opensource.org/licenses/MIT",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 8,
+                        "max": 2048
+                    }
+                },
+                "db_field": "content",
+                "dc_mapping": null,
+                "datacite_mapping": "Rights\nRights[rightsURI]"
+            }
+        }
+    },
+    "maintenance": {
+        "children": null,
+        "id": "14",
+        "name": "Maintenance",
+        "description": "Short statement on the Maintenance of the resource",
+        "example": "This dataset is actively updated with new information on a monthly basis",
+        "always_required": false,
+        "dtype": "string",
+        "ctrl_vocab": null,
+        "requirements": {
+            "length": {
+                "min": 8,
+                "max": 1024
+            }
+        },
+        "db_field": "maintenance",
+        "dc_mapping": null,
+        "datacite_mapping": null,
+        "recommended": false
+    },
+    "context": {
+        "children": null,
+        "id": "15",
+        "name": "Context",
+        "description": "The context in which the resource was created (e.g. the name of a resource project)",
+        "example": "This dataset was created in the eartH2Observe project",
+        "always_required": false,
+        "dtype": "string",
+        "ctrl_vocab": null,
+        "requirements": {
+            "length": {
+                "min": 8,
+                "max": 1024
+            }
+        },
+        "db_field": "context",
+        "dc_mapping": null,
+        "datacite_mapping": null,
+        "recommended": false
+    },
+    "funding": {
+        "id": "16",
+        "name": "Funding information",
+        "description": "Information about how the project that created the resource, was funded",
+        "always_required": false,
+        "dtype": "object",
+        "requirements": {},
+        "db_field": "funding",
+        "recommended": false,
+        "children": {
+            "organization": {
+                "id": "16.1",
+                "name": "Funding organization",
+                "description": "The name of the organization that provided the funding",
+                "example": "World Bank",
+                "required_for": "name=None",
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 3,
+                        "max": 128
+                    }
+                },
+                "db_field": "organization",
+                "dc_mapping": null,
+                "datacite_mapping": "FundingReference[funderName]",
+                "always_required": false
+            },
+            "name": {
+                "id": "16.2",
+                "name": "Fund name",
+                "description": "The name of the fund used",
+                "example": "Challenge Fund",
+                "required_for": "organization=None",
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 3,
+                        "max": 128
+                    }
+                },
+                "db_field": "name",
+                "dc_mapping": null,
+                "datacite_mapping": "FundingReference[awardTitle]",
+                "always_required": false
+            }
+        }
+    },
+    "identifier": {
+        "id": "17",
+        "name": "Identifier information",
+        "description": "Resource Identifier information",
+        "always_required": false,
+        "dtype": "object",
+        "requirements": {},
+        "db_field": "identifier",
+        "recommended": false,
+        "children": {
+            "type": {
+                "id": "17.1",
+                "name": "Type of identifier",
+                "description": "The type of the identifier given by value",
+                "example": "DOI",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": [
+                    "DOI",
+                    "ISBN"
+                ],
+                "requirements": {},
+                "db_field": "type",
+                "dc_mapping": "identifier",
+                "datacite_mapping": "if type='DOI': Idenfier[identifierType]"
+            },
+            "value": {
+                "id": "17.2",
+                "name": "Identifier",
+                "description": "The actual identifier of the resource",
+                "example": "10.1016/0022-1694(94)90031-0",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 8,
+                        "max": 64
+                    }
+                },
+                "db_field": "value",
+                "dc_mapping": "identifier",
+                "datacite_mapping": "if type='DOI': Identifier"
+            }
+        }
+    },
+    "type": {
+        "children": null,
+        "id": "18",
+        "name": "Resource type",
+        "description": "The type of resource",
+        "example": "Dataset:Forecast",
+        "always_required": true,
+        "dtype": "string",
+        "ctrl_vocab": [
+            "Dataset",
+            "Dataset:Geographic",
+            "Dataset:Tabular",
+            "Dataset:Image",
+            "Dataset:Audio",
+            "Dataset:Video",
+            "Dataset:Timeseries",
+            "Dataset:Model-output",
+            "Dataset:Measurements",
+            "Dataset:Observations",
+            "Dataset:Forecast",
+            "Document",
+            "Document:Report",
+            "Document:Thesis:Bachelor",
+            "Document:Thesis:Master",
+            "Document:Thesis:Doctoral",
+            "Document:Paper",
+            "Document:Paper:Conference",
+            "Document:Paper:Pre-print",
+            "Document:Book",
+            "Document:Book:PartOf",
+            "Document:Annotation",
+            "Software",
+            "Software:Model",
+            "Service",
+            "Service:API"
+        ],
+        "requirements": {},
+        "db_field": "type",
+        "dc_mapping": "type",
+        "datacite_mapping": "ResourceType[resourceTypeGeneral]"
+    },
+    "subject": {
+        "children": null,
+        "id": "19",
+        "name": "Resource subject",
+        "description": "The subject of the resource",
+        "example": [
+            "Macro Economy"
+        ],
+        "always_required": true,
+        "dtype": "array[strings]",
+        "ctrl_vocab": [
+            "economy",
+            "macro_economy",
+            "income",
+            "employment",
+            "economic_development",
+            "monetary_economy",
+            "trade",
+            "import",
+            "export",
+            "investment",
+            "micro_economy",
+            "government",
+            "politics_elections",
+            "politics",
+            "international_relations",
+            "elections",
+            "policies",
+            "laws_regulations",
+            "budget",
+            "taxes",
+            "government_administration",
+            "public_services",
+            "defense",
+            "military",
+            "air_force",
+            "navy",
+            "border_protection_customs",
+            "coast_guard",
+            "justice",
+            "emergency_services",
+            "law_enforcement",
+            "fire_brigade",
+            "ambulance",
+            "planning",
+            "urban_planning",
+            "regional_planning",
+            "social_security",
+            "pensions",
+            "social_housing",
+            "business_industry",
+            "agriculture",
+            "aquaculture",
+            "horticulture",
+            "crop_production",
+            "livestock",
+            "fishery",
+            "forestry",
+            "mining_drilling",
+            "dredging",
+            "manufacturing",
+            "food_industry",
+            "chemical_industry",
+            "services",
+            "financial_services",
+            "banking",
+            "insurance",
+            "brokerage",
+            "consultancy",
+            "retail",
+            "housing_real_estate",
+            "rental_services",
+            "publishing_producing",
+            "charity",
+            "health_services",
+            "architecture_construction",
+            "business_administration_management",
+            "accounting",
+            "marketing",
+            "entrepreneurship",
+            "human_resources",
+            "resources",
+            "water_resources",
+            "water_distribution",
+            "water_quantity",
+            "water_quality",
+            "energy",
+            "fossil_energy",
+            "renewable_energy",
+            "energy_efficiency",
+            "infrastructure",
+            "rail_infrastructure",
+            "road_infrastructure",
+            "airports",
+            "energy_infrastructure",
+            "electricity_infrastructure",
+            "pipeline_infrastructure",
+            "gas_infrastructure",
+            "oil_infrastructure",
+            "communication_infrastructure",
+            "water_infrastructure",
+            "topography",
+            "elevation",
+            "bathymetry",
+            "land_use",
+            "land_cover",
+            "administrative_subdivision",
+            "environment",
+            "environmental_conservation",
+            "waste",
+            "natural_hazards",
+            "floods",
+            "droughts",
+            "tsunami’s",
+            "landslides",
+            "earthquakes",
+            "avalanche",
+            "sinkholes",
+            "volcanic_eruptions",
+            "storms",
+            "snowstorms",
+            "hailstorms",
+            "ice_storms",
+            "geomagnetic_storms",
+            "cyclones",
+            "tornadoes",
+            "hurricanes",
+            "wildfires",
+            "society",
+            "health",
+            "education",
+            "population",
+            "opinion",
+            "crime",
+            "safety",
+            "migration",
+            "religion",
+            "language",
+            "sport_leisure_and_recreation",
+            "culture_arts",
+            "communication",
+            "media",
+            "social_media",
+            "conflicts",
+            "philosophy",
+            "ethics",
+            "tourism",
+            "archeology",
+            "history",
+            "military_history",
+            "history_of_religions",
+            "social_history",
+            "travel_transport",
+            "public_transport",
+            "road_transport",
+            "rail_transport",
+            "water_transport",
+            "aerospace_transport",
+            "engineering",
+            "aerospace_engineering",
+            "automotive_engineering",
+            "bioengineering",
+            "biomedical_engineering",
+            "chemical_engineering",
+            "electrical_engineering",
+            "environmental_engineering",
+            "geomatic_engineering",
+            "maritime_engineering",
+            "materials_engineering",
+            "mechanical_engineering",
+            "mining_engineering",
+            "resources_engineering",
+            "civil_engineering",
+            "hydraulic_engineering",
+            "coastal_engineering",
+            "geotechnical_engineering",
+            "transport_engineering",
+            "urban_engineering",
+            "surveying",
+            "structural_engineering",
+            "biomolecular_engineering",
+            "molecular_engineering",
+            "process_engineering",
+            "military_engineering",
+            "software_engineering",
+            "genetic_engineering",
+            "industrial_engineering",
+            "computer_engineering",
+            "robotics",
+            "web_engineering",
+            "technology",
+            "information_communication_technology",
+            "software",
+            "computer_hardware",
+            "pc_hardware",
+            "server_hardware",
+            "portable_devices",
+            "computer_networks",
+            "distributed_computing",
+            "information_extraction",
+            "cyber_security",
+            "artificial_intelligence",
+            "machine_learning",
+            "biotechnology",
+            "agricultural_biotechnology",
+            "environmental_biotechnology",
+            "industrial_biotechnology",
+            "medical_biotechnology",
+            "nanotechnology",
+            "nanobiology",
+            "remote_sensing",
+            "sciences",
+            "geography",
+            "physical_geography",
+            "geomorphology",
+            "glaciology",
+            "biogeography",
+            "oceanography",
+            "hydrology",
+            "climatology",
+            "meteorology",
+            "paleogeography",
+            "coastal_geography",
+            "quaternary_science",
+            "environmental_geography",
+            "pedology",
+            "edaphology",
+            "human_geography",
+            "cultural_geography",
+            "development_geography",
+            "economic_geography",
+            "health_geography",
+            "historical_geography",
+            "political_geography",
+            "population_geography",
+            "tourism_geography",
+            "urban_geography",
+            "regional_geography",
+            "geomatics_cartography",
+            "atmospheric_sciences",
+            "atmospheric_chemistry",
+            "astronomy",
+            "astrophysics",
+            "gravitation_physics",
+            "solar_physics",
+            "planetary_science",
+            "planetary_geology",
+            "observational_astronomy",
+            "radio_astronomy",
+            "infrared_astronomy",
+            "optical_astronomy",
+            "ultraviolet_astronomy",
+            "x-ray_astronomy",
+            "gamma-ray_astronomy",
+            "astrometry",
+            "theoretic_astronomy",
+            "astrobiology",
+            "astrochemistry",
+            "cosmochemistry",
+            "orbital_mechanics",
+            "celestial_mechanics",
+            "solar_astronomy",
+            "stellar_astronomy",
+            "galactic_astronomy",
+            "extragalactic_astronomy",
+            "cosmology",
+            "geology",
+            "petrology",
+            "structural_geology",
+            "stratigraphy",
+            "economic_geology",
+            "mining_geology",
+            "marine_geology",
+            "vulcanology",
+            "engineering_geology",
+            "hydrogeology",
+            "geophysics",
+            "geodesy",
+            "geodynamics",
+            "mineral_physics",
+            "geochemistry",
+            "chemistry",
+            "physical_chemistry",
+            "chemical_kinetics",
+            "chemical_physics",
+            "electrochemistry",
+            "femtochemistry",
+            "photochemistry",
+            "quantum_chemistry",
+            "solid-state_chemistry",
+            "spectroscopy",
+            "surface_science",
+            "thermochemistry",
+            "organic_chemistry",
+            "biophysical_chemistry",
+            "medicinal_chemistry",
+            "organometallic_chemistry",
+            "physical_organic_chemistry",
+            "biochemistry",
+            "molecular_biology",
+            "inorganic_chemistry",
+            "nuclear_chemistry",
+            "analytical_chemistry",
+            "environmental_chemistry",
+            "molecular_chemistry",
+            "supramolecular_chemistry",
+            "theoretical_chemistry",
+            "computational_chemistry",
+            "agrochemistry",
+            "chemical_oceanography",
+            "mathematical_chemistry",
+            "petrochemistry",
+            "phytochemistry",
+            "radiochemistry",
+            "sonochemistry",
+            "synthetic_chemistry",
+            "biology",
+            "aerobiology",
+            "anatomy",
+            "histology",
+            "bioinformatics",
+            "biolinguistics",
+            "biomechanics",
+            "biological_systematics",
+            "pharmacology",
+            "biomusicology",
+            "biophysics",
+            "botany",
+            "phycology",
+            "plant_physiology",
+            "cell_biology",
+            "cognitive_biology",
+            "conservation_biology",
+            "cryobiology",
+            "developmental_biology",
+            "embryology",
+            "gerontology",
+            "ecology",
+            "population_ecology",
+            "landscape_ecology",
+            "marine_ecology",
+            "coastal_ecology",
+            "environmental_biology",
+            "evolutionary_biology",
+            "ethnobiology",
+            "genetics",
+            "hematology",
+            "immunology",
+            "marine_biology",
+            "microbiology",
+            "bacteriology",
+            "mycology",
+            "parasitology",
+            "virology",
+            "neuroscience",
+            "behavioral_neuroscience",
+            "population_biology",
+            "population_genetics",
+            "paleontology",
+            "pathology",
+            "anatomical_pathology",
+            "clinical_pathology",
+            "molecular_pathology",
+            "oral_maxillofacial_pathology",
+            "veterinary_pathology",
+            "plant_pathology",
+            "physiology",
+            "human_physiology",
+            "animal_physiology",
+            "cellular_physiology",
+            "microbial_physiology",
+            "viral_physiology",
+            "radiobiology",
+            "quantum_biology",
+            "sociobiology",
+            "ethology",
+            "synthetic_biology",
+            "systems_biology",
+            "structural_biology",
+            "soil_biology",
+            "theoretical_biology",
+            "mathematical_biology",
+            "toxicology",
+            "zoology",
+            "entomology",
+            "herpetology",
+            "ichthyology",
+            "mammalogy",
+            "ornithology",
+            "zymology",
+            "physics",
+            "nuclear_physics",
+            "particle_physics",
+            "atomic_physics",
+            "molecular_physics",
+            "optical_physics",
+            "solid_state_physics",
+            "surface_physics",
+            "polymer_physics",
+            "plasma_physics",
+            "applied_physics",
+            "accelerator_physics",
+            "acoustics",
+            "agrophysics",
+            "communication_physics",
+            "laser_physics",
+            "mechanics",
+            "soil_mechanics",
+            "fluid_mechanics",
+            "quantum_mechanics",
+            "newtonian_mechanics",
+            "analytical_mechanics",
+            "statistical_mechanics",
+            "solid_mechanics",
+            "fracture_mechanics",
+            "mathematical_physics",
+            "mathematics",
+            "pure_mathematics",
+            "applied_mathematics",
+            "numerical_mathematics",
+            "computational_mathematics",
+            "mathematical_statistics",
+            "anthropology",
+            "social_anthropology",
+            "cultural_anthropology",
+            "linguistic_anthropology",
+            "physical_anthropology",
+            "linguistics",
+            "historical_linguistics",
+            "ecolinguistics",
+            "sociolinguistics",
+            "developmental_linguistics",
+            "neurolinguistics",
+            "applied_linguistics",
+            "computational_linguistics",
+            "psychology",
+            "abnormal_psychology",
+            "anomalistic_psychology",
+            "behavioral_genetics",
+            "clinical_psychology",
+            "cognitive_psychology",
+            "community_psychology",
+            "comparative_psychology",
+            "consulting_psychology",
+            "counseling_psychology",
+            "developmental_psychology",
+            "educational_psychology",
+            "environmental_psychology",
+            "evolutionary_psychology",
+            "forensic_psychology",
+            "health_psychology",
+            "industrial_organizational_psychology",
+            "legal_psychology",
+            "media_psychology",
+            "personality_psychology",
+            "quantitative_psychology",
+            "psychology_of_religion",
+            "school_psychology",
+            "social_psychology",
+            "sociology",
+            "criminology",
+            "economic_sociology",
+            "industrial_sociology",
+            "environmental_sociology",
+            "visual_sociology",
+            "medical_sociology",
+            "military_sociology",
+            "political_sociology",
+            "public_sociology",
+            "figurational_sociology",
+            "relational_sociology",
+            "urban_sociology",
+            "rural_sociology",
+            "medicine",
+            "addiction_medicine",
+            "allergology",
+            "anesthesiology",
+            "angiology",
+            "audiology",
+            "cardiology",
+            "critical_care_medicine",
+            "dermatology",
+            "dentistry",
+            "emergency_medicine",
+            "endocrinology",
+            "epidemiology",
+            "gastroenterology",
+            "family_medicine",
+            "forensic_medicine",
+            "geriatrics",
+            "gynecology",
+            "hepatology",
+            "infectious_diseases",
+            "neurology",
+            "nephrology",
+            "nursing",
+            "nuclear_medicine",
+            "oncology",
+            "obstetrics",
+            "ophthalmology",
+            "optometry",
+            "otolaryngology",
+            "orthopedics",
+            "pediatrics",
+            "palliative_care",
+            "physiatry",
+            "podiatry",
+            "pulmonology",
+            "psychiatry",
+            "proctology",
+            "radiology",
+            "rheumatology",
+            "splanchnology",
+            "surgery",
+            "urology",
+            "veterinary_medicine",
+            "preventive_medicine",
+            "occupational_medicine",
+            "earth_environmental_science",
+            "physical_science",
+            "aerospace",
+            "atmosphere",
+            "weather",
+            "precipitation",
+            "barometric_pressure",
+            "humidity",
+            "temperature",
+            "clouds",
+            "wind",
+            "solar_radiation",
+            "climate",
+            "climate_change",
+            "atmospheric_pollution",
+            "land_surface",
+            "forests",
+            "parks_reserves",
+            "urban",
+            "rural",
+            "soil",
+            "topsoil",
+            "subsoil",
+            "soil_pollution",
+            "coasts",
+            "foreshore",
+            "beaches",
+            "dunes",
+            "water",
+            "lakes_reservoirs",
+            "water_courses",
+            "oceans_seas",
+            "ice"
+        ],
+        "requirements": {
+            "array_length": {
+                "max": 4
+            }
+        },
+        "db_field": "subject",
+        "dc_mapping": "subject",
+        "datacite_mapping": "Subject\nSubject[subjectScheme]='{DataClopedia URL}'"
+    },
+    "location": {
+        "id": "20",
+        "name": "Location information",
+        "description": "Information about locations described in the resource",
+        "always_required": false,
+        "dtype": "array",
+        "requirements": {
+            "length": {
+                "max": 16
+            }
+        },
+        "db_field": "spatial",
+        "recommended": false,
+        "children": {
+            "name": {
+                "id": "20.1",
+                "name": "Location name",
+                "description": "The name of the location the resource is about",
+                "example": "Amsterdam",
+                "always_required": false,
+                "dtype": "string",
+                "ctrl_vocab": "Geoname IDs (used internally)",
+                "requirements": {
+                    "length": {
+                        "max": 64,
+                        "min": 5
+                    }
+                },
+                "db_field": "name",
+                "dc_mapping": "spatial",
+                "datacite_mapping": "GeoLocation[geoLocationPlace]",
+                "recommended": false
+            },
+            "geometry": {
+                "id": "20.1",
+                "name": "GeoJSON geometry",
+                "description": "A GeoJSON geometry containing the point or bounding box of the location. For a bounding box use the ElasticSearch Envelope type",
+                "example": {
+                    "type": "Point",
+                    "coordinates": [
+                        29.575608645,
+                        35.0279372858
+                    ]
+                },
+                "always_required": false,
+                "dtype": "dict",
+                "ctrl_vocab": "(GeoJSON feature format, ES extension)",
+                "requirements": {},
+                "db_field": "geometry",
+                "dc_mapping": null,
+                "datacite_mapping": "GeoLocation[geoLocationPoint]\nGeoLocation[geoLocationBox]",
+                "recommended": false
+            },
+            "elevation": {
+                "id": "20.2",
+                "name": "Elevation",
+                "description": "The elevation of the resource w.r.t. MSL (negative for depth)",
+                "example": 56.0,
+                "always_required": false,
+                "dtype": "float",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "gt": 0,
+                    "lt": 100000
+                },
+                "db_field": "elevation",
+                "dc_mapping": null,
+                "datacite_mapping": null,
+                "recommended": false
+            }
+        }
+    },
+    "spatialResolution": {
+        "children": null,
+        "id": "21",
+        "name": "Spatial resolution",
+        "description": "The spatial resolution of the resource in metres",
+        "example": 30.0,
+        "always_required": false,
+        "dtype": "float",
+        "ctrl_vocab": null,
+        "requirements": {
+            "gt": 0,
+            "lt": 100000
+        },
+        "db_field": "resolution",
+        "dc_mapping": null,
+        "datacite_mapping": null,
+        "recommended": false
+    },
+    "timePeriod": {
+        "id": "22",
+        "name": "Time information",
+        "description": "Information about time related to the resource, such as time of collection",
+        "always_required": false,
+        "dtype": "array",
+        "requirements": {},
+        "db_field": "temporal",
+        "recommended": false,
+        "children": {
+            "type": {
+                "id": "22.1",
+                "name": "Type of temporal reference",
+                "description": "The type of temporal reference",
+                "example": "Collected",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": [
+                    "Valid",
+                    "Collected",
+                    "About"
+                ],
+                "requirements": {},
+                "db_field": "type",
+                "dc_mapping": "(multiple:)\ntemporal\nvalid",
+                "datacite_mapping": "Date[dateType='valid']\nDate[dateType='collected']"
+            },
+            "start": {
+                "id": "22.2",
+                "name": "Start date",
+                "description": "Start date of the time period",
+                "example": "2008-05-19",
+                "always_required": true,
+                "dtype": "date",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "lt": "2100-01-01",
+                    "gt": "0001-01-01"
+                },
+                "db_field": "start",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            },
+            "end": {
+                "id": "22.3",
+                "name": "End date",
+                "description": "End date of the time period",
+                "example": "2009-01-13",
+                "always_required": true,
+                "dtype": "date",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "lt": "2100-01-01",
+                    "gt": "0001-01-01"
+                },
+                "db_field": "end",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            }
+        }
+    },
+    "temporalResolution": {
+        "children": null,
+        "id": "23",
+        "name": "Temporal resolution",
+        "description": "The temporal resolution of the resource in seconds",
+        "example": 86400,
+        "always_required": false,
+        "dtype": "float",
+        "ctrl_vocab": null,
+        "requirements": {},
+        "db_field": "resolution",
+        "dc_mapping": null,
+        "datacite_mapping": null,
+        "recommended": false
+    },
+    "format": {
+        "children": null,
+        "id": "24",
+        "name": "Format",
+        "description": "The file format (extention) of the resource",
+        "example": ".nc",
+        "always_required": false,
+        "dtype": "array[strings]",
+        "ctrl_vocab": null,
+        "requirements": {
+            "length": {
+                "min": 2,
+                "max": 16
+            }
+        },
+        "db_field": "format",
+        "dc_mapping": "format",
+        "datacite_mapping": "Format",
+        "recommended": false
+    },
+    "size": {
+        "children": null,
+        "id": "25",
+        "name": "Resource size",
+        "description": "Total size of files( e.g. in KB/MB/GB, or resource size in pages",
+        "example": "16 pages",
+        "always_required": false,
+        "dtype": "string",
+        "ctrl_vocab": null,
+        "requirements": {
+            "length": {
+                "min": 3,
+                "max": 16
+            }
+        },
+        "db_field": "size",
+        "dc_mapping": "format\nextent",
+        "datacite_mapping": "Size",
+        "recommended": false
+    },
+    "delimiter": {
+        "children": null,
+        "id": "26",
+        "name": "Delimiter",
+        "description": "The delimiter in case of csv or other seperated files",
+        "example": ";",
+        "always_required": false,
+        "dtype": "string",
+        "ctrl_vocab": null,
+        "requirements": {
+            "length": {
+                "max": 4
+            }
+        },
+        "db_field": "delimiter",
+        "dc_mapping": null,
+        "datacite_mapping": null,
+        "recommended": false
+    },
+    "fingerprint": {
+        "id": "27",
+        "name": "Fingerprint/hash information",
+        "description": "Information to determine correctness of downloaded file",
+        "always_required": false,
+        "dtype": "array",
+        "requirements": {},
+        "db_field": "fingerprint",
+        "recommended": false,
+        "children": {
+            "type": {
+                "id": "27.1",
+                "name": "Fingerprint type",
+                "description": "The type of fingerprint given under 'value'",
+                "example": "SHA1",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 2,
+                        "max": 8
+                    }
+                },
+                "db_field": "type",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            },
+            "value": {
+                "id": "27.2",
+                "name": "Fingerprint",
+                "description": "The fingerprint of the resource (typically hash such as MD5, SHA256…)",
+                "example": "D2FAF2269E6F09D187C5DF279360C62F23812388",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "max": 1024
+                    }
+                },
+                "db_field": "value",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            }
+        }
+    },
+    "language": {
+        "children": null,
+        "id": "28",
+        "name": "Resource language",
+        "description": "The language of the resource",
+        "example": [
+            "en",
+            "de"
+        ],
+        "always_required": false,
+        "dtype": "array[strings]",
+        "ctrl_vocab": "ISO 639-1 Two letter codes",
+        "requirements": {},
+        "db_field": "language",
+        "dc_mapping": "language",
+        "datacite_mapping": "Language",
+        "recommended": false
+    },
+    "sampleSize": {
+        "children": null,
+        "id": "29",
+        "name": "Sample size",
+        "description": "The sample size of the resource",
+        "example": 1500,
+        "always_required": false,
+        "dtype": "integer",
+        "ctrl_vocab": null,
+        "requirements": {},
+        "db_field": "samplesize",
+        "dc_mapping": null,
+        "datacite_mapping": null,
+        "recommended": false
+    },
+    "coordinateSystem": {
+        "children": null,
+        "id": "30",
+        "name": "Coordinate system",
+        "description": "Contains a reference to the coordinate system of the resource",
+        "example": [
+            "EPSG:4326"
+        ],
+        "always_required": false,
+        "dtype": "array[strings]",
+        "ctrl_vocab": "EPSG identifiers",
+        "requirements": {},
+        "db_field": "coordinateSystem",
+        "dc_mapping": null,
+        "datacite_mapping": null,
+        "recommended": false
+    },
+    "programLanguage": {
+        "children": null,
+        "id": "31",
+        "name": "Programming language",
+        "description": "Specifies the programming language of software",
+        "example": [
+            "Python"
+        ],
+        "recommended": true,
+        "dtype": "array[strings]",
+        "ctrl_vocab": null,
+        "requirements": {
+            "string_length": {
+                "max": 16
+            }
+        },
+        "db_field": "programLanguage",
+        "dc_mapping": null,
+        "datacite_mapping": null,
+        "always_required": false
+    },
+    "software": {
+        "children": null,
+        "id": "32",
+        "name": "Software",
+        "description": "Software used/necessary to create/use the data",
+        "example": [
+            "Mathworks Matlab 2014b"
+        ],
+        "always_required": false,
+        "dtype": "array[strings]",
+        "ctrl_vocab": null,
+        "requirements": {
+            "string_length": {
+                "min": 4,
+                "max": 128
+            }
+        },
+        "db_field": "software",
+        "dc_mapping": null,
+        "datacite_mapping": null,
+        "recommended": false
+    },
+    "platform": {
+        "children": null,
+        "id": "33",
+        "name": "Hard & software platform",
+        "description": "The platform (e.g. OS and version, system architecture etc.) required for software/code to run.",
+        "example": [
+            "Ubuntu 16.04 64-bit"
+        ],
+        "recommended_for": "type=software",
+        "dtype": "array[strings]",
+        "ctrl_vocab": null,
+        "requirements": {
+            "string_length": {
+                "min": 4,
+                "max": 128
+            }
+        },
+        "db_field": "platform",
+        "dc_mapping": null,
+        "datacite_mapping": null,
+        "always_required": false
+    },
+    "device": {
+        "children": null,
+        "id": "34",
+        "name": "Collection device",
+        "description": "The sensor, sensor type, or platform used to collect the data (e.g. Microscope, satellite, Sentinel-1)",
+        "example": [
+            "RADARSAT-2"
+        ],
+        "always_required": false,
+        "dtype": "array[strings]",
+        "ctrl_vocab": null,
+        "requirements": {
+            "string_length": {
+                "min": 3,
+                "max": 128
+            }
+        },
+        "db_field": "device",
+        "dc_mapping": null,
+        "datacite_mapping": null,
+        "recommended": false
+    },
+    "quality": {
+        "children": null,
+        "id": "35",
+        "name": "Quality statement",
+        "description": "A short statement on the data quality of the resource",
+        "example": "The measurements in the month November were affected by a severe storm. For all other measurments, errors are below 15 cm",
+        "recommended": true,
+        "dtype": "string",
+        "ctrl_vocab": null,
+        "requirements": {
+            "length": {
+                "min": 16,
+                "max": 512
+            }
+        },
+        "db_field": "quality",
+        "dc_mapping": null,
+        "datacite_mapping": null,
+        "always_required": false
+    },
+    "lineage": {
+        "children": null,
+        "id": "36",
+        "name": "Lineage description",
+        "description": "The processing steps and edits that were undertaken to create the dataset",
+        "example": "The LANDSAT images were classified using 6-classes, to generate the land use maps",
+        "recommended": true,
+        "dtype": "string",
+        "ctrl_vocab": null,
+        "requirements": {
+            "length": {
+                "min": 16,
+                "max": 512
+            }
+        },
+        "db_field": "lineage",
+        "dc_mapping": null,
+        "datacite_mapping": "Description['descriptionType'='methods'] (For type = dataset)",
+        "always_required": false
+    },
+    "contribution": {
+        "id": "37",
+        "name": "List of contributions",
+        "description": "List of all contributions to the metadata entry",
+        "always_required": true,
+        "dtype": "array",
+        "requirements": {},
+        "db_field": "contribution",
+        "children": {
+            "name": {
+                "id": "37.1",
+                "name": "Contributor name",
+                "description": "The name of the person that created/edited the metadata entry, or the name of the organization/portal from which the entry was retrieved.",
+                "example": "European Union Open Data Portal",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 3,
+                        "max": 128
+                    }
+                },
+                "db_field": "name",
+                "dc_mapping": "contributor",
+                "datacite_mapping": "Contributor[contributorName,contributorType='DataCurator']"
+            },
+            "identifier": {
+                "id": "37.2",
+                "name": "Contributor identifier",
+                "description": "An identifier for the contributor or organization/portal in the format described by 'identifierScheme'",
+                "example": "http://data.europa.eu/euodp/",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 8,
+                        "max": 1024
+                    }
+                },
+                "db_field": "identifier",
+                "dc_mapping": null,
+                "datacite_mapping": "Contributor[nameIdentifier]\nnameIdentifierScheme='DCL'\nschemeURI='Site of DataClopedia'"
+            },
+            "identifierType": {
+                "id": "37.3",
+                "name": "Identifier type",
+                "description": "The type of identifier under 'identifier'",
+                "example": "URL",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": [
+                    "DataClopediaContributor",
+                    "URL"
+                ],
+                "requirements": {},
+                "db_field": "identifierType",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            },
+            "date": {
+                "id": "37.4",
+                "name": "Date of contribution",
+                "description": "The date on which the contribution was made",
+                "example": "2017-01-25",
+                "always_required": true,
+                "dtype": "date",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "lt": "now"
+                },
+                "db_field": "date",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            },
+            "version": {
+                "id": "37.5",
+                "name": "Version of the metadata",
+                "description": "The metadata version which was created by the contributor",
+                "example": "1.01",
+                "always_required": false,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "max": 16
+                    }
+                },
+                "db_field": "version",
+                "dc_mapping": null,
+                "datacite_mapping": null,
+                "recommended": false
+            },
+            "method": {
+                "id": "37.6",
+                "name": "Method of contributing",
+                "description": "The method of contributing",
+                "example": "Synchronized",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": [
+                    "Contributed",
+                    "Synchronized"
+                ],
+                "requirements": {},
+                "db_field": "method",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            }
+        }
+    },
+    "untranslated": {
+        "id": "38",
+        "name": "Untranslated Metadata",
+        "description": "Contains the metadata before translation",
+        "always_required": false,
+        "dtype": "dict",
+        "requirements": {},
+        "db_field": "untranslated",
+        "recommended": false,
+        "children": {
+            "language": {
+                "id": "38.1",
+                "name": "Original language",
+                "description": "Original language of the metadata",
+                "example": "de",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": "ISO 639-1 Two letter codes",
+                "requirements": {},
+                "db_field": "language",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            },
+            "title": {
+                "id": "38.2",
+                "name": "Untranslated title",
+                "description": "Untranslated title in the metadata",
+                "example": "Stadt Aachen: Vornamen",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 5,
+                        "max": 256
+                    }
+                },
+                "db_field": "title",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            },
+            "abstractORdescription": {
+                "id": "38.3",
+                "name": "Untranslated Abstract/Description",
+                "description": "Untranslated abstract (if the resource is a document) else a untranslated description of the resource",
+                "example": "Om in beeld te krijgen hoe het staat met de digitale dienstverlening, heeft Deloitte voor het tweede jaar op rij de digitale volwassenheid van de meest gebruikte producten voor burgers en bedrijven bij de medeoverheden onderzocht. Daarbij is per organisatie en per overheidsproduct vastgelegd op welke manier het product digitaal aangeboden wordt.",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 5,
+                        "max": 2048
+                    }
+                },
+                "db_field": "abstractORdescription",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            },
+            "subject": {
+                "id": "38.4",
+                "name": "Untranslated subject",
+                "description": "Untranslated subject in the original metadata",
+                "example": "Bevölkerung",
+                "always_required": false,
+                "dtype": "array[strings]",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "array_length": {
+                        "max": 10
+                    },
+                    "string_length": {
+                        "min": 3,
+                        "max": 128
+                    }
+                },
+                "db_field": "subject",
+                "dc_mapping": null,
+                "datacite_mapping": null,
+                "recommended": false
+            }
+        }
+    },
+    "externalReference": {
+        "id": "39",
+        "name": "External reference information",
+        "description": "Information about the reference to the external metadata platform",
+        "always_required": true,
+        "dtype": "array",
+        "requirements": {
+            "length": {
+                "max": 32
+            }
+        },
+        "db_field": "externalReference",
+        "children": {
+            "type": {
+                "id": "39.1",
+                "name": "Reference type",
+                "description": "The type of external reference (preferred: Only one reference)",
+                "example": "landingPage",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": [
+                    "synchronizedPortalPage",
+                    "landingPage",
+                    "downloadLink"
+                ],
+                "requirements": {},
+                "db_field": "type",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            },
+            "URL": {
+                "id": "39.2",
+                "name": "Reference URL",
+                "description": "The URL of the external reference",
+                "example": "https://lta.cr.usgs.gov/SRTM1Arc",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "max": 1024
+                    },
+                    "startswith": "http"
+                },
+                "db_field": "URL",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            },
+            "registrationRequired": {
+                "id": "39.3",
+                "name": "Registration required",
+                "description": "Indicates whether registration is required to access the data",
+                "example": true,
+                "always_required": true,
+                "dtype": "boolean",
+                "ctrl_vocab": null,
+                "requirements": {},
+                "db_field": "registrationRequired",
+                "dc_mapping": null,
+                "datacite_mapping": null
+            }
+        }
+    },
+    "relation": {
+        "id": "40",
+        "name": "Relation",
+        "description": "Relations to other resources",
+        "always_required": false,
+        "dtype": "array",
+        "requirements": {
+            "length": {
+                "max": 32
+            }
+        },
+        "db_field": "relation",
+        "recommended": false,
+        "children": {
+            "name": {
+                "id": "40.1",
+                "name": "Relation name",
+                "description": "The name of the relation (only for non-DataClopedia references)",
+                "example": "SRTM User Guide",
+                "required_for": "identifierType=DataClopediaEntryID",
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "min": 5,
+                        "max": 256
+                    }
+                },
+                "db_field": "name",
+                "dc_mapping": null,
+                "datacite_mapping": null,
+                "always_required": false
+            },
+            "type": {
+                "id": "40.2",
+                "name": "Relation type",
+                "description": "The type of relation given",
+                "example": "IsDocumentedBy",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": [
+                    "IsSupplementTo",
+                    "IsSupplementedBy",
+                    "IsContinuedBy",
+                    "Continues",
+                    "HasMetaData",
+                    "IsMetadataFor",
+                    "IsVersionOf",
+                    "IsPartOf",
+                    "HasPart",
+                    "IsReferencedBy",
+                    "References",
+                    "IsDocumentedBy",
+                    "Documents",
+                    "IsVariantOf",
+                    "IsOriginalOf",
+                    "IsIdenticalTo",
+                    "IsReviewedBy",
+                    "Reviews",
+                    "IsDerivedFrom",
+                    "IsSourceOf",
+                    "HasSource"
+                ],
+                "requirements": {},
+                "db_field": "type",
+                "dc_mapping": "relation\nisVersionOf\nisReplacedBy\nreplaces\nisRequiredBy\nrequires\nisPartOf\nIsReferencedBy\nreferences\nisFormatOf\nconformsTo",
+                "datacite_mapping": "relatedIdentifier[relationType]"
+            },
+            "identifier": {
+                "id": "40.3",
+                "name": "Relation identifier",
+                "description": "The identifier of the relation (preferably on DataClopedia)",
+                "example": "https://lpdaac.usgs.gov/sites/default/files/public/measures/docs/NASA_SRTM_V3.pdf",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": null,
+                "requirements": {
+                    "length": {
+                        "max": 1024
+                    }
+                },
+                "db_field": "identifier",
+                "dc_mapping": null,
+                "datacite_mapping": "relatedIdentifier"
+            },
+            "identifierType": {
+                "id": "40.4",
+                "name": "Relation URI type",
+                "description": "The type of identifier",
+                "example": "ExternalURL",
+                "always_required": true,
+                "dtype": "string",
+                "ctrl_vocab": [
+                    "DataClopediaEntryID",
+                    "ExternalURL"
+                ],
+                "requirements": {},
+                "db_field": "identifierType",
+                "dc_mapping": null,
+                "datacite_mapping": "relatedIdentifier[relatedIdentifierType]"
+            }
+        }
+    },
+    "_availableOnline": {
+        "children": null,
+        "id": "b1",
+        "name": "Available online",
+        "description": "Does the resource discription contain links to online resources",
+        "example": true,
+        "always_required": false,
+        "dtype": "boolean",
+        "ctrl_vocab": null,
+        "requirements": {},
+        "db_field": "_availableOnline",
+        "recommended": false
+    },
+    "id": {
+        "children": null,
+        "id": "b2",
+        "name": "Resource identifier",
+        "description": "The external platform unique identifier, with the id of the platform in front of it..",
+        "example": "platform_id-x66s5d99e8r6-ew33e5r6d",
+        "always_required": true,
+        "dtype": "string",
+        "ctrl_vocab": null,
+        "requirements": {},
+        "db_field": null
+    },
+    "_dplatform_uid": {
+        "children": null,
+        "id": "b3",
+        "name": "External Platform Unique Identifier",
+        "description": "The Unique identifier of the resource in the external platform",
+        "example": "x66s5d99e8r6-ew33e5r6d",
+        "always_required": false,
+        "dtype": "string",
+        "ctrl_vocab": null,
+        "requirements": {
+            "length": {
+                "max": 128
+            }
+        },
+        "db_field": "_dplatform_uid",
+        "recommended": false
+    },
+    "_isopen": {
+        "children": null,
+        "id": "b4",
+        "name": "Openly available",
+        "description": "Is the data openly available?",
+        "example": true,
+        "always_required": false,
+        "dtype": "boolean",
+        "ctrl_vocab": null,
+        "requirements": {},
+        "db_field": "_isopen",
+        "recommended": false
+    }
+}

@@ -1,0 +1,4 @@
+{% load static %}
+{% for key, value in searchparams.items %}
+<div class="query-desc{% if key == 'Type' %} type-field{% endif %}"><span class="fieldname">{{ key }}:</span> {{ value }}</div>
+{% endfor %}

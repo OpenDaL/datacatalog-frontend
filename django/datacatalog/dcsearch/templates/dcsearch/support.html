@@ -1,0 +1,62 @@
+{% extends 'dcsearch/base_with_header.html' %}
+{% load static %}
+
+{% block page_meta%}
+	{% with title='Support' description='Search tips and frequently asked questions about The Open Data Libary (OpenDaL)' %}
+		{{ block.super }}
+	{% endwith %}
+{% endblock %}
+{% block page_heading%}
+	{% with title='Support' subtitle='Search tips and frequently asked questions' %}
+		{{ block.super }}
+	{% endwith %}
+{% endblock %}
+
+{% block navbar%}
+	{% with pgid='support' %}
+		{{ block.super }}
+	{% endwith %}
+{% endblock %}
+
+{% block main %}
+	<main>
+		<section class="centered">
+			<p>
+				Can't find what you’re looking for? Below are some tips to improve your search query and find the data you need. For more information about each of the search options, please click the <img src="{% static 'dcsearch/images/question_circle.svg' %}" class="inline-icon" alt="Questionmark Icon"> icons on <a href="{% url 'dcsearch:search' %}#search">the search page</a>.
+			</p>
+		</section>
+		<section class="nskew-box-tinted" id="metadata-completeness">
+			<div class="centered wider dual-content">
+				<img src="{% static 'dcsearch/images/missing_meta.svg' %}" alt="Illustration Missing Metadata">
+				<div class="textbox-white">
+					<h4>Metadata Completeness</h4>
+					<p>
+						OpenDaL depends on information from other data portals, which is not always complete. Although we strive to detect missing information, even when it’s not explicitly published, not all resources will have extensive metadata such as a subject, location or dates attached to them. Therefore, if you search for resources with a specific subject, location or creation date, you may get only very little results. In this case, it can help to loosen your search criteria, for example by dropping some requirements, or entering some of them as keywords. For example you can search for the keyword <i>budget</i> rather than the subject <i>budget</i>. Since all resources in OpenDaL have a title, and most have descriptions, this will likely generate more results.
+					</p>
+				</div>
+			</div>
+		</section>
+		<section class="pskew-box-blue">
+			<div class="centered wider dual-content">
+				<h3 id="layered-queries">Layered Queries</h3>
+					<img src="{% static 'dcsearch/images/layered_queries.svg' %}" alt="Illustration Layered List">
+					<div class="textbox-blue">
+						<p>
+							For both the 'Type' and 'Subject' fields, OpenDaL uses a layered system. If you for example select <i>Macro Economy</i> as a subject it will also query for underlying subjects (such as <i>Employment</i>, <i>Economic Development</i> and <i>Income</i>). In the subject list, you can see what subjects are included in others, by looking at their indentation. The 'Type' field is layered similarly. For example querying for a <i>Document</i> also queries for <i>Document:Paper</i>, <i>Document:report</i>, and more. In case you don't find the data you're looking for when searching for a very specific (low layer) subject, it may be better to search using a higher layer. For example, because not all data portals use very specific definitions, data about the subject <i>Trade</i> data may be classified as the more general subject <i>Economy</i>.
+						</p>
+					</div>
+			</div>
+		</section>
+		<section class="nskew-box-tinted" id="advanced-text-search">
+			<div class="centered wider dual-content">
+				<div class="textbox-white">
+					<h4>Advanced Text Search</h4>
+					<p>
+						You can use advanced queries in the search box. In OpenDaL you can use operators '+' (for AND), '|' (for OR) and '-' (for NOT), asterisks (*) to look for prefixes, semicolons to look for specific phrases, and brackets to group parts of a query. For example  the query <code>bathymetry (seafloor | river) australia* "geomorphic features" -"marine park"</code> looks for entries with the word bathymetry AND (seafloor OR river), that include any word starting with australia (e.g. australia's or australian) and contains the exact phrase 'geomorphic features' but does not include the phrase "marine park".
+					</p>
+				</div>
+				<img src="{% static 'dcsearch/images/query.svg' %}" alt="Illustration Search Query">
+			</div>
+		</section>
+	</main>
+{% endblock %}

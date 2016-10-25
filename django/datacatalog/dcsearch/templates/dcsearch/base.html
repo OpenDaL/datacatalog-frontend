@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+	<head>
+	{% block page_meta %}
+		<title>OpenDaL - {{ title }}</title>
+		<meta name="Description" content="{{ description }}">
+		<meta property="og:title" content="OpenDaL - {{ title }}" />
+		<meta property="og:description" content="{{ description }}" />
+	{% endblock %}
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway&display=swap" rel="stylesheet">
+		{% block pre_css_header_entries %}{% endblock %}
+		<link id="main-css" href="{% static 'dcsearch/css/main.css' %}" type="text/css" rel="stylesheet">
+		<link rel="icon" type="image/png" href="{% static 'dcsearch/images/favicon16.png' %}" sizes="16x16">
+		<link rel="icon" type="image/png" href="{% static 'dcsearch/images/favicon32.png' %}" sizes="32x32">
+		<link rel="icon" type="image/png" href="{% static 'dcsearch/images/favicon96.png' %}" sizes="96x96">
+		<link rel="canonical" href="https://opendatalibrary.com{{ request.get_full_path }}" />
+		<script src="{% static 'dcsearch/js/common.js' %}" defer></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="theme-color" content="#007bff" />
+		<meta charset="utf-8"/>
+		<meta content="origin" name="referrer">
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://opendatalibrary.com{{ request.get_full_path }}" />
+		<meta property="og:image" content="https://opendatalibrary.com{% static 'dcsearch/images/OpenDaL_blue.png' %}" />
+		{% block header_entries %}{% endblock %}
+	</head>
+<body>
+	{% block header %}{% endblock %}
+	{% block main %}{% endblock %}
+</body>
+</html>

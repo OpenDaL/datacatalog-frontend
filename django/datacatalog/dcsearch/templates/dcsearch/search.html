@@ -1,0 +1,392 @@
+{% extends 'dcsearch/base.html' %}
+{% load static %}
+
+{% block page_meta%}
+	{% with title='The Open Data Library' description='The Open Data Library (OpenDaL) is a search engine to find data stored in open data and research data portals from all over the world.' %}
+		{{ block.super }}
+	{% endwith %}
+{% endblock %}
+
+{% block header_entries %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/leaflet.js" integrity="sha256-tfcLorv/GWSrbbsn6NVgflWp1YOmTjyJ8HWtfXaOaJc=" crossorigin="anonymous" defer></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js" integrity="sha256-siofc4Uwjlra3YWkwthOn8Uj69cNN4aMug/iOHNiRgs=" crossorigin="anonymous" defer></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js" integrity="sha256-GHC3xFbrevQ0aRcWg5JElUOncXYXxTtMOuA74cWAPTw=" crossorigin="anonymous" defer></script>
+{% endblock %}
+
+{% block header %}
+	<div id="onboarding">
+		<header>
+			<div class="center">
+				<img id="header-logo" src="{% static 'dcsearch/images/OpenDaL_logo.svg' %}" alt="OpenDaL Logo">
+				<a href="#" id="hamburger" aria-label="Open menu"></a>
+				<nav>
+					<a href="#" class="selected">Home</a>
+					<a href="{% url 'dcsearch:support' %}">Support</a>
+					<a href="{% url 'dcsearch:about' %}">About</a>
+				</nav>
+			</div>
+		</header>
+		<div class="c-header">
+			<img src="{% static 'dcsearch/images/looking_glass_transparent.svg' %}" alt="Looking Glass Overlay">
+			<div class="c-header-content">
+				<h1>The<br/>Open Data<br/>Library</h1>
+				<p>
+					Find open data and research data by searching through a
+					set of hundreds of data portals from all over the world
+				</p>
+				<div class="start-buttons">
+					<a href="{% url 'dcsearch:about' %}">What's OpenDaL?</a>
+					<a href="#search"><img src="{% static 'dcsearch/images/looking_glass.svg' %}" class="inline-icon" alt="Search Icon"> Find Data</a>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block main %}
+	<main class="tinted-background" id="search">
+		<section class="centered">
+			<h1>Search</h1>
+			<p>You can define your search query below. For more information, click the <img src="{% static 'dcsearch/images/question_circle.svg' %}" class="inline-icon" alt="Questionmark Icon"> icons, or take a look at the search tips on the <a href="{% url 'dcsearch:support' %}">support page</a>.</p>
+		</section>
+		<form action="{% url 'dcsearch:search' %}#search" method="post" onsubmit="toggleLoading()" id="search-form">{% csrf_token %}
+			<div class="reset-form"><a onclick="resetForm()">Reset</a></div>
+			{% if form.non_field_errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.non_field_errors %}{% endif %}
+			<div class="query-group" id="keyword-options">
+				<div class="group-header">
+					<h5>Keywords</h5>
+					<button class="info" type="button" aria-label="Show more info" onclick="this.querySelector('.infopopup').classList.toggle('visible')">
+						<div class="infopopup">
+							<p>By default all keywords are combined using 'AND', meaning only results that match all keywords are shown. Advanced text search gives you more fine grained control. Read more about it on the <a href="{% url 'dcsearch:support' %}#advanced-text-search">support page</a>.</p>
+						</div>
+					</button>
+				</div>
+				<div class="query-option">
+					{{ form.keywords }}
+				</div>
+				<div class="query-option">{{ form.in_title.label_tag }}{{ form.in_title }}</div>
+				<div class="query-option">{{ form.in_desc.label_tag }}{{ form.in_desc }}</div>
+			</div>
+			{% if form.keywords.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.keywords.errors %}{% endif %}
+			{% if form.in_title.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.in_title.errors %}{% endif %}
+			{% if form.in_desc.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.in_desc.errors %}{% endif %}
+			<div class="query-group" id="general-metadata">
+				<div class="group-header">
+					<h5>General Metadata</h5>
+					<button class="info" type="button" aria-label="Show more info" onclick="this.querySelector('.infopopup').classList.toggle('visible')">
+						<div class="infopopup">
+							<p>Select the <i>Type</i>, <i>Subject</i>, <i>Format</i> and/or <i>Language</i> of the data you're looking for. A layered system is used for <i>Type</i> and <i>Subject</i>, meaning for example that if you search for 'Economy', this will also include 'Macro Economy' and 'Micro Economy' among others. Read more about it on the <a href="{% url 'dcsearch:support' %}#layered-queries">support page</a>.</p>
+						</div>
+					</button>
+				</div>
+				<div class="query-option">
+					{{ form.type.label_tag }}
+					{{ form.type }}
+				</div>
+				<div class="query-option">
+					{{ form.subject.label_tag }}
+					{{ form.subject }}
+				</div>
+				<div class="query-option">
+					{{ form.format.label_tag }}
+					{{ form.format }}
+				</div>
+				<div class="query-option">
+					{{ form.language.label_tag }}
+					{{ form.language }}
+				</div>
+			</div>
+			{% if form.type.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.type.errors %}{% endif %}
+			{% if form.subject.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.subject.errors %}{% endif %}
+			{% if form.format.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.format.errors %}{% endif %}
+			{% if form.language.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.language.errors %}{% endif %}
+			<div class="query-group" id="location-metadata">
+				<div class="group-header">
+					<h5>Location</h5>
+					<button class="info" type="button" aria-label="Show more info" onclick="this.querySelector('.infopopup').classList.toggle('visible')">
+						<div class="infopopup">
+							<p>To search for data about a specific location, draw a bounding box (BBOX) on the map, by clicking the rectangle icon. If you want to change the BBOX, please click the 'garbage can' icon, and select 'clear all'. Afterwards choose whether to search for only data completely within the BBOX, or to also include data for locations intersecting the BBOX. Choosing 'intersecting' means that if your bounding box covers a specific city, you may also find data about the province, country, or even data with global coverage.</p>
+						</div>
+					</button>
+				</div>
+				<div class="query-option">
+					<span class="label">Define a Bounding Box:</span>
+					<a id="clear-bbox" onclick="resetBBOX()"{% if not form.bbox_xmin.value %} class="hide"{% endif %}>Clear</a>
+					<div id="bbox-map"></div>
+				</div>
+				<div class="query-option">
+					<fieldset disabled>
+						<legend>Match Locations:</legend>
+						{% for radio in form.bboxtype %}
+								{{ radio }}
+						{% endfor %}
+					</fieldset>
+				</div>
+				{{ form.bbox_xmin }}
+				{{ form.bbox_xmax }}
+				{{ form.bbox_ymin }}
+				{{ form.bbox_ymax }}
+			</div>
+			{% if form.bboxtype.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.bboxtype.errors %}{% endif %}
+			{% if form.bbox_xmin.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.bbox_xmin.errors %}{% endif %}
+			{% if form.bbox_xmax.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.bbox_xmax.errors %}{% endif %}
+			{% if form.bbox_ymin.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.bbox_ymin.errors %}{% endif %}
+			{% if form.bbox_ymax.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.bbox_ymax.errors %}{% endif %}
+			<div class="query-group date" id="created-date">
+				<div class="group-header">
+					<h5>Date Created</h5>
+					<button class="info" type="button" aria-label="Show more info" onclick="this.querySelector('.infopopup').classList.toggle('visible')">
+						<div class="infopopup">
+							<p>To search for datasets created within a specific period, please select a start <i>(From)</i> and end-date <i>(Until)</i>. Leaving <i>From</i> or <i>Until</i> empty, searches for datasets created up to the <i>Until</i> or starting from the <i>From</i> date respectively. Use the same date for both fields, to find datasets created on a specific date.</p>
+						</div>
+					</button>
+				</div>
+				<div class="query-option">
+					{{ form.created_gte.label_tag }}
+					{{ form.created_gte }}
+				</div>
+				<div class="query-option">
+					{{ form.created_lte.label_tag }}
+					{{ form.created_lte }}
+				</div>
+			</div>
+			{% if form.created_lte.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.created_lte.errors %}{% endif %}
+			{% if form.created_gte.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.created_gte.errors %}{% endif %}
+			<div class="query-group date" id="issued-date">
+				<div class="group-header">
+					<h5>Date Issued</h5>
+					<button class="info" type="button" aria-label="Show more info" onclick="this.querySelector('.infopopup').classList.toggle('visible')">
+						<div class="infopopup">
+							<p>To search for datasets issued within a specific period, please select a start <i>(From)</i> and end-date <i>(Until)</i>. Leaving <i>From</i> or <i>Until</i> empty, searches for datasets issued up to the <i>Until</i> or starting from the <i>From</i> date respectively. Use the same date for both fields, to find datasets issued on a specific date.</p>
+						</div>
+					</button>
+				</div class="group-header">
+				<div class="query-option">
+					{{ form.issued_gte.label_tag }}
+					{{ form.issued_gte }}
+				</div>
+				<div class="query-option">
+					{{ form.issued_lte.label_tag }}
+					{{ form.issued_lte }}
+				</div>
+			</div>
+			{% if form.issued_lte.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.issued_lte.errors %}{% endif %}
+			{% if form.issued_gte.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.issued_gte.errors %}{% endif %}
+			<div class="query-group date" id="modified-date">
+				<div class="group-header">
+					<h5>Date Modified</h5>
+					<button class="info" type="button" aria-label="Show more info" onclick="this.querySelector('.infopopup').classList.toggle('visible')">
+						<div class="infopopup">
+							<p>To search for datasets modified within a specific period, please select a start <i>(From)</i> and end-date <i>(Until)</i>. Leaving <i>From</i> or <i>Until</i> empty, searches for datasets modified up to the <i>Until</i> or starting from the <i>From</i> date respectively. Use the same date for both fields, to find datasets modified on a specific date.</p>
+						</div>
+					</button>
+				</div>
+				<div class="query-option">
+					{{ form.modified_gte.label_tag }}
+					{{ form.modified_gte }}
+				</div>
+				<div class="query-option">
+					{{ form.modified_lte.label_tag }}
+					{{ form.modified_lte }}
+				</div>
+			</div>
+			{% if form.modified_lte.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.modified_lte.errors %}{% endif %}
+			{% if form.modified_gte.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.modified_gte.errors %}{% endif %}
+			<div class="query-group date" id="timeperiod-date">
+				<div class="group-header">
+					<h5>Temporal Coverage</h5>
+					<button class="info" type="button" aria-label="Show more info" onclick="this.querySelector('.infopopup').classList.toggle('visible')">
+						<div class="infopopup">
+							<p>To search for datasets that cover a specific period, please select a start <i>(From)</i> and end-date <i>(Until)</i>. Leaving <i>From</i> or <i>Until</i> empty, searches for data up to the <i>Until</i> or starting from the <i>From</i> date respectively. If the temporal coverages of datasets overlap with the selected period, they will be shown in the search results</p>
+						</div>
+					</button>
+				</div>
+				<div class="query-option">
+					{{ form.timeperiod_gte.label_tag }}
+					{{ form.timeperiod_gte }}
+				</div>
+				<div class="query-option">
+					{{ form.timeperiod_lte.label_tag }}
+					{{ form.timeperiod_lte }}
+				</div>
+			</div>
+			{% if form.timeperiod_lte.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.timeperiod_lte.errors %}{% endif %}
+			{% if form.timeperiod_gte.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.timeperiod_gte.errors %}{% endif %}
+			<input name="page" type="hidden" value="0">
+		</form>
+		<div class="search-button-container">
+			<input type="submit" value="Search" id="search-button" form="search-form">
+		</div>
+	</main>
+	<div id="loading-overlay" onclick="toggleLoading()">
+        <div class="loader"></div>
+    </div>
+	<script type="text/javascript">
+		// All below code is specific to the search page
+		var xmin_input = document.querySelector('#id_bbox_xmin');
+		var xmax_input = document.querySelector('#id_bbox_xmax');
+		var ymin_input = document.querySelector('#id_bbox_ymin');
+		var ymax_input = document.querySelector('#id_bbox_ymax');
+		var fieldset = document.querySelector("#location-metadata fieldset");
+		var bbox_radios = document.querySelectorAll("input[name='bboxtype']");
+
+		// Load non-critical stuff
+		var headElement = document.getElementsByTagName('head')[0];
+		// Select2 should be before main.css
+		var mainCSSElement = document.querySelector('#main-css');
+		select2CSSLink = '<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" integrity="sha256-MeSf8Rmg3b5qLFlijnpxk6l+IJkiR91//YGPCrCmogU=" crossorigin="anonymous" />'
+		mainCSSElement.insertAdjacentHTML('beforeBegin', select2CSSLink);
+		// leaflet and leaflet draw can be added at the end of head
+		leafletCSSLink = '<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/leaflet.css" integrity="sha256-YR4HrDE479EpYZgeTkQfgVJq08+277UXxMLbi/YP69o=" crossorigin="anonymous" />'
+		headElement.insertAdjacentHTML('beforeEnd', leafletCSSLink);
+		// Leaflet Draw
+		leafletDrawCSSLink = '<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" integrity="sha256-XzD3RpaHPv7lzX9qt+2n1j5cWj48O24KsgaGYpKN8x8=" crossorigin="anonymous" />'
+		headElement.insertAdjacentHTML('beforeEnd', leafletDrawCSSLink);
+
+		// If browser doesn't support datefields, load jqueryui
+		var datefield = document.createElement("input");
+		datefield.setAttribute("type", "date");
+		picker_needed = false;
+		// var picker_needed = false;
+		if (datefield.type!="date"){
+			// .write needed here, otherwise it's not blocking loading, and code below will fail
+			document.write('<link rel="stylesheet type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha256-rByPlHULObEjJ6XQxW/flG2r+22R5dKiAoef+aXWfik=" crossorigin="anonymous" />')
+			document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=" crossorigin="anonymous"><\/script>')
+			picker_needed = true;
+		}
+
+		//Function to set bbox values on input
+		function setBBOX(bounds) {
+			if (bounds === null){
+				xmin_input.removeAttribute('value');
+				xmax_input.removeAttribute('value');
+				ymin_input.removeAttribute('value');
+				ymax_input.removeAttribute('value');
+
+				fieldset.setAttribute('disabled', '')
+				bbox_radios.forEach(function(radio) {
+				  radio.checked = false;
+				});
+
+			} else {
+				var xmin = bounds.getSouthWest().lng;
+				var xmax = bounds.getNorthEast().lng;
+				var ymin = bounds.getSouthWest().lat;
+				var ymax = bounds.getNorthEast().lat;
+				xmin_input.setAttribute('value', xmin);
+				xmax_input.setAttribute('value', xmax);
+				ymin_input.setAttribute('value', ymin);
+				ymax_input.setAttribute('value', ymax);
+
+				fieldset.removeAttribute('disabled');
+				bbox_radios[0].checked = true;
+			}
+		}
+
+		function toggleLoading() {
+			var loadingmsgs = document.querySelector('#loading-overlay')
+			loadingmsgs.classList.toggle('visible')
+		}
+
+		// Set searchable select boxes
+		$(document).ready(function() {
+			bboxResetButton = document.getElementById('clear-bbox');
+			// After loading JqueryUI, set the datepicker on all date fields
+			if (picker_needed) {
+				$("input[type='date']").datepicker({
+				  changeMonth: true,
+				  changeYear: true,
+				  yearRange: "1700:2100"
+				});
+			}
+
+			//Initialize searchable selection boxes
+			$('.searchable-select').select2();
+
+			// Initialize map
+			var map = L.map('bbox-map', {maxBounds: [[-90, -180],[90, 180]]}).setView([38, 0], 1);
+			map.options.minZoom = 1;
+			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
+			}).addTo(map);
+			// Add layers for editing, and two toolbars
+			var editableLayers = new L.FeatureGroup();
+			map.addLayer(editableLayers);
+			L.drawLocal.draw.toolbar.buttons.rectangle = 'Draw a Bounding Box';
+			var drawControlFull = new L.Control.Draw({
+				draw: {
+					polygon: false,
+					marker: false,
+					circle: false,
+					polyline: false,
+					circlemarker: false,
+				}
+			});
+
+			map.addControl(drawControlFull);
+
+			// When created, set the bounds, remove option to add a new rectangle
+			map.on(L.Draw.Event.CREATED, function (e) {
+				var layer = e.layer;
+
+				// Set on input fields
+				setBBOX(layer.getBounds());
+
+				layer.addTo(editableLayers);
+				map.removeControl(drawControlFull);
+				bboxResetButton.classList.remove('hide');
+			});
+
+			// When deleted, remove bounds, create option to add a new rectangle
+			map.on(L.Draw.Event.DELETED, function (e) {
+				if (editableLayers.getLayers().length === 0){
+					map.addControl(drawControlFull);
+
+					// Remove from input fields
+					setBBOX(null);
+				}
+			});
+
+			// Define a reset function for the map
+			resetBBOX = function() {
+				editableLayers.clearLayers();
+				map.addControl(drawControlFull);
+				setBBOX(null);
+				bboxResetButton.classList.add('hide');
+			}
+
+			// Define a reset function for the form
+			resetForm = function() {
+				// Standard form reset does not work if fields are pre-set
+				document.querySelector('#id_keywords').value = ""
+				document.querySelector('#id_in_desc').checked = true
+				document.querySelector('#id_in_title').checked = true
+				// Reset select2 boxes
+				$('.searchable-select').val('*').trigger('change');
+				// Reset all dates:
+				date_fields = document.querySelectorAll("input[type='date']")
+				date_fields.forEach(function(date_field){date_field.value = "";})
+				// Reset map & BBOX
+				resetBBOX();
+				map.setView([38, 0], 1)
+			}
+
+			// Check if bbox input values are already set. If so, create
+			// Rectangle on map
+			if (xmin_input.value!=""){
+				var xmin = parseFloat(xmin_input.value);
+				var xmax = parseFloat(xmax_input.value);
+				var ymin = parseFloat(ymin_input.value);
+				var ymax = parseFloat(ymax_input.value);
+
+				var bounds = [[ymin, xmin], [ymax, xmax]];
+				L.rectangle(bounds).addTo(editableLayers)
+				map.fitBounds(bounds)
+				map.removeControl(drawControlFull);
+				map.addControl(drawControlEditOnly);
+				fieldset.removeAttribute('disabled');
+			}
+		});
+	</script>
+{% endblock %}

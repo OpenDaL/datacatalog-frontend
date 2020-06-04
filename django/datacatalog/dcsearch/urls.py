@@ -13,9 +13,9 @@ app_name = 'dcsearch'
 urlpatterns = [
     path('', views.search, name='search'),
     path('resource/<resource_id>/', views.get_resource, name='resource_page'),
-    path('components/results/', views.result_list, name='result_list'),
-    path('components/aggregations/', views.aggregations, name='aggregations'),
-    path('search/components/', views.search_components, name='search_components'),
+    path(
+        'components/search/', views.search_components, name='search_components'
+    ),
     path('about/', views.get_static_page,
          kwargs={'page_id': 'about'}, name='about'),
     path('support/', views.get_static_page,

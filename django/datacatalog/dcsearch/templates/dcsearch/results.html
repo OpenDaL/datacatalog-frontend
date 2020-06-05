@@ -39,6 +39,12 @@
 									<img src="{% static 'dcsearch/images/text_looking_glass.svg' %}" alt="Search Icon">
 								</button>
 							</div>
+							<div class="filter-toggle">
+								{{ form.in_title }}<label for="id_in_title">in title</label>
+							</div>
+							<div class="filter-toggle">
+								{{ form.in_desc }}<label for="id_in_desc">in description</label>
+							</div>
 						</div>
 						<div class="single-filter">
 							<h6>Type</h6>
@@ -83,7 +89,7 @@
 				<div class="search-sidebar"></div>
 			</div>
 		{% for field in form %}
-			{% if field.name != 'page' and field.name != 'sort_by' and field.name != 'keywords' %}
+			{% if field.name != 'page' and field.name != 'sort_by' and field.name != 'keywords' and field.name != 'in_desc' and field.name != 'in_title' %}
 			<input name="{{ field.name }}" type="hidden" value="{{ field.value|default_if_none:'' }}">
 			{% endif %}
 		{% endfor %}
@@ -127,6 +133,8 @@
 		const locFilterContent = document.getElementById('locfilter-content');
 		const sortInput = document.getElementById('id_sort_by');
 		const keywordInputElement = document.querySelector('.keyword-filter');
+		const inTitleToggle = document.getElementById('id_in_title');
+		const inDescToggle = document.getElementById('id_in_desc');
 		let lastKeywords = keywordInputElement.value;
 		const dateConfig = {
 			'issued': {
@@ -411,11 +419,25 @@
 			}
 		}
 
+		function noKeywordToggleSelected() {
+			if (keywordInputElement.value === "") {
+				return false; // No problem if no keyword is given
+			}
+			if (!inTitleToggle.checked && !inDescToggle.checked) {
+				alertUser("Either 'in title' or 'in description' or both, under keywords, most be enabled");
+				return true;
+			}
+			return false;
+		}
+
 		function submitKeywords() {
 			// Because the keyword field is already possibly empty, there
 			// should be at least one filter remaining
 			if (!minimumFiltersSelected(1)) {
 				keywordInputElement.value = lastKeywords;
+				return;
+			}
+			if (noKeywordToggleSelected()) {
 				return;
 			}
 			submitQuery();
@@ -431,6 +453,9 @@
 
 		// Delete the restraint for bbox and date fields
 		function deleteField(field) {
+			if (noKeywordToggleSelected()) {
+				return;
+			}
 			if (field == "bbox") {
 				if (!minimumFiltersSelected(2)) {
 					return;
@@ -447,6 +472,9 @@
 		}
 
 		function changeQuery(field, value) {
+			if (noKeywordToggleSelected()) {
+				return;
+			}
 			if (value === "*" && !minimumFiltersSelected(2)) {
 				console.log('Too little filters selected!');
 				return;

@@ -95,7 +95,7 @@ a {
     height: 100vh;
     min-height: 650px;
     background-color: #007bff;
-    background-image: url("../images/numbers_landscape_3840.jpg");
+    background-image: url("../images/numbers_landscape_3840.webp");
     background-size: cover;
     color: white;
     overflow: hidden;
@@ -168,7 +168,7 @@ nav a {
     width: 100%;
     min-height: 300px;
     background-color: #007bff;
-    background-image: url("../images/header_bg_3840.jpg");
+    background-image: url("../images/header_bg_3840.webp");
     background-size: cover;
     color: white;
     overflow: auto;
@@ -435,6 +435,17 @@ main.no-search-results {
     cursor: pointer;
 }
 
+.filter-toggle {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.filter-toggle label {
+    height: 16px;
+    vertical-align: top;
+    padding-left: 10px;
+}
+
 .location-box {
     padding: 2px 4px;
     border: 1px solid #000000;
@@ -517,6 +528,10 @@ button.delete {
     text-align: center;
     font-size: 13px;
     margin-bottom: 15px;
+}
+
+.single-search-tip:last-child {
+    margin-bottom: 10px;
 }
 
 .search-tips-footer {
@@ -1186,46 +1201,46 @@ input#search-button {
 @media all {
     @media (max-width: 1920px) and (max-resolution:192dpi) {
         #onboarding {
-            background-image: url("../images/numbers_landscape_1920.jpg");
+            background-image: url("../images/numbers_landscape_1920.webp");
         }
         #page-header {
-            background-image: url("../images/header_bg_1920.jpg");
+            background-image: url("../images/header_bg_1920.webp");
         }
     }
 
     @media (max-width: 1080px) {
         #onboarding {
-            background-image: url("../images/numbers_landscape_1080.jpg");
+            background-image: url("../images/numbers_landscape_1080.webp");
         }
         #page-header {
-            background-image: url("../images/header_bg_1080.jpg");
+            background-image: url("../images/header_bg_1080.webp");
         }
     }
 
     @media (max-width: 1080px) and (min-resolution: 192dpi) {
         #onboarding {
-            background-image: url("../images/numbers_landscape_1920.jpg");
+            background-image: url("../images/numbers_landscape_1920.webp");
         }
         #page-header {
-            background-image: url("../images/header_bg_2160.jpg");
+            background-image: url("../images/header_bg_2160.webp");
         }
     }
 
     @media (max-width: 440px) {
         #onboarding {
-            background-image: url("../images/numbers_portrait_440.jpg");
+            background-image: url("../images/numbers_portrait_440.webp");
         }
         #page-header {
-            background-image: url("../images/header_bg_440.jpg");
+            background-image: url("../images/header_bg_440.webp");
         }
     }
 
     @media (max-width: 440px) and (min-resolution: 192dpi) {
         #onboarding {
-            background-image: url("../images/numbers_portrait_880.jpg");
+            background-image: url("../images/numbers_portrait_880.webp");
         }
         #page-header {
-            background-image: url("../images/header_bg_880.jpg");
+            background-image: url("../images/header_bg_880.webp");
         }
     }
 }

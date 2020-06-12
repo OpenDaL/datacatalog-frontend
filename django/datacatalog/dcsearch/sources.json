@@ -460,6 +460,26 @@
         "harvester": "CKAN3Harvester"
     },
     {
+        "data_format": "GMD",
+        "harvester_kwargs": {
+            "api_url": "http://catalog.fmi.fi/geonetwork/srv/eng/csw",
+            "harvest_format": "gmd"
+        },
+        "structurer_kwargs": {
+            "base_url": "http://catalog.fmi.fi/geonetwork/srv/eng/catalog.search#/metadata/"
+        },
+        "class": "government",
+        "homepage": "http://catalog.fmi.fi/geonetwork/srv/eng/catalog.search#/home",
+        "id": "catalog_fmi_fi",
+        "name": "FMI Catalogue",
+        "language": "fi",
+        "count": 3450,
+        "harvester": "CSW2Harvester",
+        "annotations": {
+            "type": "Geonetwork"
+        }
+    },
+    {
         "data_format": "CSW2",
         "harvester_kwargs": {
             "api_url": "http://catalog.usgin.org/geoportal/csw/discovery"
@@ -1550,7 +1570,10 @@
             "api_url": "https://data.overheid.nl/data/api"
         },
         "structurer_kwargs": {
-            "reference_baseURL": "https://data.overheid.nl/dataset/"
+            "reference_baseURL": "https://data.overheid.nl/dataset/",
+            "filter_org_ids": [
+                "3a83711e-2ef2-4a5e-8603-51d9347f394c"
+            ]
         },
         "class": "government",
         "homepage": "https://data.overheid.nl/",
@@ -2437,11 +2460,12 @@
         "structurer_kwargs": {
             "base_url": "https://deepblue.lib.umich.edu/data/",
             "uid_key": "id",
-            "url_suffix_key": "resource_type",
+            "url_suffix_key": "model",
             "url_suffix_mapping": {
-                "Dataset": "concern/data_sets",
+                "DataSet": "concern/data_sets",
                 "Collection": "collections"
-            }
+            },
+            "raise_key": "metadata"
         },
         "class": "research",
         "homepage": "https://deepblue.lib.umich.edu/data",
@@ -2761,7 +2785,7 @@
     {
         "data_format": "ElasticSearch",
         "harvester_kwargs": {
-            "api_url": "https://kg.ebrains.eu/proxy/search/kg/_search",
+            "api_url": "https://kg.ebrains.eu/search/proxy/search/kg/_search",
             "query": {"query": {"term": {"_type": "Dataset"}}},
             "search_after_field": "identifier.value.keyword"
         },
@@ -3181,7 +3205,13 @@
                 "geoportal-is",
                 "geology-cz",
                 "geonorge",
-                "mita"
+                "mita",
+                "ign",
+                "geodata-se",
+                "idee",
+                "fmi",
+                "geodata-info-dk",
+                "gdi-de"
             ]
         },
         "class": "government",
@@ -3426,6 +3456,26 @@
         }
     },
     {
+        "data_format": "GMD",
+        "harvester_kwargs": {
+            "api_url": "https://gdk.gdi-de.org/gdi-de/srv/eng/csw",
+            "harvest_format": "gmd"
+        },
+        "structurer_kwargs": {
+            "base_url": "https://gdk.gdi-de.org/gdi-de/srv/eng/catalog.search#/metadata/"
+        },
+        "class": "government",
+        "homepage": "https://gdk.gdi-de.org/gdi-de/srv/eng/catalog.search#/home",
+        "id": "geodatenkatalog_de",
+        "name": "GeodatenKatalog.de",
+        "language": "mult",
+        "count": 0,
+        "harvester": "CSW2Harvester",
+        "annotations": {
+            "type": "Geonetwork"
+        }
+    },
+    {
         "data_format": "CSW2",
         "harvester_kwargs": {
             "api_url": "http://geo.abds.is/geonetwork/srv/eng/csw"
@@ -3512,6 +3562,26 @@
         "harvester": "CKAN3Harvester"
     },
     {
+        "data_format": "GMD",
+        "harvester_kwargs": {
+            "api_url": "https://www.geodata-info.dk/srv/eng/csw",
+            "harvest_format": "gmd"
+        },
+        "structurer_kwargs": {
+            "base_url": "https://www.geodata-info.dk/srv/eng/catalog.search#/metadata/"
+        },
+        "class": "government",
+        "homepage": "https://www.geodata-info.dk/srv/eng/catalog.search#/home",
+        "id": "geodata_info_dk",
+        "name": "Geodata-info Denmark",
+        "language": "mult",
+        "count": 898,
+        "harvester": "CSW2Harvester",
+        "annotations": {
+            "type": "Geonetwork"
+        }
+    },
+    {
         "data_format": "blacklight",
         "harvester_kwargs": {
             "api_url": "https://geodata.mit.edu/",
@@ -3528,6 +3598,26 @@
         "language": "en",
         "count": 82342,
         "harvester": "BlacklightHarvester"
+    },
+    {
+        "data_format": "GMD",
+        "harvester_kwargs": {
+            "api_url": "https://www.geodata.se/geodataportalen/srv/eng/csw",
+            "harvest_format": "gmd"
+        },
+        "structurer_kwargs": {
+            "base_url": "https://www.geodata.se/geodataportalen/srv/eng/catalog.search#/metadata/"
+        },
+        "class": "government",
+        "homepage": "https://www.geodata.se/geodataportalen/srv/eng/catalog.search#/home",
+        "id": "geodata_se",
+        "name": "Geodata.se",
+        "language": "mult",
+        "count": 1242,
+        "harvester": "CSW2Harvester",
+        "annotations": {
+            "type": "Geonetwork"
+        }
     },
     {
         "data_format": "blacklight",
@@ -3582,19 +3672,18 @@
     {
         "data_format": "geonode",
         "harvester_kwargs": {
-            "api_url": "http://geonode-rris.biopama.org/",
-            "get_documents": false,
+            "api_url": "http://geonode.igad.int/",
             "max_size": 10000
         },
         "structurer_kwargs": {
-            "base_url": "http://geonode-rris.biopama.org/"
+            "base_url": "http://geonode.igad.int/"
         },
-        "class": "research",
-        "homepage": "http://geonode-rris.biopama.org/",
-        "id": "geonode_biopama",
-        "name": "BIOPAMA",
-        "language": "mult",
-        "count": 398,
+        "class": "community",
+        "homepage": "http://geonode.igad.int/",
+        "id": "geonode_igad",
+        "name": "IGAD Spatial Web Portal",
+        "language": "en",
+        "count": 191,
         "harvester": "GeonodeHarvester"
     },
     {
@@ -3808,7 +3897,8 @@
     {
         "data_format": "CKAN3",
         "harvester_kwargs": {
-            "api_url": "https://gisdata.mn.gov/api"
+            "api_url": "https://gisdata.mn.gov/api",
+            "certfile": "gisdata_mn_gov_us.ca-bundle"
         },
         "structurer_kwargs": {
             "reference_baseURL": "https://gisdata.mn.gov/dataset/"
@@ -4000,21 +4090,44 @@
         "harvester": "DataverseHarvester"
     },
     {
-        "data_format": "geonode",
+        "data_format": "GMD",
         "harvester_kwargs": {
-            "api_url": "http://geonode.igad.int/",
-            "max_size": 10000
+            "api_url": "https://www.idee.es/csw-inspire-idee/srv/eng/csw",
+            "harvest_format": "gmd"
         },
         "structurer_kwargs": {
-            "base_url": "http://geonode.igad.int/"
+            "base_url": "https://www.idee.es/csw-inspire-idee/srv/eng/catalog.search#/metadata/"
         },
-        "class": "community",
-        "homepage": "http://geonode.igad.int/",
-        "id": "geonode_igad",
-        "name": "IGAD Spatial Web Portal",
-        "language": "en",
-        "count": 191,
-        "harvester": "GeonodeHarvester"
+        "class": "government",
+        "homepage": "https://www.idee.es/csw-inspire-idee/srv/eng/catalog.search#/home",
+        "id": "idee_es",
+        "name": "IDEE",
+        "language": "es",
+        "count": 10713,
+        "harvester": "CSW2Harvester",
+        "annotations": {
+            "type": "Geonetwork"
+        }
+    },
+    {
+        "data_format": "GMD",
+        "harvester_kwargs": {
+            "api_url": "https://www.ign.es/csw-inspire/srv/eng/csw?constraintLanguage=CQL_TEXT",
+            "harvest_format": "gmd"
+        },
+        "structurer_kwargs": {
+            "base_url": "https://www.ign.es/csw-inspire/srv/eng/metadata.show?uuid="
+        },
+        "class": "government",
+        "homepage": "https://www.ign.es/csw-inspire/srv/eng/main.home",
+        "id": "ign_es",
+        "name": "IGN Metadata Catalog",
+        "language": "mult",
+        "count": 5139,
+        "harvester": "CSW2Harvester",
+        "annotations": {
+            "type": "Geonetwork"
+        }
     },
     {
         "data_format": "geonode",
@@ -4154,28 +4267,6 @@
         "language": "en",
         "count": 216,
         "harvester": "CKAN3Harvester"
-    },
-    {
-        "data_format": "oai_dc",
-        "harvester_kwargs": {
-            "api_url": "http://lernzdb.its.waikato.ac.nz/oai/request",
-            "metadata_prefix": "oai_dc"
-        },
-        "structurer_kwargs": {
-            "reference_baseURL": "http://lernzdb.its.waikato.ac.nz/handle/",
-            "id_prefix": "oai:lernzdb.its.waikato.ac.nz:"
-        },
-        "class": "research",
-        "homepage": "http://lernzdb.its.waikato.ac.nz/",
-        "id": "lernzdb_waikato_ac_nz",
-        "name": "LERNZdb",
-        "language": "en",
-        "count": 1193,
-        "harvester": "OAIPMHHarvester",
-        "annotations": {
-            "supports_incremental": true,
-            "type": "Dspace"
-        }
     },
     {
         "data_format": "CKAN3",
@@ -4403,6 +4494,26 @@
         "language": "en",
         "count": 67,
         "harvester": "KnoemaDCATHarvester"
+    },
+    {
+        "data_format": "GMD",
+        "harvester_kwargs": {
+            "api_url": "https://nationaalgeoregister.nl/geonetwork/srv/eng/csw",
+            "harvest_format": "gmd"
+        },
+        "structurer_kwargs": {
+            "base_url": "https://nationaalgeoregister.nl/geonetwork/srv/eng/catalog.search#/metadata/"
+        },
+        "class": "government",
+        "homepage": "https://nationaalgeoregister.nl/geonetwork/srv/eng/catalog.search#/home",
+        "id": "nationaalgeoregister_nl",
+        "name": "Dutch National Georegister",
+        "language": "mult",
+        "count": 7352,
+        "harvester": "CSW2Harvester",
+        "annotations": {
+            "type": "Geonetwork"
+        }
     },
     {
         "data_format": "CKAN3",
@@ -4648,24 +4759,6 @@
         "name": "Open Government Portal Canada",
         "language": "en",
         "count": 82356,
-        "harvester": "CKAN3Harvester"
-    },
-    {
-        "data_format": "CKAN3",
-        "harvester_kwargs": {
-            "api_url": "http://datos.gob.do/api",
-            "cloudflare_bypass": true,
-            "user_agent": "OpenDaL Metadata Harvester (+opendatalibrary.com)"
-        },
-        "structurer_kwargs": {
-            "reference_baseURL": "http://datos.gob.do/dataset/"
-        },
-        "class": "government",
-        "homepage": "http://datos.gob.do/",
-        "id": "open_data_do",
-        "name": "Open Data Portal of the Dominican Republic",
-        "language": "es",
-        "count": 699,
         "harvester": "CKAN3Harvester"
     },
     {

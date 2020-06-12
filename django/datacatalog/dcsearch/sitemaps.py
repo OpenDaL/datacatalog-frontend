@@ -14,7 +14,7 @@ class StaticViewSitemap(sitemaps.Sitemap):
             {
                 'name': 'search',
                 'priority': 1.0,
-                'lastmod': datetime.datetime(2020, 6, 5),
+                'lastmod': datetime.datetime(2020, 6, 12),
                 'changefreq': 'weekly'
             },
             {

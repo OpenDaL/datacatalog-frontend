@@ -355,6 +355,10 @@ main.no-search-results {
     margin: 0 auto;
 }
 
+#search-results {
+    flex: 0 0 650px;
+}
+
 .search-sidebar {
     flex: 0 0 270px;
 }
@@ -1253,6 +1257,10 @@ input#search-button {
     }
 
     .search-sidebar {
+        flex: unset;
+    }
+
+    #search-results {
         flex: unset;
     }
 }

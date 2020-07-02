@@ -65,7 +65,11 @@
         "name": "Australian Data Archive",
         "language": "en",
         "count": 1436,
-        "harvester": "DataverseHarvester"
+        "harvester": "DataverseHarvester",
+        "annotations": {
+            "type": "Dataverse",
+            "comments": "OAI PMH endpoint only has 3 entries"
+        }
     },
     {
         "data_format": "OAI_PMH_ISO19139",
@@ -170,7 +174,8 @@
             "espace.library.uq.edu.au",
             "researchdatafinder.qut.edu.au",
             "portal.tern.org.au",
-            "catalogue-imos.aodn.org.au"
+            "catalogue-imos.aodn.org.au",
+            "collections.ala.org.au"
         ],
         "count": 252942,
         "harvester": "OAIPMHHarvester"
@@ -353,6 +358,28 @@
         "harvester": "CKAN3Harvester"
     },
     {
+        "data_format": "oai_dc",
+        "harvester_kwargs": {
+            "api_url": "https://bordar.bournemouth.ac.uk/cgi/oai2",
+            "metadata_prefix": "oai_dc"
+        },
+        "structurer_kwargs": {
+            "id_prefix": "oai:bordar.bournemouth.ac.uk:",
+            "reference_baseURL": "https://bordar.bournemouth.ac.uk/"
+        },
+        "class": "research",
+        "homepage": "https://bordar.bournemouth.ac.uk/",
+        "id": "bordar_bournemouth_ac_uk",
+        "name": "Bournemouth Online Research Data",
+        "language": "en",
+        "count": 32,
+        "harvester": "OAIPMHHarvester",
+        "annotations": {
+            "supports_incremental": true,
+            "type": "Eprints"
+        }
+    },
+    {
         "data_format": "non_oai_datacite",
         "harvester_kwargs": {
             "api_url": "https://boris.unibe.ch/cgi/oai2",
@@ -444,22 +471,6 @@
         "harvester": "GeonodeHarvester"
     },
     {
-        "data_format": "CKAN3",
-        "harvester_kwargs": {
-            "api_url": "http://catalog.data.ug/api"
-        },
-        "structurer_kwargs": {
-            "reference_baseURL": "http://catalog.data.ug/dataset/"
-        },
-        "class": "government",
-        "homepage": "http://catalog.data.ug/",
-        "id": "catalog_data_ug",
-        "name": "Open Data Uganda",
-        "language": "en",
-        "count": 423,
-        "harvester": "CKAN3Harvester"
-    },
-    {
         "data_format": "GMD",
         "harvester_kwargs": {
             "api_url": "http://catalog.fmi.fi/geonetwork/srv/eng/csw",
@@ -493,7 +504,10 @@
         "name": "USGIN Catalog",
         "language": "en",
         "count": 48800,
-        "harvester": "CSW2Harvester"
+        "harvester": "CSW2Harvester",
+        "annotations": {
+            "type": "Geoportal"
+        }
     },
     {
         "data_format": "blacklight",
@@ -515,7 +529,8 @@
     {
         "data_format": "CSW2",
         "harvester_kwargs": {
-            "api_url": "https://csw.ceda.ac.uk/geonetwork/srv/eng/csw"
+            "api_url": "https://csw.ceda.ac.uk/geonetwork/srv/eng/csw",
+            "certfile": "ceda_uk.ca-bundle"
         },
         "structurer_kwargs": {
             "base_url": "https://catalogue.ceda.ac.uk/uuid/",
@@ -606,6 +621,23 @@
         "annotations": {
             "comments": "Documents not included, so only 250 left after processing"
         }
+    },
+    {
+        "data_format": "blacklight",
+        "harvester_kwargs": {
+            "api_url": "https://collections.durham.ac.uk/catalog.json?f%5Bresource_type_sim%5D%5B%5D=Dataset"
+        },
+        "structurer_kwargs": {
+            "base_url": "https://collections.durham.ac.uk/files/",
+            "uid_key": "id"
+        },
+        "class": "government",
+        "homepage": "https://collections.durham.ac.uk/",
+        "id": "collections_durham_ac_uk",
+        "name": "Durham University Collections",
+        "language": "en",
+        "count": 297,
+        "harvester": "BlacklightHarvester"
     },
     {
         "data_format": "oai_dc",
@@ -719,6 +751,23 @@
         "harvester": "OAIPMHHarvester"
     },
     {
+        "data_format": "Udata",
+        "harvester_kwargs": {
+            "api_url": "https://dados.gov.pt/api",
+            "rows": 100
+        },
+        "structurer_kwargs": {
+            "base_url": "https://dados.gov.pt/en/datasets/"
+        },
+        "class": "government",
+        "homepage": "https://dados.gov.pt/pt/",
+        "id": "dados_gov_pt",
+        "name": "dados.gov.pt",
+        "language": "pt",
+        "count": 2277,
+        "harvester": "UdataHarvester"
+    },
+    {
         "data_format": "dataverse",
         "harvester_kwargs": {
             "API_key": "1b57f428-258c-4f76-902d-440401b29593",
@@ -783,7 +832,7 @@
         "data_format": "Junar",
         "harvester_kwargs": {
             "api_url": "https://api.data.arlingtonva.us/",
-            "API_key": "0e6222364814d989ba5f873739d21c3a24fe32e8",
+            "API_key_fetch_url": "https://data.arlingtonva.us/manageDeveloper/create/",
             "resource_types": ["datastreams"]
         },
         "structurer_kwargs": {},
@@ -1106,6 +1155,26 @@
         }
     },
     {
+        "data_format": "Udata",
+        "harvester_kwargs": {
+            "api_url": "https://www.data.gouv.fr/api",
+            "rows": 200
+        },
+        "structurer_kwargs": {
+            "base_url": "https://www.data.gouv.fr/en/datasets/"
+        },
+        "class": "government",
+        "homepage": "https://www.data.gouv.fr/en/",
+        "id": "data_gouv_fr",
+        "name": "data.gouv.fr",
+        "language": "fr",
+        "count": 37762,
+        "harvester": "UdataHarvester",
+        "includes": [
+            "tourisme62.opendatasoft.com"
+        ]
+    },
+    {
         "data_format": "Magda",
         "harvester_kwargs": {
             "api_url": "https://data.gov.au/api",
@@ -1122,7 +1191,8 @@
         "includes": [
             "data.nsw.gov.au",
             "data.sa.gov.au",
-            "www.data.brisbane.qld.gov.au"
+            "www.data.brisbane.qld.gov.au",
+            "www.marlin.csiro.au"
         ],
         "count": 90191,
         "harvester": "MagdaAPIHarvester"
@@ -1208,7 +1278,10 @@
         "name": "data.gov.ie",
         "language": "en",
         "count": 9043,
-        "harvester": "CKAN3Harvester"
+        "harvester": "CKAN3Harvester",
+        "includes": [
+            "data.marine.ie"
+        ]
     },
     {
         "data_format": "DataGovIN",
@@ -1312,6 +1385,22 @@
         "harvester": "CKAN3Harvester"
     },
     {
+        "data_format": "Udata",
+        "harvester_kwargs": {
+            "api_url": "https://data.gov.rs/api"
+        },
+        "structurer_kwargs": {
+            "base_url": "https://data.gov.rs/en/datasets/"
+        },
+        "class": "government",
+        "homepage": "https://data.gov.rs/en/",
+        "id": "data_gov_rs",
+        "name": "Serbia Open Data Portal",
+        "language": "sr",
+        "count": 273,
+        "harvester": "UdataHarvester"
+    },
+    {
         "data_format": "CKAN3",
         "harvester_kwargs": {
             "api_url": "https://data.gov.sg/api"
@@ -1373,7 +1462,10 @@
         "name": "data.gov.uk",
         "language": "en",
         "count": 52234,
-        "harvester": "CKAN3Harvester"
+        "harvester": "CKAN3Harvester",
+        "includes": [
+            "data.yorkopendata.org"
+        ]
     },
     {
         "data_format": "CKAN3",
@@ -1436,6 +1528,23 @@
         "harvester": "CKAN3Harvester"
     },
     {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
+            "api_url": "http://data.iita.org/api",
+            "rows": 100
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "http://data.iita.org/dataset/"
+        },
+        "class": "research",
+        "homepage": "http://data.iita.org/",
+        "id": "data_iita_org",
+        "name": "IITA Data",
+        "language": "en",
+        "count": 2505,
+        "harvester": "CKAN3Harvester"
+    },
+    {
         "data_format": "CSW2",
         "harvester_kwargs": {
             "api_url": "https://data.isric.org/geonetwork/srv/eng/csw"
@@ -1485,6 +1594,28 @@
         "harvester": "DataverseHarvester"
     },
     {
+        "data_format": "oai_dc",
+        "harvester_kwargs": {
+            "api_url": "https://data.kent.ac.uk/cgi/oai2",
+            "metadata_prefix": "oai_dc"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://data.kent.ac.uk/",
+            "id_prefix": "oai:data.kent.ac.uk:"
+        },
+        "class": "research",
+        "homepage": "https://data.kent.ac.uk/",
+        "id": "data_kent_ac_uk",
+        "name": "Kent Data Repository",
+        "language": "en",
+        "count": 40,
+        "harvester": "OAIPMHHarvester",
+        "annotations": {
+            "supports_incremental": true,
+            "type": "Eprints"
+        }
+    },
+    {
         "data_format": "CKAN3",
         "harvester_kwargs": {
             "api_url": "https://data.kcg.gov.tw/api"
@@ -1515,6 +1646,25 @@
         "language": "en",
         "count": 819,
         "harvester": "CKAN3Harvester"
+    },
+    {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
+            "api_url": "https://data.marine.gov.scot/api",
+            "rows": 1000,
+            "one_request": true,
+            "max_size": 999
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://data.marine.gov.scot/dataset/"
+        },
+        "class": "government",
+        "homepage": "https://data.marine.gov.scot/",
+        "id": "data_marine_gov_scot",
+        "name": "Marine Scotland Data",
+        "language": "en",
+        "count": 247,
+        "harvester": "DKANHarvester"
     },
     {
         "data_format": "CKAN3",
@@ -1585,6 +1735,22 @@
         "includes": [
             "nationaalgeoregister.nl"
         ]
+    },
+    {
+        "data_format": "Udata",
+        "harvester_kwargs": {
+            "api_url": "https://data.public.lu/api"
+        },
+        "structurer_kwargs": {
+            "base_url": "https://data.public.lu/en/datasets/"
+        },
+        "class": "government",
+        "homepage": "https://data.public.lu/en/",
+        "id": "data_public_lu",
+        "name": "The luxembourgish data platform",
+        "language": "mult",
+        "count": 1228,
+        "harvester": "UdataHarvester"
     },
     {
         "data_format": "CKAN3",
@@ -1802,6 +1968,29 @@
         "name": "DataCat Liverpool",
         "language": "en",
         "count": 202,
+        "harvester": "OAIPMHHarvester",
+        "annotations": {
+            "supports_incremental": true,
+            "type": "Eprints",
+            "comments": "Included in search.datacite.org"
+        }
+    },
+    {
+        "data_format": "oai_dc",
+        "harvester_kwargs": {
+            "api_url": "https://datacompass.lshtm.ac.uk/cgi/oai2",
+            "metadata_prefix": "oai_dc"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://datacompass.lshtm.ac.uk/",
+            "id_prefix": "oai:datacompass.lshtm.ac.uk:"
+        },
+        "class": "research",
+        "homepage": "https://datacompass.lshtm.ac.uk/",
+        "id": "datacompass_lshtm_ac_uk",
+        "name": "SHTM Data Compass",
+        "language": "en",
+        "count": 1480,
         "harvester": "OAIPMHHarvester",
         "annotations": {
             "supports_incremental": true,
@@ -2249,7 +2438,8 @@
         "language": "it",
         "count": 24506,
         "includes": [
-            "daten.buergernetz.bz.it"
+            "daten.buergernetz.bz.it",
+            "dati.lazio.it"
         ],
         "harvester": "DKANHarvester"
     },
@@ -2284,22 +2474,6 @@
         "language": "es",
         "count": 3709,
         "harvester": "CKAN3Harvester"
-    },
-    {
-        "data_format": "Junar",
-        "harvester_kwargs": {
-            "api_url": "https://api.beta.datos.gob.cl/",
-            "API_key_fetch_url": "https://beta.datos.gob.cl/manageDeveloper/create/",
-            "resource_types": ["datastreams"]
-        },
-        "structurer_kwargs": {},
-        "class": "government",
-        "homepage": "https://beta.datos.gob.cl/home",
-        "id": "datos_gob_cl_beta",
-        "name": "Digital Government Chili",
-        "language": "es",
-        "count": 2798,
-        "harvester": "JunarAPIHarvester"
     },
     {
         "data_format": "CKAN3",
@@ -3211,7 +3385,14 @@
                 "idee",
                 "fmi",
                 "geodata-info-dk",
-                "gdi-de"
+                "gdi-de",
+                "geocatalogue-fr",
+                "zlinsky",
+                "podgik",
+                "rndt",
+                "open-data-portal-serbia",
+                "dados-gov-pt",
+                "avaandmete-portaal"
             ]
         },
         "class": "government",
@@ -3229,6 +3410,7 @@
             "data.linz.gv.at",
             "opendata.bristol.gov.uk",
             "opendatastore.brussels",
+            "bruxellesdata.opendatasoft.com",
             "www.offenedaten-koeln.de",
             "www.datagm.org.uk",
             "opendata.aragon.es",
@@ -3312,7 +3494,9 @@
             "opendata.caceres.es",
             "www.datosabiertos.jcyl.es",
             "www.dados.gov.pt",
-            "www.eea.europa.eu"
+            "www.eea.europa.eu",
+            "opendata.paris.fr",
+            "data.iledefrance.fr"
         ],
         "count": 830006,
         "harvester": "EUDPHarvester"
@@ -3375,7 +3559,20 @@
         "harvester": "OAIPMHHarvester",
         "annotations": {
             "comments": "They recommend to publish metadata under license https://creativecommons.org/publicdomain/zero/1.0/. Check later if oai_datacite format is better here... Also: There is software (item_type_9), but harvesting fails for that set"
-        }
+        },
+        "includes": [
+            "*.figshare.com",
+            "data.bathspa.ac.uk",
+            "brunel.figshare.com",
+            "cord.cranfield.ac.uk",
+            "dmu.figshare.com (De Montfort University)",
+            "repository.lboro.ac.uk (Loughborough University)",
+            "mdx.figshare.com (Middlesex University)",
+            "data.ncl.ac.uk (Newcastle University)",
+            "salford.figshare.com (University of Salford)",
+            "figshare.shef.ac.uk (Sheffield University)",
+            "kilthub.cmu.edu (Carnegie Mellon University)"
+        ]
     },
     {
         "data_format": "CSW2",
@@ -3409,6 +3606,28 @@
         "name": "Fordatis",
         "language": "en",
         "count": 18,
+        "harvester": "OAIPMHHarvester",
+        "annotations": {
+            "supports_incremental": true,
+            "type": "Dspace"
+        }
+    },
+    {
+        "data_format": "oai_dc",
+        "harvester_kwargs": {
+            "api_url": "https://www.frdr-dfdr.ca/oai/request",
+            "metadata_prefix": "oai_dc"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://www.frdr-dfdr.ca/repo/handle/",
+            "id_prefix": "oai:www.frdr-dfdr.ca:"
+        },
+        "class": "research",
+        "homepage": "https://www.frdr-dfdr.ca/repo/",
+        "id": "frdr_dfdr_ca",
+        "name": "FRDR-DFDR",
+        "language": "en",
+        "count": 128,
         "harvester": "OAIPMHHarvester",
         "annotations": {
             "supports_incremental": true,
@@ -3462,14 +3681,17 @@
             "harvest_format": "gmd"
         },
         "structurer_kwargs": {
-            "base_url": "https://gdk.gdi-de.org/gdi-de/srv/eng/catalog.search#/metadata/"
+            "base_url": "https://gdk.gdi-de.org/gdi-de/srv/eng/catalog.search#/metadata/",
+            "remove_ids_containing": [
+                "de.pangaea"
+            ]
         },
         "class": "government",
         "homepage": "https://gdk.gdi-de.org/gdi-de/srv/eng/catalog.search#/home",
         "id": "geodatenkatalog_de",
         "name": "GeodatenKatalog.de",
         "language": "mult",
-        "count": 0,
+        "count": 219754,
         "harvester": "CSW2Harvester",
         "annotations": {
             "type": "Geonetwork"
@@ -3490,6 +3712,26 @@
         "language": "en",
         "count": 313,
         "harvester": "CSW2Harvester"
+    },
+    {
+        "data_format": "GMD",
+        "harvester_kwargs": {
+            "api_url": "http://www.geocatalogue.fr/api-public/view/servicesRest",
+            "harvest_format": "gmd"
+        },
+        "structurer_kwargs": {
+            "base_url": "http://www.geocatalogue.fr/Detail.do?fileIdentifier="
+        },
+        "class": "government",
+        "homepage": "http://www.geocatalogue.fr/",
+        "id": "geocatalogue_fr",
+        "name": "Géocatalogue.fr",
+        "language": "fr",
+        "count": 41168,
+        "harvester": "CSW2Harvester",
+        "annotations": {
+            "type": "Geonetwork"
+        }
     },
     {
         "data_format": "CSW2",
@@ -3635,6 +3877,25 @@
         "language": "en",
         "count": 623,
         "harvester": "BlacklightHarvester"
+    },
+    {
+        "data_format": "CSW2",
+        "harvester_kwargs": {
+            "api_url": "https://geodati.gov.it/geoportalRNDTPA/csw"
+        },
+        "structurer_kwargs": {
+            "base_url": "https://geodati.gov.it/geoportalRNDTPA/catalog/search/resource/details.page?uuid="
+        },
+        "class": "government",
+        "homepage": "https://geodati.gov.it/geoportale/eng/",
+        "id": "geodati_gov_it",
+        "name": "geodati.gov.it",
+        "language": "it",
+        "count": 24375,
+        "harvester": "CSW2Harvester",
+        "annotations": {
+            "type": "Geoportal"
+        }
     },
     {
         "data_format": "geonode",
@@ -3809,6 +4070,26 @@
         "language": "es",
         "count": 10380,
         "harvester": "CSW2Harvester"
+    },
+    {
+        "data_format": "GMD",
+        "harvester_kwargs": {
+            "api_url": "https://www.geoportal.lt/geonetwork/srv/eng/csw",
+            "harvest_format": "gmd"
+        },
+        "structurer_kwargs": {
+            "base_url": "https://www.geoportal.lt/geonetwork/srv/eng/catalog.search#/metadata/"
+        },
+        "class": "government",
+        "homepage": "https://www.geoportal.lt/geonetwork/srv/eng/catalog.search#/home",
+        "id": "geoportal_lt",
+        "name": "GIS-Centras Metadata Catalogue",
+        "language": "en",
+        "count": 204,
+        "harvester": "CSW2Harvester",
+        "annotations": {
+            "type": "Geonetwork"
+        }
     },
     {
         "data_format": "geonode",
@@ -3991,7 +4272,10 @@
         "name": "Open Data Hub Russia",
         "language": "ru",
         "count": 8126,
-        "harvester": "CKAN3Harvester"
+        "harvester": "CKAN3Harvester",
+        "includes": [
+            "data.openpolice.ru"
+        ]
     },
     {
         "data_format": "CKAN3",
@@ -4177,6 +4461,48 @@
         "language": "pt",
         "count": 72000,
         "harvester": "DataverseHarvester"
+    },
+    {
+        "data_format": "CSW2",
+        "harvester_kwargs": {
+            "api_url": "https://inspire.maaamet.ee/geoportal/csw"
+        },
+        "structurer_kwargs": {
+            "base_url": "https://inspire.maaamet.ee/geoportal/catalog/search/resource/details.page?uuid="
+        },
+        "class": "government",
+        "homepage": "https://inspire.maaamet.ee/geoportal/catalog/main/home.page",
+        "id": "inspire_maaamet_ee",
+        "name": "INSPIRE Geoportal Estonia",
+        "language": "et",
+        "count": 229,
+        "harvester": "CSW2Harvester",
+        "annotations": {
+            "type": "Geoportal"
+        }
+    },
+    {
+        "data_format": "oai_dc",
+        "harvester_kwargs": {
+            "api_url": "https://irep.ntu.ac.uk/cgi/oai2",
+            "metadata_prefix": "oai_dc",
+            "collection_set": "74797065733D64617461736574"
+        },
+        "structurer_kwargs": {
+            "id_prefix": "oai:irep.ntu.ac.uk:",
+            "reference_baseURL": "https://irep.ntu.ac.uk/id/eprint/"
+        },
+        "class": "research",
+        "homepage": "https://irep.ntu.ac.uk/",
+        "id": "irep_ntu_ac_uk",
+        "name": "Nottingham Trent University IRep",
+        "language": "en",
+        "count": 16,
+        "harvester": "OAIPMHHarvester",
+        "annotations": {
+            "supports_incremental": true,
+            "type": "Eprints"
+        }
     },
     {
         "data_format": "blacklight",
@@ -4374,6 +4700,27 @@
         "harvester": "KnoemaDCATHarvester"
     },
     {
+        "data_format": "GMD",
+        "harvester_kwargs": {
+            "api_url": "https://metadane.podgik.pl/geonetwork/srv/eng/csw",
+            "harvest_format": "gmd",
+            "certfile": "metadane_podgik_pl.ca-bundle"
+        },
+        "structurer_kwargs": {
+            "base_url": "https://metadane.podgik.pl/geonetwork/srv/eng/catalog.search#/metadata/"
+        },
+        "class": "government",
+        "homepage": "https://metadane.podgik.pl/geonetwork/srv/eng/catalog.search#/home",
+        "id": "metadane_podgik_pl",
+        "name": "Geo-System Metadata Catalog",
+        "language": "pl",
+        "count": 30358,
+        "harvester": "CSW2Harvester",
+        "annotations": {
+            "type": "Geonetwork"
+        }
+    },
+    {
         "data_format": "oai_dc",
         "harvester_kwargs": {
             "api_url": "https://minds.wisconsin.edu/oai/request",
@@ -4398,6 +4745,25 @@
         "annotations": {
             "supports_incremental": true,
             "type": "Dspace"
+        }
+    },
+    {
+        "data_format": "CSW2",
+        "harvester_kwargs": {
+            "api_url": "https://mis.kr-zlinsky.cz/csw"
+        },
+        "structurer_kwargs": {
+            "base_url": "https://mis.kr-zlinsky.cz/catalog/search/resource/details.page?uuid="
+        },
+        "class": "government",
+        "homepage": "https://mis.kr-zlinsky.cz/catalog/main/home.page",
+        "id": "mis_krzlinsky_cz",
+        "name": "Zlín Region Geoportal",
+        "language": "cs",
+        "count": 56,
+        "harvester": "CSW2Harvester",
+        "annotations": {
+            "type": "Geoportal"
         }
     },
     {
@@ -4566,6 +4932,22 @@
         "language": "en",
         "count": 107,
         "harvester": "KnoemaDCATHarvester"
+    },
+    {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
+            "api_url": "https://data.nhm.ac.uk/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://data.nhm.ac.uk/dataset/"
+        },
+        "class": "research",
+        "homepage": "https://data.nhm.ac.uk/",
+        "id": "data_nhm_ac_uk",
+        "name": "Natural History Museum Data Portal",
+        "language": "en",
+        "count": 165,
+        "harvester": "CKAN3Harvester"
     },
     {
         "data_format": "simple",
@@ -4794,22 +5176,6 @@
         "harvester": "CKAN3Harvester"
     },
     {
-        "data_format": "CKAN3",
-        "harvester_kwargs": {
-            "api_url": "https://datos.gob.mx/busca/api"
-        },
-        "structurer_kwargs": {
-            "reference_baseURL": "https://datos.gob.mx/busca/dataset/"
-        },
-        "class": "government",
-        "homepage": "https://datos.gob.mx/",
-        "id": "open_data_mx",
-        "name": "Open Data of Mexico",
-        "language": "es",
-        "count": 8427,
-        "harvester": "CKAN3Harvester"
-    },
-    {
         "data_format": "socrata_discovery_v1",
         "harvester_kwargs": {
             "api_url": "http://api.eu.socrata.com/api"
@@ -4823,7 +5189,8 @@
         "includes": [
             "www.dati.lombardia.it",
             "opendata.terrassa.cat",
-            "catalegdades.caib.cat"
+            "catalegdades.caib.cat",
+            "performance.westsussex.gov.uk"
         ],
         "count": 11607,
         "harvester": "SocrataDiscoveryHarvester"
@@ -4893,7 +5260,22 @@
             "data.kcmo.org",
             "data.nasa.gov",
             "data.novascotia.ca",
-            "data.princeedwardisland.ca"
+            "data.princeedwardisland.ca",
+            "data.oaklandnet.com",
+            "data.cityofchicago.org",
+            "data.redmond.gov",
+            "data.somervillema.gov",
+            "data.energystar.gov",
+            "healthdata.nj.gov",
+            "data.nj.gov",
+            "data.vermont.gov",
+            "bythenumbers.sco.ca.gov",
+            "opendata.maryland.gov",
+            "controllerdata.lacity.org",
+            "www.chattadata.org",
+            "data_medicare_gov",
+            "www.dati.friuliveneziagiulia.it",
+            "data.cdc.gov"
         ],
         "count": 143292,
         "harvester": "SocrataDiscoveryHarvester"
@@ -5027,7 +5409,25 @@
         "includes": [
             "figshare.com (Old snapshot...)",
             "researchdata.4tu.nl",
-            "darus.uni-stuttgart.de (two week delay)"
+            "darus.uni-stuttgart.de (two week delay)",
+            "datacommons.anu.edu.au",
+            "dra.american.edu",
+            "archive.norstore.no",
+            "bird.unit.no",
+            "archaeologydataservice.ac.uk",
+            "researchdata.aston.ac.uk",
+            "researchdata.bbk.ac.uk",
+            "research.cardiff.ac.uk",
+            "cefas.co.uk",
+            "research.lancs.ac.uk",
+            "opendata.ljmu.ac.uk",
+            "www.napier.ac.uk (Edinburgh Napier University)",
+            "data.nhm.ac.uk (Natural History Museum)",
+            "pure.ulster.ac.uk",
+            "dataverse.lib.umanitoba.ca",
+            "data.upei.ca (University of Prince Edward Island)",
+            "archive.ciser.cornell.edu (Cornell University CISER Archive)",
+            "www.openaccessrepository.it"
         ]
     },
     {
@@ -5226,6 +5626,22 @@
         "language": "fr",
         "count": 333,
         "harvester": "OpenDataSoftHarvester"
+    },
+    {
+        "data_format": "Data.json",
+        "harvester_kwargs": {
+            "api_url": "https://opendata.riik.ee/data.json",
+            "max_size": 3145728,
+            "result_key": "dataset"
+        },
+        "structurer_kwargs": {},
+        "class": "government",
+        "homepage": "https://opendata.riik.ee/",
+        "id": "opendata_riik_ee",
+        "name": "Estonian Open Data Portal",
+        "language": "et",
+        "count": 713,
+        "harvester": "SingleJSONHarvester"
     },
     {
         "data_format": "CKAN3",
@@ -5468,6 +5884,29 @@
         "harvester": "OAIPMHHarvester"
     },
     {
+        "data_format": "oai_dc",
+        "harvester_kwargs": {
+            "api_url": "https://pearl.plymouth.ac.uk/oai/request",
+            "metadata_prefix": "oai_dc",
+            "collection_set": "com_10026.1_9103"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://pearl.plymouth.ac.uk/handle/",
+            "id_prefix": "oai:pearl.plymouth.ac.uk:"
+        },
+        "class": "research",
+        "homepage": "https://pearl.plymouth.ac.uk/",
+        "id": "pearl_plymouth_ac_uk",
+        "name": "University of Plymouth PEARL",
+        "language": "en",
+        "count": 18,
+        "harvester": "OAIPMHHarvester",
+        "annotations": {
+            "supports_incremental": true,
+            "type": "Dspace"
+        }
+    },
+    {
         "data_format": "dataverse",
         "harvester_kwargs": {
             "API_key": "c03c9d47-30ef-43ed-aa33-21e8cd335b98",
@@ -5614,6 +6053,29 @@
         "language": "en",
         "count": 33,
         "harvester": "KnoemaDCATHarvester"
+    },
+    {
+        "data_format": "oai_dc",
+        "harvester_kwargs": {
+            "api_url": "https://rdmc.nottingham.ac.uk/oai/request",
+            "metadata_prefix": "oai_dc",
+            "collection_set": "col_10.17639_2"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://rdmc.nottingham.ac.uk/handle/",
+            "id_prefix": "oai:rdmc.nottingham.ac.uk:"
+        },
+        "class": "research",
+        "homepage": "https://rdmc.nottingham.ac.uk/",
+        "id": "rdmc_nottingham_ac_uk",
+        "name": "Nottingham Research Data Management Repository",
+        "language": "en",
+        "count": 915,
+        "harvester": "OAIPMHHarvester",
+        "annotations": {
+            "supports_incremental": true,
+            "type": "Dspace"
+        }
     },
     {
         "data_format": "CKAN3",
@@ -5837,6 +6299,29 @@
     {
         "data_format": "oai_dc",
         "harvester_kwargs": {
+            "api_url": "https://researchdata.brighton.ac.uk/cgi/oai2",
+            "metadata_prefix": "oai_dc",
+            "certfile": "researchdata_brighton_ac_uk.ca-bundle"
+        },
+        "structurer_kwargs": {
+            "id_prefix": "oai:researchdata.brighton.ac.uk:",
+            "reference_baseURL": "https://researchdata.brighton.ac.uk/"
+        },
+        "class": "research",
+        "homepage": "https://researchdata.brighton.ac.uk/",
+        "id": "researchdata_brighton_ac_uk",
+        "name": "Brighton Research Data",
+        "language": "en",
+        "count": 12,
+        "harvester": "OAIPMHHarvester",
+        "annotations": {
+            "supports_incremental": true,
+            "type": "Eprints"
+        }
+    },
+    {
+        "data_format": "oai_dc",
+        "harvester_kwargs": {
             "api_url": "https://researchdata.essex.ac.uk/cgi/oai2",
             "metadata_prefix": "oai_dc"
         },
@@ -6046,6 +6531,31 @@
         }
     },
     {
+        "data_format": "oai_dc",
+        "harvester_kwargs": {
+            "api_url": "https://researchonline.rvc.ac.uk/cgi/oai2",
+            "metadata_prefix": "oai_dc",
+            "collection_set": "74797065733D64617461736574",
+            "certfile": "researchonline_rvc_ac_uk.ca-bundle"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://researchonline.rvc.ac.uk/id/eprint/",
+            "id_prefix": "oai:researchonline.rvc.ac.uk:"
+        },
+        "class": "research",
+        "homepage": "https://researchonline.rvc.ac.uk/",
+        "id": "researchonline_rvc_ac_uk",
+        "name": "RVC Research Online",
+        "language": "en",
+        "count": 26,
+        "harvester": "OAIPMHHarvester",
+        "annotations": {
+            "supports_incremental": true,
+            "type": "Eprints",
+            "comments": "Included in search.datacite.org"
+        }
+    },
+    {
         "data_format": "geonode",
         "harvester_kwargs": {
             "api_url": "http://www.riskinfo.lk/",
@@ -6213,6 +6723,23 @@
         "name": "CU Scholar",
         "language": "en",
         "count": 355,
+        "harvester": "BlacklightHarvester"
+    },
+    {
+        "data_format": "blacklight",
+        "harvester_kwargs": {
+            "api_url": "https://scholar.uc.edu/catalog.json?f%5Bhuman_readable_type_sim%5D%5B%5D=Dataset&f%5Bpublisher_sim%5D%5B%5D=University+of+Cincinnati"
+        },
+        "structurer_kwargs": {
+            "base_url": "https://scholar.uc.edu/concern/datasets/",
+            "uid_key": "id"
+        },
+        "class": "research",
+        "homepage": "https://scholar.uc.edu/?locale=en",
+        "id": "scholar_uc_edu",
+        "name": "Scholar@UC",
+        "language": "en",
+        "count": 41,
         "harvester": "BlacklightHarvester"
     },
     {
@@ -6430,6 +6957,25 @@
         }
     },
     {
+        "data_format": "CSW2",
+        "harvester_kwargs": {
+            "api_url": "https://sniambgeoportal.apambiente.pt/geoportal/csw"
+        },
+        "structurer_kwargs": {
+            "base_url": "https://sniambgeoportal.apambiente.pt/geoportal/catalog/search/resource/details.page?uuid="
+        },
+        "class": "government",
+        "homepage": "https://sniambgeoportal.apambiente.pt/arcgis/home/",
+        "id": "sniambgeoportal",
+        "name": "SNIAmb Geoportal",
+        "language": "pt",
+        "count": 2037,
+        "harvester": "CSW2Harvester",
+        "annotations": {
+            "type": "Geoportal"
+        }
+    },
+    {
         "data_format": "oai_dc",
         "harvester_kwargs": {
             "api_url": "https://snd.gu.se/en/oai-pmh",
@@ -6504,6 +7050,22 @@
             "supports_incremental": true,
             "type": "Eprints"
         }
+    },
+    {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
+            "api_url": "https://www.statistics.digitalresources.jisc.ac.uk/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://www.statistics.digitalresources.jisc.ac.uk/dataset/"
+        },
+        "class": "government",
+        "homepage": "https://www.statistics.digitalresources.jisc.ac.uk/",
+        "id": "statistics_jisc_ac_uk",
+        "name": "UK Data Service | Census Data",
+        "language": "en",
+        "count": 262,
+        "harvester": "DKANHarvester"
     },
     {
         "data_format": "CKAN3",

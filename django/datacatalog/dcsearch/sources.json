@@ -1,5 +1,21 @@
 [
     {
+        "data_format": "DCAT XML",
+        "harvester_kwargs": {
+            "api_url": "https://abertos.xunta.gal/busca-de-datos.rdf",
+            "result_key": {"RDF": {"Catalog": "dataset"}},
+            "max_size": 3145728
+        },
+        "structurer_kwargs": {},
+        "class": "government",
+        "homepage": "https://abertos.xunta.gal/portada",
+        "id": "abertos_xunta_gal",
+        "name": "Xunta de Galicia Open Data",
+        "language": "es",
+        "count": 374,
+        "harvester": "SingleXMLHarvester"
+    },
+    {
         "data_format": "oai_dc",
         "harvester_kwargs": {
             "api_url": "https://academicarchive.snhu.edu/oai/request",
@@ -471,6 +487,55 @@
         "harvester": "GeonodeHarvester"
     },
     {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
+            "api_url": "https://catalogodatos.gub.uy/api",
+            "certfile": "catalogodatos_gub_uy.ca-bundle"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://catalogodatos.gub.uy/dataset/"
+        },
+        "class": "government",
+        "homepage": "https://catalogodatos.gub.uy/",
+        "id": "catalogodatos_gub_uy",
+        "name": "Open Data Catalog Uruguay",
+        "language": "es",
+        "count": 2264,
+        "harvester": "CKAN3Harvester"
+    },
+    {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
+            "api_url": "http://catalogo.datosabiertos.gob.ec/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "http://catalogo.datosabiertos.gob.ec/dataset/"
+        },
+        "class": "government",
+        "homepage": "http://catalogo.datosabiertos.gob.ec/",
+        "id": "catalogo_datosabiertos_gob_ec",
+        "name": "Datos Abiertos Ecuador",
+        "language": "es",
+        "count": 128,
+        "harvester": "CKAN3Harvester"
+    },
+    {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
+            "api_url": "http://catalog.data.ug/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "http://catalog.data.ug/dataset/"
+        },
+        "class": "government",
+        "homepage": "http://catalog.data.ug/",
+        "id": "catalog_data_ug",
+        "name": "Open Data Uganda",
+        "language": "en",
+        "count": 443,
+        "harvester": "CKAN3Harvester"
+    },
+    {
         "data_format": "GMD",
         "harvester_kwargs": {
             "api_url": "http://catalog.fmi.fi/geonetwork/srv/eng/csw",
@@ -602,6 +667,22 @@
         "language": "fr",
         "count": 396,
         "harvester": "GeonodeHarvester"
+    },
+    {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
+            "api_url": "http://www.civicdata.io/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "http://www.civicdata.io/dataset/"
+        },
+        "class": "government",
+        "homepage": "http://www.civicdata.io/",
+        "id": "civicdata_io",
+        "name": "CivicData",
+        "language": "en",
+        "count": 348,
+        "harvester": "CKAN3Harvester"
     },
     {
         "data_format": "CSW2",
@@ -768,6 +849,22 @@
         "harvester": "UdataHarvester"
     },
     {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
+            "api_url": "https://dados.rs.gov.br/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://dados.rs.gov.br/dataset/"
+        },
+        "class": "government",
+        "homepage": "https://dados.rs.gov.br/",
+        "id": "dados_rs_gov_br",
+        "name": "Dados RS",
+        "language": "pt",
+        "count": 1143,
+        "harvester": "CKAN3Harvester"
+    },
+    {
         "data_format": "dataverse",
         "harvester_kwargs": {
             "API_key": "1b57f428-258c-4f76-902d-440401b29593",
@@ -827,6 +924,22 @@
         "language": "en",
         "count": 28,
         "harvester": "OAIPMHHarvester"
+    },
+    {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
+            "api_url": "https://hub.datanorthyorkshire.org/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://hub.datanorthyorkshire.org/dataset/"
+        },
+        "class": "government",
+        "homepage": "https://www.datanorthyorkshire.org/",
+        "id": "datanorthyorkshire_org",
+        "name": "Data North Yorkshire",
+        "language": "en",
+        "count": 270,
+        "harvester": "CKAN3Harvester"
     },
     {
         "data_format": "Junar",
@@ -1085,6 +1198,22 @@
         "harvester": "CSW2Harvester"
     },
     {
+        "data_format": "opendatasoft_v1",
+        "harvester_kwargs": {
+            "api_url": "https://data.eindhoven.nl/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://data.eindhoven.nl/explore/dataset/"
+        },
+        "class": "government",
+        "homepage": "https://data.eindhoven.nl/pages/home/",
+        "id": "data_eindhoven_nl",
+        "name": "Eindhoven Open Data",
+        "language": "nl",
+        "count": 93,
+        "harvester": "OpenDataSoftHarvester"
+    },
+    {
         "data_format": "CSW2",
         "harvester_kwargs": {
             "api_url": "http://data.glos.us/metadata/srv/eng/csw?constraintLanguage=CQL_TEXT"
@@ -1171,7 +1300,8 @@
         "count": 37762,
         "harvester": "UdataHarvester",
         "includes": [
-            "tourisme62.opendatasoft.com"
+            "tourisme62.opendatasoft.com",
+            "dataratp.opendatasoft.com"
         ]
     },
     {
@@ -1470,7 +1600,9 @@
     {
         "data_format": "CKAN3",
         "harvester_kwargs": {
-            "api_url": "https://catalog.data.gov/api"
+            "api_url": "https://catalog.data.gov/api",
+            "rows": 100,
+            "download_delay": 2
         },
         "structurer_kwargs": {
             "reference_baseURL": "https://catalog.data.gov/dataset/"
@@ -1490,9 +1622,10 @@
             "data.ok.gov",
             "data.louisvilleky.gov",
             "data.bloomington.in.gov",
-            "data.usgs.gov"
+            "data.usgs.gov",
+            "data.ioos.us"
         ],
-        "count": 242363,
+        "count": 211000,
         "harvester": "CKAN3Harvester"
     },
     {
@@ -1697,6 +1830,22 @@
         "language": "en",
         "count": 2654,
         "harvester": "CKAN3Harvester"
+    },
+    {
+        "data_format": "opendatasoft_v1",
+        "harvester_kwargs": {
+            "api_url": "https://data.opendatasoft.com/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://data.opendatasoft.com/explore/dataset/"
+        },
+        "class": "government",
+        "homepage": "https://data.opendatasoft.com/pages/home/",
+        "id": "data_opendatasoft_com",
+        "name": "OpenDataSoft Data Network",
+        "language": "mult",
+        "count": 20878,
+        "harvester": "OpenDataSoftHarvester"
     },
     {
         "data_format": "CKAN3",
@@ -2489,7 +2638,7 @@
         "name": "Paraguay Government Open Data Portal",
         "language": "es",
         "count": 178,
-        "harvester": "CKAN3Harvester"
+        "harvester": "DKANHarvester"
     },
     {
         "data_format": "CKAN3",
@@ -3075,6 +3224,22 @@
         }
     },
     {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
+            "api_url": "https://data.edinburghopendata.info/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://data.edinburghopendata.info/dataset/"
+        },
+        "class": "government",
+        "homepage": "https://edinburghopendata.info/",
+        "id": "edinburghopendata_info",
+        "name": "Edinburgh Open Data Portal",
+        "language": "en",
+        "count": 236,
+        "harvester": "CKAN3Harvester"
+    },
+    {
         "data_format": "oai_dc",
         "harvester_kwargs": {
             "api_url": "https://edoc.hu-berlin.de/oai/request",
@@ -3439,7 +3604,6 @@
             "danepubliczne.gov.pl",
             "www.bcn.cat",
             "opendata.digitalwallonia.be",
-            "data.gob.es",
             "opendata.cambridgeshireinsight.org.uk",
             "dati.comune.matera.it",
             "daten.rlp.de",
@@ -3495,7 +3659,6 @@
             "www.datosabiertos.jcyl.es",
             "www.dados.gov.pt",
             "www.eea.europa.eu",
-            "opendata.paris.fr",
             "data.iledefrance.fr"
         ],
         "count": 830006,
@@ -3933,6 +4096,40 @@
     {
         "data_format": "geonode",
         "harvester_kwargs": {
+            "api_url": "http://geonode.ciifen.org/",
+            "max_size": 10000
+        },
+        "structurer_kwargs": {
+            "base_url": "http://geonode.ciifen.org/"
+        },
+        "class": "research",
+        "homepage": "http://geonode.ciifen.org/",
+        "id": "geonode_ciifen_org",
+        "name": "GeoNode CIIFEN",
+        "language": "es",
+        "count": 1697,
+        "harvester": "GeonodeHarvester"
+    },
+    {
+        "data_format": "geonode",
+        "harvester_kwargs": {
+            "api_url": "https://www.geonode-gfdrrlab.org/",
+            "max_size": 10000
+        },
+        "structurer_kwargs": {
+            "base_url": "https://www.geonode-gfdrrlab.org/"
+        },
+        "class": "research",
+        "homepage": "https://www.geonode-gfdrrlab.org/",
+        "id": "geonode_gfdrrlab_org",
+        "name": "GFDRR InnovationLab GeoNode",
+        "language": "en",
+        "count": 585,
+        "harvester": "GeonodeHarvester"
+    },
+    {
+        "data_format": "geonode",
+        "harvester_kwargs": {
             "api_url": "http://geonode.igad.int/",
             "max_size": 10000
         },
@@ -4178,6 +4375,22 @@
     {
         "data_format": "CKAN3",
         "harvester_kwargs": {
+            "api_url": "https://data.gov.gh/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://data.gov.gh/dataset/"
+        },
+        "class": "government",
+        "homepage": "https://data.gov.gh/",
+        "id": "ghana_open_data",
+        "name": "Ghana Open Data Initiative",
+        "language": "en",
+        "count": 183,
+        "harvester": "DKANHarvester"
+    },
+    {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
             "api_url": "https://gisdata.mn.gov/api",
             "certfile": "gisdata_mn_gov_us.ca-bundle"
         },
@@ -4191,6 +4404,46 @@
         "language": "en",
         "count": 809,
         "harvester": "CKAN3Harvester"
+    },
+    {
+        "data_format": "GMD",
+        "harvester_kwargs": {
+            "api_url": "http://gis1.servirglobal.net:8080/geonetwork/srv/eng/csw",
+            "harvest_format": "gmd"
+        },
+        "structurer_kwargs": {
+            "base_url": "http://gis1.servirglobal.net:8080/geonetwork/srv/eng/catalog.search#/metadata/"
+        },
+        "class": "government",
+        "homepage": "http://gis1.servirglobal.net:8080/geonetwork/srv/eng/catalog.search#/home",
+        "id": "gis1_servirglobal_net",
+        "name": "SERVIR Global Data Catalogue",
+        "language": "en",
+        "count": 684,
+        "harvester": "CSW2Harvester",
+        "annotations": {
+            "type": "Geonetwork"
+        }
+    },
+    {
+        "data_format": "CSW2",
+        "harvester_kwargs": {
+            "api_url": "https://gis.ices.dk/geonetwork/srv/eng/csw",
+            "download_delay": 10
+        },
+        "structurer_kwargs": {
+            "base_url": "https://gis.ices.dk/geonetwork/srv/eng/catalog.search#/metadata/"
+        },
+        "class": "research",
+        "homepage": "https://gis.ices.dk/geonetwork/srv/eng/catalog.search#/home",
+        "id": "gis_ices_dk",
+        "name": "ICES Metadata Catalogue",
+        "language": "en",
+        "count": 1223,
+        "harvester": "CSW2Harvester",
+        "annotations": {
+            "comments": "Seem to have stopped using Geonetwork, changed setup of website"
+        }
     },
     {
         "data_format": "CKAN3",
@@ -4318,6 +4571,25 @@
         }
     },
     {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
+            "api_url": "https://iatiregistry.org/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://iatiregistry.org/dataset/"
+        },
+        "class": "government",
+        "homepage": "https://iatiregistry.org/",
+        "id": "iatiregistry_org",
+        "name": "IATI Registry",
+        "language": "en",
+        "count": 8125,
+        "harvester": "CKAN3Harvester",
+        "annotations": {
+            "comments": "relatively many rejects, because about 3000 entries don't have description"
+        }
+    },
+    {
         "data_format": "oai_dc",
         "harvester_kwargs": {
             "api_url": "https://www.icpsr.umich.edu/icpsrweb/neutral/oai/studies",
@@ -4429,6 +4701,22 @@
         "language": "en",
         "count": 248,
         "harvester": "GeonodeHarvester"
+    },
+    {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
+            "api_url": "https://hub.mph.in.gov/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://hub.mph.in.gov/dataset/"
+        },
+        "class": "government",
+        "homepage": "https://hub.mph.in.gov/",
+        "id": "indiana_data_hub",
+        "name": "Indiana Data Hub",
+        "language": "en",
+        "count": 148,
+        "harvester": "CKAN3Harvester"
     },
     {
         "data_format": "CKAN3",
@@ -5176,6 +5464,22 @@
         "harvester": "CKAN3Harvester"
     },
     {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
+            "api_url": "https://datos.gob.mx/busca/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://datos.gob.mx/busca/dataset/"
+        },
+        "class": "government",
+        "homepage": "https://datos.gob.mx/",
+        "id": "open_data_mx",
+        "name": "Open Data of Mexico",
+        "language": "es",
+        "count": 8973,
+        "harvester": "CKAN3Harvester"
+    },
+    {
         "data_format": "socrata_discovery_v1",
         "harvester_kwargs": {
             "api_url": "http://api.eu.socrata.com/api"
@@ -5190,7 +5494,8 @@
             "www.dati.lombardia.it",
             "opendata.terrassa.cat",
             "catalegdades.caib.cat",
-            "performance.westsussex.gov.uk"
+            "performance.westsussex.gov.uk",
+            "opendata.rdw.nl"
         ],
         "count": 11607,
         "harvester": "SocrataDiscoveryHarvester"
@@ -5275,7 +5580,19 @@
             "www.chattadata.org",
             "data_medicare_gov",
             "www.dati.friuliveneziagiulia.it",
-            "data.cdc.gov"
+            "data.cdc.gov",
+            "data.smcgov.org",
+            "bronx.lehman.cuny.edu",
+            "www.data.act.gov.au",
+            "data.cityofgainesville.org",
+            "data.cityoftacoma.org",
+            "gavaobert.gavaciutat.cat",
+            "data.montgomerycountymd.gov",
+            "data.baltimorecity.gov",
+            "data.hartford.gov",
+            "finances.worldbank.org",
+            "data.sandiegocounty.gov",
+            "www.datos.gov.co"
         ],
         "count": 143292,
         "harvester": "SocrataDiscoveryHarvester"
@@ -5466,6 +5783,22 @@
         "harvester": "OpenDataSoftHarvester"
     },
     {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
+            "api_url": "http://opendata.ayto-caceres.es/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "http://opendata.ayto-caceres.es/dataset/"
+        },
+        "class": "government",
+        "homepage": "http://opendata.ayto-caceres.es/",
+        "id": "opendata_ayto_caceres_es",
+        "name": "OpenData Cáceres",
+        "language": "es",
+        "count": 116,
+        "harvester": "CKAN3Harvester"
+    },
+    {
         "data_format": "Invenio",
         "harvester_kwargs": {
             "api_url": "http://opendata.cern.ch/api/records/?type=Dataset&type=Software",
@@ -5501,6 +5834,23 @@
     {
         "data_format": "CKAN3",
         "harvester_kwargs": {
+            "api_url": "https://data.comune.fi.it/datastore/api",
+            "rows": 500
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://opendata.comune.fi.it/?q=metarepo/datasetinfo&id="
+        },
+        "class": "government",
+        "homepage": "https://opendata.comune.fi.it/",
+        "id": "opendata_comune_fi_it",
+        "name": "Firenze Open Data",
+        "language": "it",
+        "count": 1746,
+        "harvester": "CKAN3Harvester"
+    },
+    {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
             "api_url": "https://portal.opendata.dk/api"
         },
         "structurer_kwargs": {
@@ -5512,22 +5862,6 @@
         "name": "Open Data DK",
         "language": "da",
         "count": 980,
-        "harvester": "CKAN3Harvester"
-    },
-    {
-        "data_format": "CKAN3",
-        "harvester_kwargs": {
-            "api_url": "http://opendata.go.tz/api"
-        },
-        "structurer_kwargs": {
-            "reference_baseURL": "http://opendata.go.tz/dataset/"
-        },
-        "class": "government",
-        "homepage": "http://opendata.go.tz/",
-        "id": "opendata_go_tz",
-        "name": "Tanzania Government Open Data Portal",
-        "language": "en",
-        "count": 186,
         "harvester": "CKAN3Harvester"
     },
     {
@@ -5727,6 +6061,22 @@
         "harvester": "SingleJSONHarvester"
     },
     {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
+            "api_url": "https://www.opengov-muenchen.de/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://www.opengov-muenchen.de/dataset/"
+        },
+        "class": "government",
+        "homepage": "https://www.opengov-muenchen.de/",
+        "id": "opengov_muenchen_de",
+        "name": "Open-Data-Portal München",
+        "language": "de",
+        "count": 155,
+        "harvester": "CKAN3Harvester"
+    },
+    {
         "data_format": "oai_dc",
         "harvester_kwargs": {
             "api_url": "https://openscholarship.wustl.edu/do/oai",
@@ -5828,6 +6178,23 @@
             "comments": "Metadata license unknown",
             "type": "Dspace"
         }
+    },
+    {
+        "data_format": "geonode",
+        "harvester_kwargs": {
+            "api_url": "http://www.pacgeo.org/",
+            "max_size": 10000
+        },
+        "structurer_kwargs": {
+            "base_url": "http://www.pacgeo.org/"
+        },
+        "class": "research",
+        "homepage": "http://www.pacgeo.org/",
+        "id": "pacgeo_org",
+        "name": "PacGeo",
+        "language": "en",
+        "count": 2169,
+        "harvester": "GeonodeHarvester"
     },
     {
         "data_format": "CKAN3",
@@ -5978,6 +6345,22 @@
             "supports_incremental": true,
             "type": "Dspace"
         }
+    },
+    {
+        "data_format": "opendatasoft_v1",
+        "harvester_kwargs": {
+            "api_url": "https://public.opendatasoft.com/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://public.opendatasoft.com/explore/dataset/"
+        },
+        "class": "government",
+        "homepage": "https://public.opendatasoft.com/",
+        "id": "public_opendatasoft_com",
+        "name": "OpenDataSoft Public Catalog",
+        "language": "mult",
+        "count": 1522,
+        "harvester": "OpenDataSoftHarvester"
     },
     {
         "data_format": "non_oai_datacite",
@@ -7153,6 +7536,22 @@
         "name": "Transparency Portal Hamburg",
         "language": "de",
         "count": 106430,
+        "harvester": "CKAN3Harvester"
+    },
+    {
+        "data_format": "CKAN3",
+        "harvester_kwargs": {
+            "api_url": "https://transparenz.karlsruhe.de/api"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://transparenz.karlsruhe.de/dataset/"
+        },
+        "class": "government",
+        "homepage": "https://transparenz.karlsruhe.de/",
+        "id": "transparenz_karlsruhe_de",
+        "name": "Transparency Portal Karlsruhe",
+        "language": "de",
+        "count": 79,
         "harvester": "CKAN3Harvester"
     },
     {

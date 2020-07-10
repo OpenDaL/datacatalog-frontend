@@ -31,6 +31,9 @@ h2{
 
 .c-header-content p {
     margin-bottom: 40px;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h3 {
@@ -337,7 +340,7 @@ main.no-search-results {
     cursor: pointer;
 }
 
-.query-group, .search-result, .search-noresult, .search-tips, .search-filters {
+.query-group, .search-result, .search-noresult, .search-tips, .search-filters, .faq {
     position: relative;
     border-radius: 6px;
     background-color: white;
@@ -345,6 +348,10 @@ main.no-search-results {
     max-width: 600px;
     padding: 25px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, .05);
+}
+
+.faq {
+    padding: 14px 25px;
 }
 
 .search-group {
@@ -370,7 +377,7 @@ main.no-search-results {
     margin-bottom: 15px;
 }
 
-.search-tips {
+.search-tips, .faq {
     background-color: #cff7cf;
 }
 
@@ -378,7 +385,7 @@ main.no-search-results {
     background-color: #cfe9fd;
 }
 
-.search-tips.expanded, .search-filters.expanded {
+.search-tips.expanded, .search-filters.expanded, .faq.expanded {
     height: auto;
     background-color: #ffffff;
 }
@@ -389,12 +396,27 @@ main.no-search-results {
     text-align: center;
 }
 
+.faq-question {
+    text-align: center;
+    font-size: 17px;
+}
+
+.faq-answer {
+    margin-top: 15px;
+    text-align: center;
+    display: none;
+}
+
+.expanded .faq-answer {
+    display: block;
+}
+
 .search-tips h4, .search-filters h4 {
     margin: 5px 0;
     font-size: 18px;
 }
 
-.search-tips::after, .search-filters::after {
+.search-tips::after, .search-filters::after, .faq::after {
     right: 15px;
     position: absolute;
     content: "◢";
@@ -407,7 +429,7 @@ main.no-search-results {
     font-size: 10px;
 }
 
-.search-tips.expanded::after, .search-filters.expanded::after {
+.search-tips.expanded::after, .search-filters.expanded::after, .faq.expanded::after {
     content: "◤";
     top: 18px;
 }
@@ -891,6 +913,12 @@ select#id_sort_by {
     margin-top: 0;
 }
 
+.centered.faqs > h3 {
+    max-width: unset;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
 .subtitle{
     margin: 0 auto;
 }
@@ -946,6 +974,10 @@ select#id_sort_by {
     display: block;
     background-color: #f7f9ff;
     z-index: -1;
+}
+
+.nskew-box-tinted.before-white::after {
+    content: unset;
 }
 
 .pskew-box-blue {
@@ -1113,7 +1145,7 @@ input[type=email] {
 .search-button-container {
     position: sticky;
     bottom: 0;
-    z-index: 10;
+    z-index: 9;
 }
 
 input#search-button {

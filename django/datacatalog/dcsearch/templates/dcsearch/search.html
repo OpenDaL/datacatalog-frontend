@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block page_meta%}
-	{% with title='The Open Data Library' description='The Open Data Library (OpenDaL) is a search engine to find data stored in open data and research data portals from all over the world.' %}
+	{% with title='The Open Data Library' description='Search engine for datasets from hundreds of research, government and community data portals worldwide.' %}
 		{{ block.super }}
 	{% endwith %}
 {% endblock %}
@@ -31,8 +31,7 @@
 			<div class="c-header-content">
 				<h1>The<br/>Open Data<br/>Library</h1>
 				<p>
-					Find open data and research data by searching through a
-					set of hundreds of data portals from all over the world
+					Find datasets from hundreds of research, government and community data portals worldwide
 				</p>
 				<div class="start-buttons">
 					<a href="{% url 'dcsearch:about' %}">What's OpenDaL?</a>
@@ -47,7 +46,7 @@
 	<main class="tinted-background" id="search">
 		<section class="centered">
 			<h1>Search</h1>
-			<p>You can define your search query below. For more information, click the <img src="{% static 'dcsearch/images/question_circle.svg' %}" class="inline-icon" alt="Questionmark Icon"> icons, or take a look at the search tips on the <a href="{% url 'dcsearch:support' %}">support page</a>.</p>
+			<p>To search for datasets, define one or more filters below, and click 'Search'. Click the <img src="{% static 'dcsearch/images/question_circle.svg' %}" class="inline-icon" alt="Questionmark Icon"> icons for more information about a filter, or visit the <a href="{% url 'dcsearch:support' %}">support page</a> to learn how to search more effectively.</p>
 		</section>
 		<form action="{% url 'dcsearch:search' %}#search" method="post" onsubmit="toggleLoading()" id="search-form">{% csrf_token %}
 			<div class="reset-form"><a onclick="resetForm()">Reset</a></div>
@@ -57,7 +56,7 @@
 					<h5>Keywords</h5>
 					<button class="info" type="button" aria-label="Show more info" onclick="this.querySelector('.infopopup').classList.toggle('visible')">
 						<div class="infopopup">
-							<p>By default all keywords are combined using 'AND', meaning only results that match all keywords are shown. Advanced text search gives you more fine grained control. Read more about it on the <a href="{% url 'dcsearch:support' %}#advanced-text-search">support page</a>.</p>
+							<p>By default the keywords are combined using 'AND', so results are only shown if they contain all keywords. Advanced text search gives you more fine grained control. Read more about it on the <a href="{% url 'dcsearch:support' %}#advanced-text-search">support page</a>.</p>
 						</div>
 					</button>
 				</div>
@@ -75,7 +74,7 @@
 					<h5>General Metadata</h5>
 					<button class="info" type="button" aria-label="Show more info" onclick="this.querySelector('.infopopup').classList.toggle('visible')">
 						<div class="infopopup">
-							<p>Select the <i>Type</i>, <i>Subject</i>, <i>Format</i> and/or <i>Language</i> of the data you're looking for. A layered system is used for <i>Type</i> and <i>Subject</i>, meaning for example that if you search for 'Economy', this will also include 'Macro Economy' and 'Micro Economy' among others. Read more about it on the <a href="{% url 'dcsearch:support' %}#layered-queries">support page</a>.</p>
+							<p>Select the <i>Type</i>, <i>Subject</i>, <i>Format</i> and/or <i>Language</i> of the data you're looking for. A layered system is used for <i>Type</i> and <i>Subject</i>, meaning that if you search for the subject 'Economy', datasets about 'Macro Economy' and 'Micro Economy', among others, are also shown. Read more about it on the <a href="{% url 'dcsearch:support' %}#layered-queries">support page</a>.</p>
 						</div>
 					</button>
 				</div>
@@ -105,7 +104,7 @@
 					<h5>Location</h5>
 					<button class="info" type="button" aria-label="Show more info" onclick="this.querySelector('.infopopup').classList.toggle('visible')">
 						<div class="infopopup">
-							<p>To search for data about a specific location, draw a bounding box (BBOX) on the map, by clicking the rectangle icon. If you want to change the BBOX, please click the 'garbage can' icon, and select 'clear all'. Afterwards choose whether to search for only data completely within the BBOX, or to also include data for locations intersecting the BBOX. Choosing 'intersecting' means that if your bounding box covers a specific city, you may also find data about the province, country, or even data with global coverage.</p>
+							<p>To find data about a specific location, draw a bounding box (BBOX) on the map, by clicking the rectangle icon. Below the map, choose whether to search for only data completely within the BBOX, or to also include data for locations intersecting the BBOX. Choosing 'intersecting' means that if your bounding box covers a specific city, you may also find data about the province, country, or even data with global coverage. To delete or change the location filter, click 'clear' at the top right.</p>
 						</div>
 					</button>
 				</div>
@@ -137,7 +136,7 @@
 					<h5>Date Created</h5>
 					<button class="info" type="button" aria-label="Show more info" onclick="this.querySelector('.infopopup').classList.toggle('visible')">
 						<div class="infopopup">
-							<p>To search for datasets created within a specific period, please select a start <i>(From)</i> and end-date <i>(Until)</i>. Leaving <i>From</i> or <i>Until</i> empty, searches for datasets created up to the <i>Until</i> or starting from the <i>From</i> date respectively. Use the same date for both fields, to find datasets created on a specific date.</p>
+							<p>To find datasets created within a specific period, please select a start <i>(From)</i> and end-date <i>(Until)</i>. Leaving <i>From</i> or <i>Until</i> empty, searches for datasets created up to the <i>Until</i> or starting from the <i>From</i> date respectively. Use the same date for both fields, to find datasets created on a specific date.</p>
 						</div>
 					</button>
 				</div>
@@ -157,7 +156,7 @@
 					<h5>Date Issued</h5>
 					<button class="info" type="button" aria-label="Show more info" onclick="this.querySelector('.infopopup').classList.toggle('visible')">
 						<div class="infopopup">
-							<p>To search for datasets issued within a specific period, please select a start <i>(From)</i> and end-date <i>(Until)</i>. Leaving <i>From</i> or <i>Until</i> empty, searches for datasets issued up to the <i>Until</i> or starting from the <i>From</i> date respectively. Use the same date for both fields, to find datasets issued on a specific date.</p>
+							<p>To find datasets issued within a specific period, please select a start <i>(From)</i> and end-date <i>(Until)</i>. Leaving <i>From</i> or <i>Until</i> empty, searches for datasets issued up to the <i>Until</i> or starting from the <i>From</i> date respectively. Use the same date for both fields, to find datasets issued on a specific date.</p>
 						</div>
 					</button>
 				</div class="group-header">
@@ -177,7 +176,7 @@
 					<h5>Date Modified</h5>
 					<button class="info" type="button" aria-label="Show more info" onclick="this.querySelector('.infopopup').classList.toggle('visible')">
 						<div class="infopopup">
-							<p>To search for datasets modified within a specific period, please select a start <i>(From)</i> and end-date <i>(Until)</i>. Leaving <i>From</i> or <i>Until</i> empty, searches for datasets modified up to the <i>Until</i> or starting from the <i>From</i> date respectively. Use the same date for both fields, to find datasets modified on a specific date.</p>
+							<p>To find datasets modified within a specific period, please select a start <i>(From)</i> and end-date <i>(Until)</i>. Leaving <i>From</i> or <i>Until</i> empty, searches for datasets modified up to the <i>Until</i> or starting from the <i>From</i> date respectively. Use the same date for both fields, to find datasets modified on a specific date.</p>
 						</div>
 					</button>
 				</div>
@@ -197,7 +196,7 @@
 					<h5>Temporal Coverage</h5>
 					<button class="info" type="button" aria-label="Show more info" onclick="this.querySelector('.infopopup').classList.toggle('visible')">
 						<div class="infopopup">
-							<p>To search for datasets that cover a specific period, please select a start <i>(From)</i> and end-date <i>(Until)</i>. Leaving <i>From</i> or <i>Until</i> empty, searches for data up to the <i>Until</i> or starting from the <i>From</i> date respectively. If the temporal coverages of datasets overlap with the selected period, they will be shown in the search results</p>
+							<p>To find datasets that cover a specific period, please select a start <i>(From)</i> and end-date <i>(Until)</i>. Leaving <i>From</i> or <i>Until</i> empty, searches for data up to the <i>Until</i> or starting from the <i>From</i> date respectively. If the temporal coverages of datasets overlap with the selected period, they will be shown in the search results</p>
 						</div>
 					</button>
 				</div>

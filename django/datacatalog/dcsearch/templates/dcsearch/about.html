@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block page_meta%}
-	{% with title='About' description='OpenDaL is a search engine for open data and research data, that combines the datasets from hundreds of data portals in one place, allowing you to search by location, subject, keywords and more...' %}
+	{% with title='About' description='OpenDaL is a dataset search engine that allows you to search more than 500 data portals in one place. It includes data from government, community and research data portals from all over the world and across disciplines.' %}
 		{{ block.super }}
 	{% endwith %}
 {% endblock %}
 {% block page_heading%}
-	{% with title='About' subtitle='What is OpenDaL and how can it help you?' %}
+	{% with title='About' subtitle='Goal, Features and Frequently Asked Questions' %}
 		{{ block.super }}
 	{% endwith %}
 {% endblock %}
@@ -22,16 +22,16 @@
 	<main>
 		<section class="centered">
 			<p>
-				Finding the right datasets for a project, research study, or out of curiosity, can be hard. First you have to know what data portals may contain the data, then you need to go to and search each of them, sometimes using limited search functionality. Traditional search engines are generally also of little help, since they only offer keyword based search, and do not let you search for datasets based on properties such as the location it is about, the type of dataset or its subject.
+				Finding datasets for a research study, project or just out of curiosity, can be quite hard. First you need to find the databases or websites that may contain the data, and then you need to search each one individually. Traditional search engines are not ideal, because they are not restricted to datasets and cannot filter for dataset properties such as subject or data format. Although dataset search engines exist, these are often focussed on a single discipline, region or type of publisher.
 			</p>
 			<p>
-				OpenDaL is a search engine for open data and research data, specifically designed to resolve these issues. It combines the datasets from hundreds of data portals in one place, and allows you to search based on aspects like Subject, Format, Location, Temporal Coverage and more. Can't wait to get started? <a href="{% url 'dcsearch:search' %}#search">Try it now!</a>
+				The Open Data Library (OpenDaL) is a dataset search engine that’s built with these issues in mind. It enables you to search more than 500 data portals in one place, and includes data from government, community and research data portals from all over the world and across disciplines. In addition to keyword based search, you can filter search results by dataset properties, such as data format, location, subject, data type or temporal coverage.
 			</p>
 			<p>
-				We're still hard at work making it easier for you to find data using the Open Data Library. Wonder what we're working on? <a href="#" id="register">Sign up here</a>, to be updated when new features are released.
+				OpenDaL is a free service that can be used by anyone, and is continuously updated. Wonder what’s next? <a href="#" id="register">Sign up</a> for updates, so you’re notified when new features are released!
 			</p>
 		</section>
-		<section class="nskew-box-tinted">
+		<section class="nskew-box-tinted before-white">
 			<div class="centered wider">
 				<h3>Features</h3>
 				<p class="subtitle">How is OpenDaL different from other search engines?</p>
@@ -40,23 +40,50 @@
 						<img src="{% static 'dcsearch/images/metadata.svg' %}" alt="Metadata Tags Icon">
 						<h4>Metadata Search</h4>
 						<p>
-							In addition to text based search, you can use other dataset properties such as type, subject, language, format and temporal coverage
+							In addition to keyword filters, you can filter search results based on dataset properties such as type, subject, format or temporal coverage
 						</p>
 					</div>
 					<div class="feature">
 						<img src="{% static 'dcsearch/images/geographic.svg' %}" alt="Map Pin Icon">
-						<h4>Location Queries</h4>
+						<h4>Spatial Filters</h4>
 						<p>
-							You can draw a bounding box on the map, to search for relevant data within you area of interest
+							Many datasets are about specific locations. Draw a bounding box on the map, to find data about your area of interest
 						</p>
 					</div>
 					<div class="feature">
 						<img src="{% static 'dcsearch/images/database_network.svg' %}" alt="Map Pin Icon">
 						<h4>Combining Portals</h4>
 						<p>
-							You can search hundreds of open data portals, e.g. from governments, research Institutes and universities, all at once
+							Find data from hundreds of government data, research data or community data portals from all over the world, across disciplines.
 						</p>
 					</div>
+				</div>
+			</div>
+		</section>
+		<section class="centered faqs">
+			<h3>Frequently Asked Questions</h3>
+			<div class="faq">
+				<div class="faq-question" onclick="this.parentElement.classList.toggle('expanded')">Who is OpenDaL aimed at?</div>
+				<div class="faq-answer">
+					OpenDaL is aimed at anyone who wants to find data about a specific subject, for example students, PhD's or postdocs working on a research study, consultants working on a project, or just curious consumers, such as people who want to know more about historic wheather phenomena in their area.
+				</div>
+			</div>
+			<div class="faq">
+				<div class="faq-question" onclick="this.parentElement.classList.toggle('expanded')">Can OpenDaL be used commercially?</div>
+				<div class="faq-answer">
+					The search-functionality of OpenDaL is open-to-all, and can be used by anyone. However, invidual datasets that are found through OpenDaL may have more restrictive terms of use. To find the terms of use for a specific dataset, follow the link to the original data portal.
+				</div>
+			</div>
+			<div class="faq">
+				<div class="faq-question" onclick="this.parentElement.classList.toggle('expanded')">How is OpenDaL different from other search Engines?</div>
+				<div class="faq-answer">
+					In comparison to traditional search engines, such as Google and Bing, the search results in OpenDaL are restricted to datasets only, and results can be filtered by dataset specific properties such as data format, location, subject or temporal coverage. Existing dataset search engines often focuss on specific disciplines, geographic areas or are restricted to the research domain, where OpenDaL includes government data, community data and research data, accross disciplines, from all over the world. Although there are some dataset search engines, that offer a comparable diversity of data, these do not provide the search result filters based on dataset properties, that OpenDaL does.
+				</div>
+			</div>
+			<div class="faq">
+				<div class="faq-question" onclick="this.parentElement.classList.toggle('expanded')">What type of data can I find with OpenDaL?</div>
+				<div class="faq-answer">
+					OpenDaL allows you to find all kinds of datasets from all over the world and across disciplines, such as election results, climate scenarios, city plans, survey data, rainfall time series or satellite images, among many others. Any data that's published in the connected government, community or research data portals, can be found through OpenDaL. Although the main use of OpenDaL is to search for datasets, documents, such as reports, software code and data services, such as online dashboards or APIs, can also be found using OpenDaL, as long as they’re published by one of the connected data portals.
 				</div>
 			</div>
 		</section>
@@ -64,7 +91,7 @@
 	<div id="reg-overlay">
 		<div class="popup">
 			<div class="topbar"><a class="close" href="#"></a></div>
-			<p>Please provide your email address to receive service updates about OpenDal</p>
+			<p>Please provide your email address to receive updates about OpenDal</p>
 			<!-- Begin Mailchimp Signup Form -->
 			<form action="https://opendatalibrary.us20.list-manage.com/subscribe/post?u=010c2c57bfbab00fee0a5f85e&amp;id=d75d3ff395" method="post" name="mc-embedded-subscribe-form">
 					<input type="email" value="" name="EMAIL" placeholder="Your Email">

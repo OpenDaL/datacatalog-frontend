@@ -7,18 +7,18 @@
 	{% endwith %}
 {% endblock %}
 {% block page_heading%}
-	{% include 'dcsearch/result_header.html' with count=result_count count_rel=count_rel %}
+	{% include 'dcsearch/result_header.html' with count=result_count|default_if_none:0 count_rel=count_rel %}
 {% endblock %}
 
 {% block query_summary %}
-	<div id="query-summary">{% include 'dcsearch/result_query_summary.html' with searchparams=searchparams %}</div>
+	<div id="query-summary">{% if searchparams %}{% include 'dcsearch/result_query_summary.html' with searchparams=searchparams %}{% endif %}</div>
 {% endblock %}
 
 {% block main %}
-	<main class="tinted-background{% if result_count == 0 %} no-search-results{% endif %}" id="search-query-results">
+	<main class="tinted-background{% if result_count|default_if_none:0 == 0 %} no-search-results{% endif %}" id="search-query-results">
 		<form action="{% url 'dcsearch:search' %}#search-query-results" method="post">{% csrf_token %}
-			<div class="sorting-bar{% if result_count == 0 %} hide{% endif %}">
-				<div class="page-indicator">Page <strong>{{ form.page.value|default_if_none:0|add:1 }}</strong> of {{ max_page|add:1 }}</div>
+			<div class="sorting-bar{% if result_count|default_if_none:0 == 0 %} hide{% endif %}">
+				<div class="page-indicator">Page <strong>{{ form.page.value|default_if_none:0|add:1 }}</strong> of {{ max_page|default_if_none:0|add:1 }}</div>
 				<div class="sort-by">
 					{{ form.sort_by.label_tag }}
 					{{ form.sort_by }}
@@ -76,13 +76,13 @@
 					</div>
 				</div>
 				<div id="search-results">
-					<div id="result-list">{% include 'dcsearch/result_list.html' with results=results %}</div>
-					<div class="page-nav{% if result_count == 0 %} hide{% endif %}">
-						<button type="button" id="previous-page" onclick="navigatePage('previous')"{% if page == 0 %} disabled{% endif %}>Previous</button>
-						<div class="page-indicator">Page <strong>{{ form.page.value|default_if_none:0|add:1 }}</strong> of {{ max_page|add:1 }}</div>
-						<button type="button" id="next-page" onclick="navigatePage('next')"{% if page == max_page %} disabled{% endif %}>Next</button>
+					<div id="result-list">{% if results is not None %}{% include 'dcsearch/result_list.html' with results=results %}{% endif %}</div>
+					<div class="page-nav{% if result_count|default_if_none:0 == 0 %} hide{% endif %}">
+						<button type="button" id="previous-page" onclick="navigatePage('previous')"{% if page|default_if_none:0 == 0 %} disabled{% endif %}>Previous</button>
+						<div class="page-indicator">Page <strong>{{ form.page.value|default_if_none:0|add:1 }}</strong> of {{ max_page|default_if_none:0|add:1 }}</div>
+						<button type="button" id="next-page" onclick="navigatePage('next')"{% if page|default_if_none:0 == max_page %} disabled{% endif %}>Next</button>
 					</div>
-					<div class="search-noresult{% if result_count > 0 %} hide{% endif %}">
+					<div class="search-noresult{% if result_count|default_if_none:0 > 0 %} hide{% endif %}">
 						<p>Not finding what you're looking for? Take a look at the search tips above, or find more info on the <a href="{% url 'dcsearch:support' %}">support page</a></p>
 					</div>
 				</div>
@@ -103,7 +103,7 @@
 		const form = document.forms[0];
 		const form_element = document.querySelector('form');
 		let filtersLoaded = false;
-		const componentsEndpoint = '{% url 'dcsearch:search_components' %}'
+		const componentsEndpoint = '{% url 'dcsearch:search_components' %}';
 		const aggElements = {};
 		const aggFields = ['type', 'subject', 'format', 'language'];
 		aggFields.forEach((fieldname) => {
@@ -156,9 +156,6 @@
 			dateData['lteInput'] = document.querySelector(`input[name="${dateId}_lte"]`);
 			dateData['gteInput'] = document.querySelector(`input[name="${dateId}_gte"]`)
 		}
-
-
-
 
 		function requestQueryEdit(pageLocation) {
 			form_element.setAttribute('action', `{% url 'dcsearch:search' %}#${pageLocation}`);
@@ -304,6 +301,38 @@
 			}
 		}
 
+		// Create query string
+		function getEncodedFormData() {
+			const formData = new FormData(form_element);
+			formData.delete('csrfmiddlewaretoken')
+			const params = new URLSearchParams(formData);
+			const paramString = params.toString();
+			return window.btoa(paramString)
+		}
+
+		function setEncodedFormData(encodedFormData) {
+			const paramString = window.atob(encodedFormData);
+			const params = new URLSearchParams(paramString);
+			// Set each key/value on the correct input
+			for (const pair of params.entries()) {
+				const key = pair[0];
+				const value = pair[1];
+				if (value !== null) {
+					if (key == 'sort_by') {
+						element = 'select';
+					} else {
+						element = 'input';
+					}
+					inputElement = form_element.querySelector(
+						`${element}[name="${key}"]`
+					);
+					if (inputElement !== null) {
+						inputElement.value = value;
+					}
+				}
+			}
+		}
+
 		// Update only the results and pagination options on a page
 		function updateResults() {
 			let formData = new FormData(form_element);
@@ -342,19 +371,22 @@
 			}
 		}
 
-		function submitQuery() {
+		function submitQuery(loadAggs) {
 			setLoading(Object.values(aggElements));
 			// Reset page and sort order
 			currentPage = 0;
-			sortInput.value = "relevance"
+			sortInput.value = "relevance";
 
 			// Get all elements on page, to show new data
 			// Add aggregations input to form
-			const aggs = 'type:short,subject:short,format:short,language:short'
-			const views = 'aggs,tips,results,header'
+			const aggs = 'type:short,subject:short,format:short,language:short';
+			let views = 'tips,results,header';
+			if (loadAggs) {
+				views += ',aggs';
+			}
 			let formData = new FormData(form_element);
-			formData.append('aggregations', aggs)
-			formData.append('views', views)
+			formData.append('aggregations', aggs);
+			formData.append('views', views);
 			lastKeywords = formData.get('keywords');
 
 			// Send the form through XHR, and add listener for response
@@ -365,10 +397,12 @@
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState === 4) {
 					const pageData = JSON.parse(xhr.response);
-					// Set aggregations
-					aggData = pageData['aggs'];
-					for (const [field, ihtml] of Object.entries(aggData)) {
-					  aggElements[field].innerHTML = ihtml;
+					if (loadAggs) {
+						// Set aggregations
+						aggData = pageData['aggs'];
+						for (const [field, ihtml] of Object.entries(aggData)) {
+						  aggElements[field].innerHTML = ihtml;
+						}
 					}
 					// Set header data
 					headerData = pageData['header'];
@@ -390,6 +424,8 @@
 					// Set tips
 					const searchTipsElement = document.getElementById('search-tips');
 					searchTipsElement.outerHTML = pageData['tips'];
+
+					toggleLoading(false);
 				}
 			};
 		}
@@ -401,7 +437,7 @@
 
 		const requiredFields = ['keywords', 'bbox_xmin', 'type', 'subject', 'format', 'language'];
 		// Check if the minimum number of filters selected is met
-		function minimumFiltersSelected(number) {
+		function minimumFiltersSelected(notify, number) {
 			const alertMsg = "At least one of the filters Keywords, Type, Subject, Format, Language or Location should be selected.";
 			const formData = new FormData(form_element);
 			let nrSelected = 0;
@@ -414,7 +450,9 @@
 			if (nrSelected >= number) {
 				return true;
 			} else {
-				alertUser(alertMsg);
+				if (notify) {
+					alertUser(alertMsg);
+				}
 				return false;
 			}
 		}
@@ -433,14 +471,14 @@
 		function submitKeywords() {
 			// Because the keyword field is already possibly empty, there
 			// should be at least one filter remaining
-			if (!minimumFiltersSelected(1)) {
+			if (!minimumFiltersSelected(true, 1)) {
 				keywordInputElement.value = lastKeywords;
 				return;
 			}
 			if (noKeywordToggleSelected()) {
 				return;
 			}
-			submitQuery();
+			submitQuery(true);
 		}
 
 		function submitOnEnter() {
@@ -457,7 +495,7 @@
 				return;
 			}
 			if (field == "bbox") {
-				if (!minimumFiltersSelected(2)) {
+				if (!minimumFiltersSelected(true, 2)) {
 					return;
 				}
 				bboxTypeInput.value = "";
@@ -468,20 +506,20 @@
 				dcfg.gteInput.value = '';
 			}
 			loadStaticFilters();
-			submitQuery();
+			submitQuery(true);
 		}
 
 		function changeQuery(field, value) {
 			if (noKeywordToggleSelected()) {
 				return;
 			}
-			if (value === "*" && !minimumFiltersSelected(2)) {
+			if (value === "*" && !minimumFiltersSelected(true, 2)) {
 				console.log('Too little filters selected!');
 				return;
 			}
 			let element = document.querySelector(`input[name="${field}"]`);
 			element.setAttribute("value", value);
-			submitQuery();
+			submitQuery(true);
 		}
 
 		function toggleLoading(toggleOn) {
@@ -500,6 +538,20 @@
 				currentPage -= 1;
 			}
 			updateResults();
+		}
+
+		if (window.location.search != "") {
+			toggleLoading(true);
+			encodedForm = window.location.search.slice(1);
+			setEncodedFormData(encodedForm);
+			if (!minimumFiltersSelected(false, 1)) {
+				toggleLoading(false);
+				searchFiltersElement.remove();
+				messageElement = document.querySelector('.search-noresult > p');
+				messageElement.textContent = 'The Link you used seems to be invalid. Are you sure you copied it correctly?';
+			} else {
+				submitQuery(false);
+			}
 		}
 	</script>
 {% endblock %}

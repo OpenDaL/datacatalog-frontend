@@ -950,6 +950,11 @@ def search(request):
                     context['search_tips'] = search_tips
 
             return render(request, 'dcsearch/results.html', context)
+    elif request.GET:  # Means there are query string parameters
+        context = {
+            'form': SearchForm(label_suffix='')
+        }
+        return render(request, 'dcsearch/results.html', context)
     else:
         form = SearchForm(label_suffix='')
 

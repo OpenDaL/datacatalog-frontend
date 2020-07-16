@@ -321,14 +321,14 @@
 			return window.btoa(paramString)
 		}
 
-		function setEncodedFormData(encodedFormData) {
-			const paramString = window.atob(encodedFormData);
-			const params = new URLSearchParams(paramString);
-			// Set each key/value on the correct input
-			for (const pair of params.entries()) {
-				const key = pair[0];
-				const value = pair[1];
-				if (value !== null) {
+		function setEncodedFormDataSuccessfully(encodedFormData) {
+			try {
+				const paramString = window.atob(encodedFormData);
+				const params = new URLSearchParams(paramString);
+				// Set each key/value on the correct input
+				for (const pair of params.entries()) {
+					const key = pair[0];
+					const value = pair[1];
 					if (key == 'sort_by') {
 						element = 'select';
 					} else {
@@ -339,8 +339,13 @@
 					);
 					if (inputElement !== null) {
 						inputElement.value = value;
+					} else {
+						throw 'Invalid parameter in querystring!'
 					}
 				}
+				return true;
+			} catch (error) {
+				return false;
 			}
 		}
 
@@ -581,8 +586,8 @@
 		if (window.location.search != "") {
 			toggleLoading(true);
 			encodedForm = window.location.search.slice(1);
-			setEncodedFormData(encodedForm);
-			if (!minimumFiltersSelected(false, 1)) {
+			success = setEncodedFormDataSuccessfully(encodedForm);
+			if (!success || !minimumFiltersSelected(false, 1)) {
 				toggleLoading(false);
 				searchFiltersElement.remove();
 				messageElement = document.querySelector('.search-noresult > p');

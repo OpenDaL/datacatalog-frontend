@@ -104,15 +104,20 @@
 	</div>
 	<script type="text/javascript">
 		// Signup popup
-		var regButton = document.querySelector('#register')
-		var regPopup = document.querySelector('#reg-overlay')
-		var closeButton = document.querySelector('#reg-overlay .popup .close')
+		var regButton = document.querySelector('#register');
+		var regPopup = document.querySelector('#reg-overlay');
+		var closeButton = document.querySelector('#reg-overlay .popup .close');
 
 		function togglePopup(e) {
+			const tgt = e.target;
+			if (tgt != regButton && tgt != regPopup && tgt !=closeButton) {
+				return;
+			}
 			regPopup.classList.toggle('visible');
 			e.stopPropagation();
 		}
-		regButton.addEventListener('click', togglePopup)
-		closeButton.addEventListener('click', togglePopup)
+		regButton.addEventListener('click', togglePopup);
+		closeButton.addEventListener('click', togglePopup);
+		regPopup.addEventListener('click', togglePopup);
 	</script>
 {% endblock %}

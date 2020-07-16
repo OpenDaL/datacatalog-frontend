@@ -2,3 +2,4 @@
 {% for key, value in searchparams.items %}
 <div class="query-desc{% if key == 'Type' %} type-field{% endif %}"><span class="fieldname">{{ key }}:</span> {{ value }}</div>
 {% endfor %}
+<a onclick="showShareDialog();" class="share-link"><img src="{% static 'dcsearch/images/share_icon.svg' %}" class="share-link" alt="Share Icon"></a>

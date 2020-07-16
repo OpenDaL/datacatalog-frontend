@@ -270,10 +270,19 @@ span.fieldname {
     color: #ffb300;
 }
 
-img.edit-query {
+a.share-link {
+    margin: 5px 10px;
+    border: 1px solid white;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+img.share-link {
     display: block;
-    height: 16px;
-    margin: 7px 10px;
+    height: 15px;
+    margin: 3px 3px;
 }
 
 .c-header > img {
@@ -1055,7 +1064,7 @@ select#id_sort_by {
     margin-bottom: 25px;
 }
 
-#reg-overlay {
+#reg-overlay, #share-overlay {
     position: fixed;
     display: none;
     top: 0;
@@ -1066,13 +1075,13 @@ select#id_sort_by {
     z-index: 3;
 }
 
-#reg-overlay.visible {
+#reg-overlay.visible, #share-overlay.visible {
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
 
-#reg-overlay .popup {
+#reg-overlay .popup, #share-overlay .popup {
     width: 280px;
     height: 205px;
     background-color: white;
@@ -1082,13 +1091,31 @@ select#id_sort_by {
     text-align: center;
 }
 
+#share-overlay .popup {
+    height: 180px;
+}
+
 .popup .topbar {
     width: 100%;
     height: 20px;
 }
 
-.popup > p {
+.popup > p, .popup input {
     margin: 8px 2px;
+}
+
+.popup input {
+    width: 80%;
+}
+
+.popup .button {
+    background-color: #ffb300;
+    border: none;
+    color: white;
+    width: 200px;
+    height: 40px;
+    font-size: 18px;
+    margin-top: 10px;
 }
 
 input[type="checkbox"] {

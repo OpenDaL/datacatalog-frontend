@@ -752,7 +752,7 @@
         "class": "research",
         "homepage": "https://conservancy.umn.edu/",
         "id": "conservancy_umn_edu",
-        "name": "UDC",
+        "name": "Data Repository for the U of M",
         "language": "mult",
         "count": 77639,
         "harvester": "OAIPMHHarvester",
@@ -1601,8 +1601,13 @@
         "data_format": "CKAN3",
         "harvester_kwargs": {
             "api_url": "https://catalog.data.gov/api",
-            "rows": 100,
-            "download_delay": 2
+            "rows": 500,
+            "download_delay": 10,
+            "custom_endpoint": "/action/package_search?fq=(type:dataset)",
+            "throttle_on_invalid_status": true,
+            "iterate_until_total": true,
+            "skip_on_fail": true
+
         },
         "structurer_kwargs": {
             "reference_baseURL": "https://catalog.data.gov/dataset/"
@@ -2099,6 +2104,30 @@
         "harvester": "OAIPMHHarvester",
         "annotations": {
             "comments": "Only items with DOI are exposed through OAI-PMH"
+        }
+    },
+    {
+        "data_format": "simple",
+        "harvester_kwargs": {
+            "api_url": "https://databank.illinois.edu/datasets.json",
+            "url_location": "url",
+            "download_delay": 2
+        },
+        "structurer_kwargs": {
+            "base_url": "",
+            "append_key": "url",
+            "uid_key": "identifier",
+            "url_remove": ".json"
+        },
+        "class": "research",
+        "homepage": "https://databank.illinois.edu/",
+        "id": "databank_illinois_edu",
+        "name": "Illinois Data Bank",
+        "language": "en",
+        "count": 299,
+        "harvester": "JSONIndexHarvester",
+        "annotations": {
+            "comments": "Explicit harvesting permission: http://web.archive.org/web/20200621144911/https://databank.illinois.edu/help"
         }
     },
     {
@@ -3108,8 +3137,8 @@
     {
         "data_format": "ElasticSearch",
         "harvester_kwargs": {
-            "api_url": "https://kg.ebrains.eu/search/proxy/search/kg/_search",
-            "query": {"query": {"term": {"_type": "Dataset"}}},
+            "api_url": "https://kg.ebrains.eu/search/api/groups/public/search",
+            "query": {"query": {"term": {"type.value": "Dataset"}}},
             "search_after_field": "identifier.value.keyword"
         },
         "structurer_kwargs": {
@@ -3120,7 +3149,7 @@
         "id": "kg_ebrains_eu",
         "name": "EBRAINS Knowledge Graph",
         "language": "en",
-        "count": 733,
+        "count": 812,
         "harvester": "ElasticSearchHarvester"
     },
     {
@@ -3875,6 +3904,26 @@
         "language": "en",
         "count": 313,
         "harvester": "CSW2Harvester"
+    },
+    {
+        "data_format": "simple",
+        "harvester_kwargs": {
+            "api_url": "http://geo1.scholarsportal.info/proxy.html?http:__giseditor.scholarsportal.info/search/index.html?&fm=json&i=1000&p=1&q=*&field=&sort=relevance&limit=entitled&env=production",
+            "max_size": 3145728,
+            "result_key": {"response": "result"}
+        },
+        "structurer_kwargs": {
+            "base_url": "http://geo1.scholarsportal.info/#r/details/_uri@=",
+            "append_key": "id",
+            "uid_key": "id"
+        },
+        "class": "research",
+        "homepage": "http://geo1.scholarsportal.info/",
+        "id": "geo_scholarsportal_info",
+        "name": "Scholars Geoportal",
+        "language": "en",
+        "count": 193,
+        "harvester": "SingleJSONHarvester"
     },
     {
         "data_format": "GMD",
@@ -6493,6 +6542,38 @@
         "name": "Refubium",
         "language": "mult",
         "count": 7,
+        "harvester": "OAIPMHHarvester",
+        "annotations": {
+            "supports_incremental": true,
+            "type": "Dspace"
+        }
+    },
+    {
+        "data_format": "oai_dc",
+        "harvester_kwargs": {
+            "api_url": "https://repositories.lib.utexas.edu/oai/request",
+            "metadata_prefix": "oai_dc"
+        },
+        "structurer_kwargs": {
+            "reference_baseURL": "https://repositories.lib.utexas.edu/handle/",
+            "id_prefix": "oai:repositories.lib.utexas.edu:",
+            "keep_types": [
+                "Map",
+                "Data set",
+                "Geological maps",
+                "Dataset",
+                "map",
+                "Soil sampling results",
+                "Software",
+                "Data"
+            ]
+        },
+        "class": "research",
+        "homepage": "https://repositories.lib.utexas.edu/",
+        "id": "repositories_utexas_edu",
+        "name": "Texas Scholarworks",
+        "language": "en",
+        "count": 67794,
         "harvester": "OAIPMHHarvester",
         "annotations": {
             "supports_incremental": true,

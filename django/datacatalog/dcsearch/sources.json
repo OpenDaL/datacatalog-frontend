@@ -638,7 +638,9 @@
     {
         "data_format": "dataverse",
         "harvester_kwargs": {
-            "api_url": "https://data.cimmyt.org/api"
+            "api_url": "https://data.cimmyt.org/api",
+            "API_key": "11738fbe-fe94-42e9-9732-c35ebd6ce3b5",
+            "rows": 100
         },
         "structurer_kwargs": {
             "reference_baseURL": "https://data.cimmyt.org/dataset.xhtml?persistentId="
@@ -2083,28 +2085,6 @@
         "language": "en",
         "count": 1733,
         "harvester": "CKAN3Harvester"
-    },
-    {
-        "data_format": "non_oai_datacite",
-        "harvester_kwargs": {
-            "api_url": "https://data.4tu.nl/oai/",
-            "metadata_prefix": "datacite",
-            "collection_set": "doi"
-        },
-        "structurer_kwargs": {
-            "reference_baseURL": "https://data.4tu.nl/repository/",
-            "id_prefix": ""
-        },
-        "class": "research",
-        "homepage": "https://data.4tu.nl/repository/",
-        "id": "data_4tu_nl",
-        "name": "4TU Centre for Research Data",
-        "language": "en",
-        "count": 6045,
-        "harvester": "OAIPMHHarvester",
-        "annotations": {
-            "comments": "Only items with DOI are exposed through OAI-PMH"
-        }
     },
     {
         "data_format": "simple",
@@ -4786,7 +4766,8 @@
     {
         "data_format": "dataverse",
         "harvester_kwargs": {
-            "api_url": "https://data.inra.fr/api"
+            "api_url": "https://data.inra.fr/api",
+            "rows": 100
         },
         "structurer_kwargs": {
             "reference_baseURL": "https://data.inra.fr/dataset.xhtml?persistentId="

@@ -40,7 +40,7 @@ if settings.ES_PASS is not None:
 
 cur_path = path.dirname(path.realpath(__file__))
 md_schema_loc = path.join(cur_path, 'metadata_schema.json')
-snms_loc = path.join(cur_path, 'sourcesnames.json')
+snms_loc = path.join(cur_path, 'sourcenames.json')
 tips_loc = path.join(cur_path, 'search_tips.json')
 
 

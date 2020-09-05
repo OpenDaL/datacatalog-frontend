@@ -40,7 +40,7 @@ if settings.ES_PASS is not None:
 
 cur_path = path.dirname(path.realpath(__file__))
 md_schema_loc = path.join(cur_path, 'metadata_schema.json')
-sources_loc = path.join(cur_path, 'sources.json')
+snms_loc = path.join(cur_path, 'sourcesnames.json')
 tips_loc = path.join(cur_path, 'search_tips.json')
 
 
@@ -50,10 +50,9 @@ def load_json(file_loc):
 
 
 md_schema = load_json(md_schema_loc)
-sources = load_json(sources_loc)
+source_names = load_json(snms_loc)
 tips = load_json(tips_loc)
 
-source_names = {s['id']: s['name'] for s in sources}
 keyname_mapping = {k: v['name'] for k, v in md_schema.items()}
 
 plain_keys = set(

@@ -1,16 +1,36 @@
 # -*- coding: utf-8 -*-
 """
-This script creates the configuration json for the dropdown lists, to present
-the user with a list of possible types, subjects, formats and languages by
-deriving this data from ES. Reduces the number of costly aggregation queries
-on ES.
+Update the configuration json file for the dropdown lists, by querying
+ElasticSearch, and the sourcenames.json, based on the sources.json
 """
 import json
-import os
 import getpass
 import argparse
+import yaml
+from pathlib import Path
 
 import requests
+
+
+def load_yaml(fileloc):
+    with open(fileloc, 'r', encoding='utf8') as yamlfile:
+        return yaml.safe_load(yamlfile)
+
+
+def save_json(data, fileloc):
+    with open(fileloc, 'w', encoding='utf8') as jsonfile:
+        json.dump(data, jsonfile, ensure_ascii=False)
+
+
+def is_valid_yaml_file(parser, fileloc):
+    path = Path(fileloc)
+    if not path.is_file():
+        parser.error('The file {} does not exist'.format(fileloc))
+    elif not path.suffix == '.yaml':
+        parser.error('The file {} is not a YAML file'.format(fileloc))
+    else:
+        return path
+
 
 if __name__ == "__main__":
     # Parse the script arguments
@@ -22,24 +42,31 @@ if __name__ == "__main__":
         help="IP Address/Domain of ElasticSearch instance (e.g. 127.0.0.1)",
         type=str
     )
+    aparser.add_argument(
+        "sources_file",
+        help="Location of the sources.yaml file",
+        type=lambda loc: is_valid_yaml_file(aparser, loc)
+    )
 
     # Get arguments
     args = aparser.parse_args()
     es_ip = args.es_host
+    sources_loc = args.sources_file
 
     es_pass = getpass.getpass(
         "Password for the 'frontend' ES user (Empty if None): "
     )
+
+    # Build aggregations
     rsession = requests.session()
     if es_pass != '':
         rsession.auth = ('frontend', es_pass)
 
     AGGREGATE_KEYS = ["type", "subject", "format", "language"]
     URL = 'http://{}:9200/resource_metadata/_doc/_search'.format(es_ip)
-    cur_path = os.path.dirname(os.path.realpath(__file__))
+    cur_path = Path(__file__).absolute().parent
     headers = {'Content-Type': 'application/json'}
-    STORE_LOC = os.path.join(cur_path,
-                             '../django/datacatalog/dcsearch/dropdown.json')
+    store_loc = Path(cur_path, '../django/datacatalog/dcsearch/dropdown.json')
     ITERATION_SIZE = 100
 
     key_data = {}
@@ -79,5 +106,12 @@ if __name__ == "__main__":
                        in data['aggregations']['my_buckets']['buckets']}
             key_data[key].update(vcounts)
 
-    with open(STORE_LOC, 'w', encoding='utf8') as jsonfile:
-        json.dump(key_data, jsonfile, ensure_ascii=False)
+    save_json(key_data, store_loc)
+
+    # Update the sourcenames.json file
+    sources = load_yaml(sources_loc)
+    source_names = {s['id']: s['name'] for s in sources}
+    store_loc = Path(
+        cur_path, '../django/datacatalog/dcsearch/sourcenames.json'
+    )
+    save_json(source_names, store_loc)

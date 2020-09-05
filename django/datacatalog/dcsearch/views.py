@@ -631,10 +631,14 @@ def _get_key_value_viz(key, value):
         if struct_value is not None:
             k_v_list.append(('Publisher', struct_value))
     elif key == 'otherDates':
-        date_type = value.get('type')
-        date = value.get('value')
-        if date_type is not None and date is not None:
-            k_v_list.append((date_type.capitalize(), date))
+        if not isinstance(value, list):
+            value = [value]
+        for datedata in value:
+            date_type = datedata.get('type')
+            date = datedata.get('value')
+            if date_type is not None and date is not None:
+                date_type = 'Date ' + date_type.lower()
+                k_v_list.append((date_type, date))
     elif key == 'license':
         for k in ['name', 'content']:
             if k in value:

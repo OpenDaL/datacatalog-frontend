@@ -627,7 +627,7 @@ def _get_key_value_viz(key, value):
             else:
                 k_v_list.append(('Creators', ', '.join(names)))
     elif key == 'publisher':
-        struct_value = value.get('value')
+        struct_value = value.get('name')
         if struct_value is not None:
             k_v_list.append(('Publisher', struct_value))
     elif key == 'otherDates':

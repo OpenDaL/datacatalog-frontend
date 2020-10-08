@@ -928,6 +928,16 @@ select#id_sort_by {
     margin-bottom: 30px;
 }
 
+.centered.contact > h3 {
+    max-width: unset;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.centered.contact > p {
+    text-align: center;
+}
+
 .subtitle{
     margin: 0 auto;
 }

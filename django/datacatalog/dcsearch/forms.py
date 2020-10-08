@@ -151,44 +151,24 @@ class SearchForm(forms.Form):
         label="Type",
         widget=SelectOptimized()
     )
-    # no_type = forms.BooleanField(
-    #     initial=True,
-    #     label="Entries without a type",
-    #     required=False
-    # )
 
     subject = forms.ChoiceField(
         choices=[('*', '(Any)')] + list(dropdown_lists['subject']),
         label="Subject",
         widget=SelectSpaced()
     )
-    # no_subject = forms.BooleanField(
-    #     initial=True,
-    #     label="Entries without a subject",
-    #     required=False
-    # )
 
     format = forms.ChoiceField(
         choices=[('*', '(Any)')] + list(dropdown_lists['format'].items()),
         label="Format",
         widget=SelectOptimized()
     )
-    # no_format = forms.BooleanField(
-    #     initial=True,
-    #     label="Entries without a format",
-    #     required=False
-    # )
 
     language = forms.ChoiceField(
         choices=[('*', '(Any)')] + list(dropdown_lists['language'].items()),
         label="Language",
         widget=SelectOptimized()
     )
-    # no_language = forms.BooleanField(
-    #     initial=True,
-    #     label="Entries without a language",
-    #     required=False
-    # )
 
     # Location fields
     bboxtype = forms.ChoiceField(
@@ -215,11 +195,6 @@ class SearchForm(forms.Form):
         widget=HTML5DateWidget(),
         required=False
     )
-    # no_created = forms.BooleanField(
-    #     initial=True,
-    #     label="Entries without created date",
-    #     required=False
-    # )
 
     # Issued date
     issued_gte = forms.DateField(
@@ -232,11 +207,6 @@ class SearchForm(forms.Form):
         widget=HTML5DateWidget(),
         required=False
     )
-    # no_issued = forms.BooleanField(
-    #     initial=True,
-    #     label="Entries without issued date",
-    #     required=False
-    # )
 
     # Modified date
     modified_gte = forms.DateField(
@@ -249,11 +219,6 @@ class SearchForm(forms.Form):
         widget=HTML5DateWidget(),
         required=False
     )
-    # no_modified = forms.BooleanField(
-    #     initial=True,
-    #     label="Entries without modified date",
-    #     required=False
-    # )
 
     # Temporal Coverage
     timeperiod_gte = forms.DateField(
@@ -266,11 +231,6 @@ class SearchForm(forms.Form):
         widget=HTML5DateWidget(),
         required=False
     )
-    # no_timeperiod = forms.BooleanField(
-    #     initial=True,
-    #     label="Entries without temporal coverage",
-    #     required=False
-    # )
 
     # Search page
     page = forms.IntegerField(

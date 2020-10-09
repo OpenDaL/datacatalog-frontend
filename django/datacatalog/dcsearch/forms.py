@@ -322,8 +322,8 @@ class SearchForm(forms.Form):
 
 
 # Workaround for missing group repeat in default regex package
-_single_agg_regex = r'((type|subject|format|language):(short|long))'
-_full_agg_regex = f'^{_single_agg_regex}(,{_single_agg_regex}){{0,3}}$'
+_single_agg_regex = r'((type|subject|format|language|source):(short|long))'
+_full_agg_regex = f'^{_single_agg_regex}(,{_single_agg_regex}){{0,4}}$'
 
 _single_view_regex = r'(aggs|header|tips|results)'
 _full_view_regex = f'^{_single_view_regex}(,{_single_view_regex}){{0,3}}$'

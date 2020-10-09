@@ -160,9 +160,13 @@ def _construct_query(post_data, aggs=None, return_results=True):
             else:
                 # If aggstyle=='selected', do nothing
                 continue
+            if field == 'source':
+                es_field = '_source_id'
+            else:
+                es_field = field
             query['aggs'][field] = {
                 "terms": {
-                    "field": field,
+                    "field": es_field,
                     "size": aggsize
                 }
             }
@@ -986,7 +990,7 @@ def search_components(request):
 
             # Disable aggregations on fields that are already queried
             count_selected = 0
-            for fn in ['type', 'format', 'language', 'subject']:
+            for fn in aggs:
                 fv = query_params.get(fn)
                 if not (fv is None or fv == '*'):
                     count_selected += 1
@@ -1015,6 +1019,8 @@ def search_components(request):
                     def id_to_name(s): return config.subject_data[s]['name']
                 elif field == 'language':
                     def id_to_name(l): return config.language_mapping[l]
+                elif field == 'source':
+                    def id_to_name(s): return config.sourcename_mapping[s]
                 else:
                     def id_to_name(id_): return id_
 

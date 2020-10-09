@@ -1020,7 +1020,8 @@ def search_components(request):
                 elif field == 'language':
                     def id_to_name(l): return config.language_mapping[l]
                 elif field == 'source':
-                    def id_to_name(s): return config.sourcename_mapping[s]
+                    def id_to_name(s):
+                        return config.sourcename_mapping.get(s, s)
                 else:
                     def id_to_name(id_): return id_
 

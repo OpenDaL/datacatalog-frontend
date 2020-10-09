@@ -20,13 +20,13 @@ class StaticViewSitemap(sitemaps.Sitemap):
             {
                 'name': 'support',
                 'priority': 0.3,
-                'lastmod': datetime.datetime(2020, 7, 10),
+                'lastmod': datetime.datetime(2020, 10, 9),
                 'changefreq': 'monthly'
             },
             {
                 'name': 'about',
                 'priority': 0.6,
-                'lastmod': datetime.datetime(2020, 7, 10),
+                'lastmod': datetime.datetime(2020, 10, 9),
                 'changefreq': 'monthly'
             },
         ]

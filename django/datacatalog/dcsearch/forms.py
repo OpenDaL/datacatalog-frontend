@@ -328,20 +328,6 @@ _single_view_regex = r'(aggs|header|tips|results)'
 _full_view_regex = f'^{_single_view_regex}(,{_single_view_regex}){{0,3}}$'
 
 
-class AggregationsForm(SearchForm):
-    """
-    Extension of SearchForm, to define the required aggregations
-    """
-
-    aggregations = forms.CharField(
-        required=True,
-        empty_value=None,
-        validators=[
-            RegexValidator(_full_agg_regex, 'Invalid Aggregations requested')
-        ]
-    )
-
-
 class SearchComponentsForm(SearchForm):
     """
     Extension of SearchForm. Used to request parts of the page through AJAX

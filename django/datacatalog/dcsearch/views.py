@@ -13,8 +13,9 @@ from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from django.urls import reverse
 
-from .forms import SearchForm, AggregationsForm, subject_data,\
-    language_mapping, SearchComponentsForm
+from .forms import (
+    SearchForm, subject_data, language_mapping, SearchComponentsForm
+)
 
 empty_payloads = set(['*', ''])
 

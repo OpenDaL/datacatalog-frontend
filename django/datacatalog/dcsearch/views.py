@@ -1,4 +1,3 @@
-from os import path
 import json
 from urllib.parse import quote_plus
 import math
@@ -13,9 +12,8 @@ from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from django.urls import reverse
 
-from .forms import (
-    SearchForm, subject_data, language_mapping, SearchComponentsForm
-)
+from .forms import SearchForm, SearchComponentsForm
+from . import config
 
 empty_payloads = set(['*', ''])
 
@@ -39,22 +37,8 @@ rsession = requests.Session()
 if settings.ES_PASS is not None:
     rsession.auth = ('frontend', settings.ES_PASS)
 
-cur_path = path.dirname(path.realpath(__file__))
-md_schema_loc = path.join(cur_path, 'metadata_schema.json')
-snms_loc = path.join(cur_path, 'sourcenames.json')
-tips_loc = path.join(cur_path, 'search_tips.json')
 
-
-def load_json(file_loc):
-    with open(file_loc, 'r', encoding='utf8') as jsonfile:
-        return json.load(jsonfile)
-
-
-md_schema = load_json(md_schema_loc)
-source_names = load_json(snms_loc)
-tips = load_json(tips_loc)
-
-keyname_mapping = {k: v['name'] for k, v in md_schema.items()}
+keyname_mapping = {k: v['name'] for k, v in config.metadata_schema.items()}
 
 plain_keys = set(
     ['status', 'issued', 'modified', 'created', 'maintenance', 'context',
@@ -67,7 +51,7 @@ def _get_child_subjects(id_):
     Get a list of child subjects from a given subject id
     """
     return_subjects = set()
-    for sid, payload in subject_data.items():
+    for sid, payload in config.subject_data.items():
         if id_ in payload['parents'] or id_ in payload['relations']:
             if sid not in return_subjects:
                 return_subjects.add(sid)
@@ -79,8 +63,8 @@ def _get_parent_subjects(id_):
     """
     Get a list of parent subjects for a given subject id
     """
-    parent_subjects = subject_data.get(id_, {}).get('parents', [])
-    related_subjects = subject_data.get(id_, {}).get('relations', [])
+    parent_subjects = config.subject_data.get(id_, {}).get('parents', [])
+    related_subjects = config.subject_data.get(id_, {}).get('relations', [])
     combined_subjects = parent_subjects + related_subjects
     added_subjects = []
     # Recurse through direct parents
@@ -426,12 +410,12 @@ def _get_searchparam_visualization(post_data):
     # Language visualization:
     lang_data = post_data.get('language')
     if _payload_is_valid(lang_data):
-        viz_data['Language'] = language_mapping[lang_data]
+        viz_data['Language'] = config.language_mapping[lang_data]
 
     # Subject visualization:
     subject = post_data.get('subject')
     if _payload_is_valid(subject):
-        viz_data['Subject'] = subject_data[subject]['name']
+        viz_data['Subject'] = config.subject_data[subject]['name']
 
     # Visualize bounding box:
     all_bbox_keys = ['bbox_ymax', 'bbox_xmax', 'bbox_ymin', 'bbox_xmin']
@@ -555,12 +539,14 @@ def _get_result_visualizations(entries, search_query):
                     if key == 'subject':
                         detailed_subjects = _get_most_detailed_subjects(data)
                         viz = ', '.join(
-                            [subject_data.get(s, {}).get('name', 'undefined')
+                            [config.subject_data.get(s, {}).get(
+                                'name', 'undefined'
+                             )
                              for s in detailed_subjects]
                         )
                     elif key == 'language':
                         viz = ', '.join(
-                            [language_mapping.get(l, 'undefined')
+                            [config.language_mapping.get(l, 'undefined')
                              for l in data]
                         )
                     else:
@@ -581,7 +567,9 @@ def _get_result_visualizations(entries, search_query):
             'title': title,
             'description': description,
             'properties': properties,
-            'sourcename': source_names.get(entry_data['_source_id']),
+            'sourcename': config.sourcename_mapping.get(
+                entry_data['_source_id']
+            ),
             'href_id': quote_plus(entry_data['id'])
         })
 
@@ -652,7 +640,7 @@ def _get_key_value_viz(key, value):
             k_v_list.append((itype, ival))
     elif key == 'subject':
         detailed_subjects = _get_most_detailed_subjects(value)
-        subjects = [subject_data[s]['name'] for s in detailed_subjects]
+        subjects = [config.subject_data[s]['name'] for s in detailed_subjects]
         if len(subjects) == 1:
             k_v_list.append(('Subject', subjects[0]))
         else:
@@ -723,7 +711,7 @@ def _get_key_value_viz(key, value):
         for type, p_list in all_key_value.items():
             k_v_list.append((type, ';'.join(p_list)))
     elif key == 'language':
-        full_langs = [language_mapping[l] for l in value]
+        full_langs = [config.language_mapping[l] for l in value]
         if len(full_langs) == 1:
             k_v_list.append(('Language', full_langs[0]))
         else:
@@ -764,7 +752,7 @@ def _get_resource_visualization(entry_data):
         viz_data['key_value_data'] = full_kvlist
 
     # Get catalog name and url
-    ct_name = source_names.get(entry_data['_source_id'], '')
+    ct_name = config.sourcename_mapping.get(entry_data['_source_id'], '')
 
     viz_data['catalog'] = {
         'name': ct_name,
@@ -836,7 +824,7 @@ def _get_search_tips(post_data):
             else:
                 parent_phrase = " '{}'".format(parents[0])
 
-            search_tips.append(tips["use_general_type"].format(
+            search_tips.append(config.search_tips["use_general_type"].format(
                 type_,
                 parent_phrase
             ))
@@ -846,7 +834,7 @@ def _get_search_tips(post_data):
         parents = _get_parent_subjects(subject)
         if parents != []:
             # Propose to use parent subjects, to yield more results
-            parent_names = [subject_data[p]['name'] for p in parents]
+            parent_names = [config.subject_data[p]['name'] for p in parents]
             if len(parent_names) > 1:
                 parent_phrase = "s '{}' or '{}'".format(
                     "', '".join(parent_names[:-1]),
@@ -855,15 +843,15 @@ def _get_search_tips(post_data):
             else:
                 parent_phrase = " '{}'".format(parent_names[0])
 
-            search_tips.append(tips["use_parent_subject"].format(
-                subject_data[subject]['name'],
+            search_tips.append(config.search_tips["use_parent_subject"].format(
+                config.subject_data[subject]['name'],
                 parent_phrase
             ))
 
     bbox_type = post_data.get('bboxtype')
     if _payload_is_valid(bbox_type) and bbox_type == 'within':
         # If 'within' is used for the BBOX query, suggest to use 'intersecting'
-        search_tips.append(tips['use_intersecting_bbox'])
+        search_tips.append(config.search_tips['use_intersecting_bbox'])
 
     additionals = _get_additional_criteria(post_data)
     if additionals != []:
@@ -881,7 +869,7 @@ def _get_search_tips(post_data):
             )
 
         base_msg_id = "use_less_criteria_{}".format(id_modifier)
-        criteria_tip = tips[base_msg_id].format(
+        criteria_tip = config.search_tips[base_msg_id].format(
             support_url + '#metadata-completeness',
             additionals_phrase
         )
@@ -895,14 +883,14 @@ def _get_search_tips(post_data):
 
         if recommend_keywords:
             kw_msg_id = "use_less_criteria_{}_add_keywords".format(id_modifier)
-            criteria_tip += tips[kw_msg_id]
+            criteria_tip += config.search_tips[kw_msg_id]
 
         search_tips.append(criteria_tip)
 
     keywords = post_data.get('keywords')
     if _payload_is_valid(keywords):
         search_tips.append(
-            tips["check_keywords"].format(
+            config.search_tips["check_keywords"].format(
                 support_url + '#advanced-text-search'
             )
         )
@@ -1014,9 +1002,9 @@ def search_components(request):
             component_data['aggs'] = {}
             for field, aggstyle in aggs.items():
                 if field == 'subject':
-                    def id_to_name(s): return subject_data[s]['name']
+                    def id_to_name(s): return config.subject_data[s]['name']
                 elif field == 'language':
-                    def id_to_name(l): return language_mapping[l]
+                    def id_to_name(l): return config.language_mapping[l]
                 else:
                     def id_to_name(id_): return id_
 

@@ -2,27 +2,15 @@
 """
 Forms for the dcsearch app
 """
-from os import path
-import json
+import copy
 
 from django import forms
 from django.core.validators import RegexValidator
 from django.forms.widgets import Select, RadioSelect
 
-# Load some configuration from JSON
-cur_path = path.dirname(path.realpath(__file__))
-dropdowns_loc = path.join(cur_path, 'dropdown.json')
-language_loc = path.join(cur_path, 'languages.json')
-subject_loc = path.join(cur_path, 'subject_scheme.json')
+from . import config
 
-with open(dropdowns_loc, 'r', encoding='utf8') as jsonfile:
-    dropdown_lists = json.load(jsonfile)
-
-with open(language_loc, 'r', encoding='utf8') as jsonfile:
-    language_mapping = json.load(jsonfile)
-
-with open(subject_loc, 'r', encoding='utf8') as jsonfile:
-    subject_data = json.load(jsonfile)
+dropdown_lists = copy.deepcopy(config.dropdown_lists)  # It's edited below
 
 # Create dropdown visualization for several keys:
 for key, data in dropdown_lists.items():
@@ -31,7 +19,7 @@ for key, data in dropdown_lists.items():
         continue
     for value, count in data.items():
         if key == 'language':
-            name = '{} ({})'.format(language_mapping[value], count)
+            name = '{} ({})'.format(config.language_mapping[value], count)
         else:
             name = '{} ({})'.format(value, count)
 
@@ -55,7 +43,7 @@ def create_tree(data):
     return tree
 
 
-subject_tree = create_tree(subject_data)
+subject_tree = create_tree(config.subject_data)
 
 
 def get_subject_visualization(tree_data):
@@ -63,7 +51,13 @@ def get_subject_visualization(tree_data):
         key_viz_data = []
         # First visualize the requested key:
         count = dropdown_lists['subject'].get(key, 0)
-        viz_dat = (key, '{}{} ({})'.format('&nbsp;' * level * 4, subject_data[key]['name'], count))
+        viz_dat = (
+            key,
+            '{}{} ({})'.format(
+                '&nbsp;' * level * 4, config.subject_data[key]['name'],
+                count
+            )
+        )
         key_viz_data.append(viz_dat)
 
         # Now the underlying things:

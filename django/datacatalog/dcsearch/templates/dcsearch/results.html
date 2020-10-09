@@ -73,6 +73,10 @@
 							<div class=editable id="modified-filter"></div>
 							<div class=editable id="timeperiod-filter"></div>
 						</div>
+						<div class="single-filter">
+							<h6>Data Source</h6>
+							<div id="source" class="select-list"></div>
+						</div>
 					</div>
 				</div>
 				<div id="search-results">
@@ -113,7 +117,7 @@
 		let filtersLoaded = false;
 		const componentsEndpoint = '{% url 'dcsearch:search_components' %}';
 		const aggElements = {};
-		const aggFields = ['type', 'subject', 'format', 'language'];
+		const aggFields = ['type', 'subject', 'format', 'language', 'source'];
 		aggFields.forEach((fieldname) => {
 			let element = document.getElementById(fieldname);
 			aggElements[fieldname] = element
@@ -243,7 +247,7 @@
 				loadStaticFilters();
 				setLoading(Object.values(aggElements));
 				// Add aggregations input to form
-				const aggs = 'type:short,subject:short,format:short,language:short'
+				const aggs = 'type:short,subject:short,format:short,language:short,source:short'
 				const views = 'aggs'
 				let formData = new FormData(form_element);
 				formData.append('aggregations', aggs)
@@ -397,7 +401,7 @@
 
 			// Get all elements on page, to show new data
 			// Add aggregations input to form
-			const aggs = 'type:short,subject:short,format:short,language:short';
+			const aggs = 'type:short,subject:short,format:short,language:short,source:short';
 			let views = 'tips,results,header';
 			if (loadAggs) {
 				views += ',aggs';
@@ -531,7 +535,7 @@
 			if (noKeywordToggleSelected()) {
 				return;
 			}
-			if (value === "*" && !minimumFiltersSelected(true, 2)) {
+			if (value === "*" && field !== 'source' && !minimumFiltersSelected(true, 2)) {
 				return;
 			}
 			let element = document.querySelector(`input[name="${field}"]`);

@@ -164,6 +164,13 @@ class SearchForm(forms.Form):
         widget=SelectOptimized()
     )
 
+    source = forms.ChoiceField(
+        # Though it's hidden, add choices for validation
+        choices=[('*', '(Any)')] + list(config.sourcename_mapping.items()),
+        label="Source",
+        widget=forms.HiddenInput()
+    )
+
     # Location fields
     bboxtype = forms.ChoiceField(
         choices=[

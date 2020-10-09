@@ -236,6 +236,16 @@ def _construct_query(post_data, aggs=None, return_results=True):
         }
         query_part['bool']['filter'].append(type_query)
 
+    # Process source query
+    source_payload = post_data.get('source')
+    if not (source_payload is None or source_payload == '*'):
+        source_query = {
+            'term': {
+                '_source_id': source_payload
+            }
+        }
+        query_part['bool']['filter'].append(source_query)
+
     # Process bounding box:
     if post_data.get('bbox_xmin'):
         bbox_type = post_data['bboxtype']

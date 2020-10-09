@@ -431,6 +431,11 @@ def _get_searchparam_visualization(post_data):
     if _payload_is_valid(subject):
         viz_data['Subject'] = config.subject_data[subject]['name']
 
+    # Data source visualization:
+    source = post_data.get('source')
+    if _payload_is_valid(source):
+        viz_data['Data Source'] = config.sourcename_mapping.get(source, source)
+
     # Visualize bounding box:
     all_bbox_keys = ['bbox_ymax', 'bbox_xmax', 'bbox_ymin', 'bbox_xmin']
     bbox = []

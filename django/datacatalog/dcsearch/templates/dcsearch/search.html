@@ -212,7 +212,7 @@
 			{% if form.timeperiod_lte.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.timeperiod_lte.errors %}{% endif %}
 			{% if form.timeperiod_gte.errors %}{% include 'dcsearch/partial_search_error.html' with errors=form.timeperiod_gte.errors %}{% endif %}
 			<input name="page" type="hidden" value="0">
-			<input name="source" type="hidden" value="*">
+			<input name="source" type="hidden" value="{{ form.source.value|default_if_none:'*' }}">
 		</form>
 		<div class="search-button-container">
 			<input type="submit" value="Search" id="search-button" form="search-form">

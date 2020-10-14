@@ -228,6 +228,10 @@ a.resource-link-button:hover {
     margin-top: 0;
 }
 
+.resource-properties td > a {
+    text-decoration: none;
+}
+
 #page-desc-content {
     margin: 0 auto;
     max-width: 430px;

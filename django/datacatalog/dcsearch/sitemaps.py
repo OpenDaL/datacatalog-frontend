@@ -14,19 +14,19 @@ class StaticViewSitemap(sitemaps.Sitemap):
             {
                 'name': 'search',
                 'priority': 1.0,
-                'lastmod': datetime.datetime(2021, 4, 24),
+                'lastmod': datetime.datetime(2021, 11, 19),
                 'changefreq': 'weekly'
             },
             {
                 'name': 'support',
                 'priority': 0.3,
-                'lastmod': datetime.datetime(2020, 10, 9),
+                'lastmod': datetime.datetime(2021, 11, 19),
                 'changefreq': 'monthly'
             },
             {
                 'name': 'about',
                 'priority': 0.6,
-                'lastmod': datetime.datetime(2020, 10, 9),
+                'lastmod': datetime.datetime(2021, 11, 19),
                 'changefreq': 'monthly'
             },
         ]

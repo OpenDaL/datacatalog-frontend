@@ -600,6 +600,16 @@ button.delete {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, .05);
 }
 
+.discontinuation-notice {
+    border-radius: 6px;
+    background-color: #ffefbf;
+    margin-bottom: 15px;
+    padding: 1px 25px 10px 25px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, .05);
+    text-align: center;
+}
+
+
 .search-noresult p {
     margin: 0;
     text-align: center;
@@ -1078,7 +1088,7 @@ select#id_sort_by {
     margin-bottom: 25px;
 }
 
-#reg-overlay, #share-overlay {
+#reg-overlay, #share-overlay, #discontinuation-overlay {
     position: fixed;
     display: none;
     top: 0;
@@ -1089,13 +1099,13 @@ select#id_sort_by {
     z-index: 3;
 }
 
-#reg-overlay.visible, #share-overlay.visible {
+#reg-overlay.visible, #share-overlay.visible, #discontinuation-overlay.visible {
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
 
-#reg-overlay .popup, #share-overlay .popup {
+#reg-overlay .popup, #share-overlay .popup, #discontinuation-overlay .popup {
     width: 280px;
     height: 205px;
     background-color: white;
@@ -1103,6 +1113,10 @@ select#id_sort_by {
     margin: auto;
     padding: 10px;
     text-align: center;
+}
+
+#discontinuation-overlay .popup {
+    height: 100px
 }
 
 #share-overlay .popup {

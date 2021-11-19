@@ -21,14 +21,22 @@
 {% block main %}
 	<main>
 		<section class="centered">
+			<div class="discontinuation-notice">
+				<h4>Discontinuation Notice</h4>
+				<p>
+					Due to a dropping number of users, OpenDaL will be
+					discontinued per 31-12-2022. Please refer to other
+					websites such as <a href="https://datasetsearch.research.google.com/">Google Dataset Search</a>
+					or <a href="https://explore.openaire.eu/">OpenAire Explore</a> (Research Data)
+					to find datasets.If you're interested in the data and/or
+					code behind OpenDaL, please contact <a href="mailto:support@opendatalibrary.com">support@opendatalibrary.com</a>
+				</p>
+			</div>
 			<p>
 				Finding datasets for a research study, project or just out of curiosity, can be quite hard. First you need to find the databases or websites that may contain the data, and then you need to search each one individually. Traditional search engines are not ideal, because they are not restricted to datasets and cannot filter for dataset properties such as subject or data format. Although dataset search engines exist, these are often focussed on a single discipline, region or type of publisher.
 			</p>
 			<p>
 				The Open Data Library (OpenDaL) is a dataset search engine that’s built with these issues in mind. It enables you to search more than 500 data portals in one place, and includes data from government, community and research data portals from all over the world and across disciplines. In addition to keyword based search, you can filter search results by dataset properties, such as data format, location, subject, data type or temporal coverage.
-			</p>
-			<p>
-				OpenDaL is a free service that can be used by anyone, and is continuously updated. Wonder what’s next? <a href="#" id="register">Sign up</a> for updates, so you’re notified when new features are released!
 			</p>
 		</section>
 		<section class="nskew-box-tinted before-white">
@@ -88,36 +96,4 @@
 			</div>
 		</section>
 	</main>
-	<div id="reg-overlay">
-		<div class="popup">
-			<div class="topbar"><a class="close" href="#"></a></div>
-			<p>Please provide your email address to receive updates about OpenDal</p>
-			<!-- Begin Mailchimp Signup Form -->
-			<form action="https://opendatalibrary.us20.list-manage.com/subscribe/post?u=010c2c57bfbab00fee0a5f85e&amp;id=d75d3ff395" method="post" name="mc-embedded-subscribe-form">
-					<input type="email" value="" name="EMAIL" placeholder="Your Email">
-					<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-					<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_010c2c57bfbab00fee0a5f85e_d75d3ff395" tabindex="-1" value=""></div>
-					<input type="submit" value="Keep me updated!" name="subscribe" id="mc-embedded-subscribe" class="button">
-			</form>
-			<!--End mc_embed_signup-->
-		</div>
-	</div>
-	<script type="text/javascript">
-		// Signup popup
-		var regButton = document.querySelector('#register');
-		var regPopup = document.querySelector('#reg-overlay');
-		var closeButton = document.querySelector('#reg-overlay .popup .close');
-
-		function togglePopup(e) {
-			const tgt = e.target;
-			if (tgt != regButton && tgt != regPopup && tgt !=closeButton) {
-				return;
-			}
-			regPopup.classList.toggle('visible');
-			e.stopPropagation();
-		}
-		regButton.addEventListener('click', togglePopup);
-		closeButton.addEventListener('click', togglePopup);
-		regPopup.addEventListener('click', togglePopup);
-	</script>
 {% endblock %}

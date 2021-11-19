@@ -1,18 +1,17 @@
 # /bin/bash
 set -e
 
-if [ -z "$VENV_DIR" ]
-then
-    echo "VENV_DIR environment variable not set, please set it first"
-    exit 1
-fi
+# Absolute path to this script. /home/user/bin/foo.sh
+SCRIPT=$(readlink -f $BASH_SOURCE)
+SCRIPTPATH=`dirname $SCRIPT`
+ENV_DIR=$SCRIPTPATH/.env
 
 # Remove possible old virtual env, for fresh installation
-rm -r -f $VENV_DIR/opendal_frontend
+rm -r -f $ENV_DIR
 
 # Create new virtual env and activate
-python3.7 -m venv $VENV_DIR/opendal_frontend
-source $VENV_DIR/opendal_frontend/bin/activate
+python3.7 -m venv $ENV_DIR
+source $ENV_DIR/bin/activate
 
 # Install required packages
 pip install --upgrade pip

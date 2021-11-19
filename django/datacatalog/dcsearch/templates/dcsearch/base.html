@@ -26,6 +26,14 @@
 		{% block header_entries %}{% endblock %}
 	</head>
 <body>
+	<div id="discontinuation-overlay">
+		<div class="popup">
+			<div class="topbar"><a class="close" href="#"></a></div>
+			<p>
+				Notice: OpenDaL will be discontinued after 31-12-2022. For more information, see the <a href="/about" id="discontinuation-info-link">about page</a>.
+			</p>
+		</div>
+	</div>
 	{% block header %}{% endblock %}
 	{% block main %}{% endblock %}
 </body>

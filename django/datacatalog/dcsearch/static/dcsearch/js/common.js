@@ -26,3 +26,29 @@ hmbrgr.addEventListener('click', function(e) {
     hmbrgr.classList.toggle('open-menu');
     e.stopPropagation();
 })
+
+// Discontinuation Notice
+var infoButton = document.querySelector('#discontinuation-info-link');
+var discPopup = document.querySelector('#discontinuation-overlay');
+var closeButton = document.querySelector('#discontinuation-overlay .popup .close');
+
+const shouldHideMessage = document.cookie.includes('hideDiscontinuationMessage');
+if (!shouldHideMessage) {
+  // Show the popup
+  discPopup.classList.toggle('visible');
+}
+
+function hideDiscontinuationMessage(e) {
+  const tgt = e.target;
+  if (tgt != infoButton && tgt != discPopup && tgt != closeButton) {
+    return;
+  }
+  document.cookie = `hideDiscontinuationMessage=true; SameSite=Strict`;
+  discPopup.classList.toggle('visible');
+  e.stopPropagation();
+}
+
+
+infoButton.addEventListener('click', hideDiscontinuationMessage);
+closeButton.addEventListener('click', hideDiscontinuationMessage);
+discPopup.addEventListener('click', hideDiscontinuationMessage);

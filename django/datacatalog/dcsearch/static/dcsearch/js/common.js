@@ -43,7 +43,7 @@ function hideDiscontinuationMessage(e) {
   if (tgt != infoButton && tgt != discPopup && tgt != closeButton) {
     return;
   }
-  document.cookie = `hideDiscontinuationMessage=true; SameSite=Strict`;
+  document.cookie = `hideDiscontinuationMessage=true; SameSite=Strict; path=/`;
   discPopup.classList.toggle('visible');
   e.stopPropagation();
 }

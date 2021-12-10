@@ -18,7 +18,7 @@
         "dc_mapping": "title",
         "datacite_mapping": "Title"
     },
-    "abstractORdescription": {
+    "description": {
         "children": null,
         "id": "2",
         "name": "Abstract/Description",
@@ -33,7 +33,7 @@
                 "max": 2048
             }
         },
-        "db_field": "abstractORdescription",
+        "db_field": "description",
         "dc_mapping": "abstract",
         "datacite_mapping": "Description[descriptionType=Abstract|Other]",
         "always_required": false
@@ -2036,7 +2036,7 @@
                 "dc_mapping": null,
                 "datacite_mapping": null
             },
-            "abstractORdescription": {
+            "description": {
                 "id": "38.3",
                 "name": "Untranslated Abstract/Description",
                 "description": "Untranslated abstract (if the resource is a document) else a untranslated description of the resource",
@@ -2050,7 +2050,7 @@
                         "max": 2048
                     }
                 },
-                "db_field": "abstractORdescription",
+                "db_field": "description",
                 "dc_mapping": null,
                 "datacite_mapping": null
             },

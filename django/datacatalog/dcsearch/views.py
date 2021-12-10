@@ -184,7 +184,7 @@ def _construct_query(post_data, aggs=None, return_results=True):
         if in_title:
             search_fields.append('title')
         if in_desc:
-            search_fields.append('abstractORdescription')
+            search_fields.append('description')
 
         if len(search_fields) > 0:
             # Should always be the case, since this is caught by the form
@@ -477,7 +477,7 @@ def _get_title_description(entry_data):
     Gets the title and description of the entry
     """
     title = entry_data.get('title')  # Always has a value in the db
-    description = entry_data.get('abstractORdescription')  # May be None
+    description = entry_data.get('description')  # May be None
 
     return title, description
 

@@ -1432,7 +1432,7 @@
         },
         "db_field": "subject",
         "dc_mapping": "subject",
-        "datacite_mapping": "Subject\nSubject[subjectScheme]='{DataClopedia URL}'"
+        "datacite_mapping": "Subject\nSubject[subjectScheme]='{OpenDaL URL}'"
     },
     "location": {
         "id": "20",
@@ -1926,7 +1926,7 @@
                 },
                 "db_field": "identifier",
                 "dc_mapping": null,
-                "datacite_mapping": "Contributor[nameIdentifier]\nnameIdentifierScheme='DCL'\nschemeURI='Site of DataClopedia'"
+                "datacite_mapping": "Contributor[nameIdentifier]\nnameIdentifierScheme='DCL'\nschemeURI='Site of OpenDaL'"
             },
             "identifierType": {
                 "id": "37.3",
@@ -1936,7 +1936,7 @@
                 "always_required": true,
                 "dtype": "string",
                 "ctrl_vocab": [
-                    "DataClopediaContributor",
+                    "OpenDaLContributor",
                     "URL"
                 ],
                 "requirements": {},
@@ -2158,9 +2158,9 @@
             "name": {
                 "id": "40.1",
                 "name": "Relation name",
-                "description": "The name of the relation (only for non-DataClopedia references)",
+                "description": "The name of the relation (only for non-OpenDaL references)",
                 "example": "SRTM User Guide",
-                "required_for": "identifierType=DataClopediaEntryID",
+                "required_for": "identifierType=OpenDaLEntryID",
                 "dtype": "string",
                 "ctrl_vocab": null,
                 "requirements": {
@@ -2212,7 +2212,7 @@
             "identifier": {
                 "id": "40.3",
                 "name": "Relation identifier",
-                "description": "The identifier of the relation (preferably on DataClopedia)",
+                "description": "The identifier of the relation (preferably on OpenDaL)",
                 "example": "https://lpdaac.usgs.gov/sites/default/files/public/measures/docs/NASA_SRTM_V3.pdf",
                 "always_required": true,
                 "dtype": "string",
@@ -2234,7 +2234,7 @@
                 "always_required": true,
                 "dtype": "string",
                 "ctrl_vocab": [
-                    "DataClopediaEntryID",
+                    "OpenDaLEntryID",
                     "ExternalURL"
                 ],
                 "requirements": {},

@@ -135,7 +135,10 @@ def _construct_query(post_data, aggs=None, return_results=True):
                         },
                         "script_score": {
                             "script": {
-                              "source": "1 + 0.5 * doc['_metadata_scores.total'].value"
+                              "source": (
+                                  "1 + 0.5 * "
+                                  "doc['_metadata_scores.total'].value"
+                              )
                             }
                         },
                         "boost_mode": "multiply"
@@ -194,7 +197,9 @@ def _construct_query(post_data, aggs=None, return_results=True):
                     "query": kw_payload,
                     "fields": search_fields,
                     "default_operator": "and",
-                    "flags": "OR|AND|NOT|PREFIX|ESCAPE|PHRASE|PRECEDENCE|WHITESPACE"
+                    "flags": (
+                        "OR|AND|NOT|PREFIX|ESCAPE|PHRASE|PRECEDENCE|WHITESPACE"
+                    )
                 }
             }
 
@@ -461,7 +466,10 @@ def _get_searchparam_visualization(post_data):
         if not lte_valid and not gte_valid:
             continue
         elif lte_valid and gte_valid:
-            value = gte_p.strftime('%Y-%m-%d') + ' to ' + lte_p.strftime('%Y-%m-%d')
+            value = (
+                gte_p.strftime('%Y-%m-%d') + ' to ' +
+                lte_p.strftime('%Y-%m-%d')
+            )
         elif lte_valid:
             value = 'before ' + lte_p.strftime('%Y-%m-%d')
         else:
@@ -565,8 +573,8 @@ def _get_result_visualizations(entries, search_query):
                         )
                     elif key == 'language':
                         viz = ', '.join(
-                            [config.language_mapping.get(l, 'undefined')
-                             for l in data]
+                            [config.language_mapping.get(lang, 'undefined')
+                             for lang in data]
                         )
                     else:
                         viz = ','.join(data)
@@ -730,7 +738,7 @@ def _get_key_value_viz(key, value):
         for type, p_list in all_key_value.items():
             k_v_list.append((type, ';'.join(p_list)))
     elif key == 'language':
-        full_langs = [config.language_mapping[l] for l in value]
+        full_langs = [config.language_mapping[lang] for lang in value]
         if len(full_langs) == 1:
             k_v_list.append(('Language', full_langs[0]))
         else:
@@ -932,7 +940,10 @@ def search(request):
             es_query = _construct_query(query_params)
             query_results = _query_elasticsearch(es_query)
 
-            max_page = math.ceil(query_results['count'] / 10) - 1 if query_results['count'] > 0 else 0
+            if query_results['count'] > 0:
+                max_page = math.ceil(query_results['count'] / 10) - 1
+            else:
+                max_page = 0
             max_page = max_page if max_page < 100 else 99
 
             page_nr = query_params.get('page')
@@ -1023,7 +1034,7 @@ def search_components(request):
                 if field == 'subject':
                     def id_to_name(s): return config.subject_data[s]['name']
                 elif field == 'language':
-                    def id_to_name(l): return config.language_mapping[l]
+                    def id_to_name(lang): return config.language_mapping[lang]
                 elif field == 'source':
                     def id_to_name(s):
                         return config.sourcename_mapping.get(s, s)
@@ -1060,7 +1071,10 @@ def search_components(request):
                 'dcsearch/result_list.html', context
             )
 
-            max_page = math.ceil(query_results['count'] / 10) - 1 if query_results['count'] > 0 else 0
+            if query_results['count'] > 0:
+                max_page = math.ceil(query_results['count'] / 10) - 1
+            else:
+                max_page = 0
             max_page = max_page if max_page < 100 else 99
 
             component_data['maxPage'] = max_page
@@ -1088,7 +1102,11 @@ def search_components(request):
                 ),
                 'querySummary': loader.render_to_string(
                     'dcsearch/result_query_summary.html',
-                    {'searchparams': _get_searchparam_visualization(query_params)}
+                    {
+                        'searchparams': (
+                            _get_searchparam_visualization(query_params)
+                        )
+                    }
                 )
             }
 

@@ -15,9 +15,7 @@ file_loc = os.path.join(CONFIG_DIR, 'DJANGO_SECRET_KEY')
 with open(file_loc, 'r', encoding='utf8') as sk_file:
     SECRET_KEY = sk_file.read().strip()
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
 
 STATIC_ROOT = '/data/www/{}/static'.format(os.environ.get('ENV_TYPE'))
 

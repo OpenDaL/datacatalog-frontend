@@ -1,32 +1,36 @@
-# OpenDataLibrary.com front-end
+# OpenDataLibrary.com Frontend
 The OpenDataLibrary.com front-end is written in Python, using the Django
-framework. To run the code locally, create a virtual environment, make sure
-the ENV_TYPE is set to local, and run the development server:
+framework. It uses an ElasticSearch instance with resource metadata to offer
+search and filtering functionality.
 
+## 1. Usage
+To use the front-end locally, you need to have python3.7. Then you can use the
+scripts to install your local environment and activate it:
 ```bash
->> python3.7 -m venv frontend
->> source ./frontend/bin/activate
->> pip install -r $REPO_DIR/datacatalog-frontend/djano/datacatalog/requirements.txt
->> export ENV_TYPE=local
->> cd $REPO_DIR/django/datacatalog
->> python manage.py runserver
+./local_install.sh
+source local_activate.sh
 ```
 
-Please note that the local ES IP should be configured in the
-[local.py settings](django/datacatalog/datacatalog/settings/local.py).
+Before running the server, make sure that:
+1. Your ENV_TYPE environent variable is set: `export ENV_TYPE='local'`
+2. You've set the correct ES_LOC and ES_PASS in [local.py](django/datacatalog/datacatalog/settings/local.py)
 
-Running the code in production requires setting up a WSGI server, possibly in
-conjunction with NGINX.
+Now do:
+```bash
+cd django/datacatalog
+python manage.py runserver
+```
 
-## Regular maintenance
+To run the front-end on a server, use UWSGI in combination with the NGINX
+reverse proxy. The configuration for this can be found in the 'opendal-systems-setup'
+respository.
 
-### Update the dropdown lists
-The counts for dropdown lists, are currently included as static json files.
-These can be updated by running the
-[fill_dropdown_list_configs.py](scripts/fill_dropdown_list_configs.py) in a
-virtual environment where Python > 3.6 and the requests package are available.
+## 2. Updates
+Before starting to develop, please enable the githooks:
+```bash
+./enable_githooks.sh
+```
 
-Input for this script is the location of the ES database (PUBLIC IP), that
-contains the resource metadata, as well as the password for the 'frontend'
-ES user (found at `/home/ubuntu/es_creds.txt` on that server).
-The script uses aggregations to determine the counts for the dropdown lists
+To improve the websites performance, the dropdown lists and some other files
+are committed to this repository. After a database update, these can be updated
+using the [update_frontend_data.py](scripts/update_frontend_data.py) script.
